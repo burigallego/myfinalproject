@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-//const routes = require('./routes');
+const routes = require('./routes');
 
 const app = express();
 let server = null;
@@ -27,6 +27,10 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', accessControlAllowHeaders.join(','));
     next();
 });
+
+app.use('/api', routes.accountRouter);
+
+
 
 app.use('*', (req, res, next) => {
     return res.status(404).send({
