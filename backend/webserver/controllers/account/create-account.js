@@ -7,7 +7,7 @@ const uuidV4 = require('uuid/v4');
 const mysqlPool = require('../../../databases/mysql-pool');
 //const UserModel = require('../../../models/user-model');
 
-sendgridMail.setApiKey(process.env.SENGRID_API_KEY);
+sendgridMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
  * Insert the user into the database generating an uuid and calculating the bcrypt password
@@ -50,7 +50,7 @@ async function addVerificationCode(uuid) {
     const connection = await mysqlPool.getConnection();
 
     await connection.query(sqlQuery, {
-        user_uuid: uuid,
+        uuid,
         verification_code: verificationCode,
         created_at: createdAt,
     });
