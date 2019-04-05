@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LayoutComponent } from './components/layout/layout.component';
+import { LayoutHeaderComponent } from './components/layout-header/layout-header.component';
+import { LayoutFooterComponent } from './components/layout-footer/layout-footer.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [LayoutComponent, LayoutHeaderComponent, LayoutFooterComponent],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+  ],
+  exports: [LayoutComponent, LayoutHeaderComponent, LayoutFooterComponent]
 })
 export class SharedModule { }
