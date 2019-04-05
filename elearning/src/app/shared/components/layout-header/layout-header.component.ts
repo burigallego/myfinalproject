@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
+
+
 
 @Component({
   selector: 'el-layout-header',
@@ -12,5 +15,7 @@ export class LayoutHeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  logo = faChalkboardTeacher;
+  title = "E-learning for all"
 
 }
