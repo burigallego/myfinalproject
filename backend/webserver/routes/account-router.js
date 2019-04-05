@@ -12,6 +12,6 @@ const accountRouter = express.Router();
 accountRouter.post('/account', createAccount);
 accountRouter.post('/account/login', login);
 accountRouter.get('/account/activate', activateAccount);
-
+''
 
 module.exports = accountRouter;
