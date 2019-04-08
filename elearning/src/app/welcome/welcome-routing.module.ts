@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from '../shared/components/layout/layout.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { WelcomeFormsComponent } from './components/welcome-forms/welcome-forms.component';
 
 const routes: Routes = [
   {
@@ -11,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LayoutComponent,
+    component: WelcomeComponent,
     children: [
       {
         path: 'welcome',
-        component: WelcomeComponent
+        component: WelcomeFormsComponent
       }
     ]
   }

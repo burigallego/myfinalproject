@@ -1,3 +1,17 @@
-<p>
-  welcome-forms works!
-</p>
+<div>
+  <ul>
+    <li [class.selected]="isRegisterFormVisible">
+      <a elPreventDefault href="" (click)="toggleForm(true)">Register</a>
+    </li>
+    <li [class.selected]="!isRegisterFormVisible">
+      <a elPreventDefault href="" (click)="toggleForm(false)">Login</a>
+    </li>
+  </ul>
+
+  <div class="register-form" *ngIf="isRegisterFormVisible">
+    <el-register></el-register>
+  </div>
+  <div class="login-form" *ngIf="!isRegisterFormVisible">
+    <el-login></el-login>
+  </div>
+</div>

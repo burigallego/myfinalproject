@@ -1,0 +1,47 @@
+.form-container {
+    display:block ;
+
+  }
+  
+  .form-container > * {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .normal-tile {
+    background: darkblue;
+  }
+
+  .form-tile {
+    background: white;
+  }
+
+  fa-icon {
+    font-size: 2.5rem;
+    color: white;
+    text-decoration: none;
+  }
+
+  h1 {
+    color: white;
+    margin-left: 10px;
+  }
+
+  p {
+    justify-self: start;
+    color: white;
+    font-size: inherit;
+    margin-right: auto;
+    margin-left: 10px;
+  }
+  ul {
+    li {
+      display: inline-block;
+      margin-left: 20px;
+      margin-right: 10px;
+      a {
+        color:white;
+      }
+    }
+  }

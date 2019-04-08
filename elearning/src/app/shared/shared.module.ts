@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutComponent } from './components/layout/layout.component';
-import { LayoutHeaderComponent } from './components/layout-header/layout-header.component';
-import { LayoutFooterComponent } from './components/layout-footer/layout-footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ClickPreventDefaultDirective } from './directives/click-prevent-default.directive';
 
 
 
 
 @NgModule({
-  declarations: [LayoutComponent, LayoutHeaderComponent, LayoutFooterComponent, PageNotFoundComponent],
+  declarations: [PageNotFoundComponent, ClickPreventDefaultDirective],
   imports: [
     CommonModule, FontAwesomeModule, RouterModule, MatGridListModule],
-  exports: [LayoutComponent, LayoutHeaderComponent, LayoutFooterComponent]
+  exports: [ClickPreventDefaultDirective, PageNotFoundComponent]
 })
 export class SharedModule { }
