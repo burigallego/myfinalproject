@@ -6,14 +6,15 @@ import { LayoutFooterComponent } from './components/layout-footer/layout-footer.
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 
 
 
 @NgModule({
   declarations: [LayoutComponent, LayoutHeaderComponent, LayoutFooterComponent, PageNotFoundComponent],
   imports: [
-    CommonModule, FontAwesomeModule, RouterModule
-  ],
+    CommonModule, FontAwesomeModule, RouterModule, MatGridListModule],
   exports: [LayoutComponent, LayoutHeaderComponent, LayoutFooterComponent]
 })
 export class SharedModule { }
