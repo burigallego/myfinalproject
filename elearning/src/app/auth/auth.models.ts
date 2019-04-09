@@ -6,8 +6,8 @@ export interface Auth {
     accessToken: string;
     fullName: string;
     avatarUrl: string;
-    preferences: Preferences;
-    friends: Friend[];
+    address: string;
+    tlf: string;
 }
 
 export interface Friend {
@@ -49,7 +49,8 @@ export interface Profile {
     uuid: string;
     fullName: string;
     avatarUrl: string;
-    preferences: Preferences;
+    address: string;
+    tlf: string;
 }
 
 export interface Preferences {
