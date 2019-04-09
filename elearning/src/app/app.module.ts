@@ -12,6 +12,8 @@ import { WelcomeModule } from './welcome/welcome.module';
 import { environment } from '../environments/environment';
 import { ErrorModule } from './error/error.module';
 import { SharedModule } from './shared/shared.module';
+import { DashboardComponent } from './dashboard/components/dashboard/dashboard.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +30,8 @@ import { SharedModule } from './shared/shared.module';
     WelcomeModule,
     SharedModule,
     ErrorModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
