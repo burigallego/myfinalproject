@@ -8,6 +8,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { WallComponent } from './components/wall/wall.component';
 import { MyAccountComponent } from './containers/my-account/my-account.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   declarations: [DashboardComponent, WallComponent, MyAccountComponent],
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule
   ]
 })
 export class DashboardModule { }
