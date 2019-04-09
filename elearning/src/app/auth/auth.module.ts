@@ -11,6 +11,7 @@ import { AuthState } from './store/auth.state';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { JwtInterceptor } from './services/jwt.interceptor';
 
 
 
@@ -28,7 +29,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     NgxsModule.forFeature([AuthState])
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   exports: [LoginComponent, RegisterComponent]
 })
 export class AuthModule { }
