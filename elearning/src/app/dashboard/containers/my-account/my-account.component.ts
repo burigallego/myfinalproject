@@ -28,7 +28,7 @@ export class MyAccountComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store) { }
 
   ngOnInit() {
-    this.user$.subscribe(({ fullName, preferences }) =>
+    this.user$.subscribe(({ fullName, address, tlf }) =>
       this.updateProfileForm.setValue({
         fullName: fullName || '',
         address: '',
