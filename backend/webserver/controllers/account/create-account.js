@@ -20,9 +20,10 @@ async function insertUserIntoDatabase(email, password, fullName) {
     const uuid = uuidV4();
     const now = new Date();
     const createdAt = now.toISOString().substring(0, 19).replace('T', ' ');
+    const role = 'user';
 
     console.log('secure password', securePassword);
-    console.log('createdAt', createdAt);
+    console.log('cre<atedAt', createdAt);
     console.log('uuid', uuid);
 
     const connection = await mysqlPool.getConnection();
@@ -33,6 +34,7 @@ async function insertUserIntoDatabase(email, password, fullName) {
         password: securePassword,
         created_at: createdAt,
         full_name: fullName,
+        role
     });
 
     return uuid;

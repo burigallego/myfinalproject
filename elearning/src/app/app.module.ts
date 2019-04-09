@@ -28,10 +28,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
       developmentMode: !environment.production
     }),
     WelcomeModule,
+    DashboardModule,
     SharedModule,
     ErrorModule,
     AppRoutingModule,
-    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
