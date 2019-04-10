@@ -31,8 +31,8 @@ export class MyAccountComponent implements OnInit {
     this.user$.subscribe(({ fullName, address, tlf }) =>
       this.updateProfileForm.setValue({
         fullName: fullName || '',
-        address: '',
-        tlf: '',
+        address: address || '',
+        tlf: tlf || '',
       })
     );
   }
