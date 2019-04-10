@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from '../auth/auth.module';
 import { JwtInterceptor } from '../auth/services/jwt.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+
 
 @NgModule({
   declarations: [DashboardComponent, WallComponent, MyAccountComponent],
@@ -30,7 +32,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
-    AuthModule
+    AuthModule,
+    MatFileUploadModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

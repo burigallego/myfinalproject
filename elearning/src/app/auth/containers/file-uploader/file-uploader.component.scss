@@ -1,0 +1,23 @@
+input {
+    display: none;
+  }
+  
+  .image-upload-container {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: contain;
+    fa-icon {
+      font-size: 3rem;
+      color: gray;
+      position: absolute;
+      top: 20px;
+      left: 27px;
+    }
+    &:hover {
+      opacity: 0.7;
+    }
+  }

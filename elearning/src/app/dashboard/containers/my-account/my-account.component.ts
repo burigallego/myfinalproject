@@ -1,54 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-
+import { Auth } from '../../../auth/auth.models';
 import { AuthState } from 'src/app/auth/store/auth.state';
-import { Profile } from 'src/app/auth/auth.models';
-import { UpdateUserProfile } from 'src/app/auth/store/auth.actions';
 
 @Component({
-  selector: 'el-myaccount',
+  selector: 'el-my-account',
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent implements OnInit {
-  @Select(AuthState) user$: Observable<Profile>;
+  @Select(AuthState) user$: Observable<Auth>;
+  profileImageUrl: string;
 
-  updateProfileForm = this.fb.group(
-    {
-      fullName: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      tlf: ['', [Validators.required]]
-    },
-    { updateOn: 'blur' }
-  );
-
-  constructor(private fb: FormBuilder, private store: Store) { }
+  constructor() { }
 
   ngOnInit() {
-    this.user$.subscribe(({ fullName, address, tlf }) =>
-      this.updateProfileForm.setValue({
-        fullName: fullName || '',
-        address: address || '',
-        tlf: tlf || '',
-      })
-    );
-  }
-
-  updateProfile() {
-    if (!this.updateProfileForm.valid) {
-      this.markFormGroupTouched(this.updateProfileForm);
-      return;
-    }
-
-    this.store.dispatch(new UpdateUserProfile(this.updateProfileForm.value));
-  }
-
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
+    this.user$.subscribe(user => {
+      if (user && user.avatarUrl) {
+        this.profileImageUrl = user.avatarUrl;
+      } else {
+        this.profileImageUrl = `https://api.adorable.io/avatars/128/${
+          user.uuid
+          }`;
+      }
     });
   }
 }
