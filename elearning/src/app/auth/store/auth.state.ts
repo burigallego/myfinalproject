@@ -119,7 +119,7 @@ export class AuthState {
 
     @Action(UploadAvatarSuccess)
     uploadAvatarSuccess(
-        { patchState, getState }: StateContext<Auth>,
+        { patchState }: StateContext<Auth>,
         { response }: UploadAvatarSuccess
     ) {
         patchState({

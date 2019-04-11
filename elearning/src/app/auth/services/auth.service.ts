@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { LoginRequest, LoginResponse, Auth, Profile } from '../auth.models';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -46,7 +47,7 @@ export class AuthService {
         return this.http.put<Profile>(`${environment.apiBaseUrl}/user`, profile);
     }
 
-    uploadAvatar(image: File) {
+    uploadAvatar(image: File): Observable<HttpResponse<any>> {
         const formData = new FormData();
 
         formData.append('avatar', image);

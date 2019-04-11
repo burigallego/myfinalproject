@@ -23,6 +23,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', accessControlAllowMethods.join(','));
     // put accessControlAllowHeaders separated by comma
     res.header('Access-Control-Allow-Headers', accessControlAllowHeaders.join(','));
+    res.header('Access-Control-Expose-Headers', accessControlAllowHeaders.join(','));
     next();
 });
 
