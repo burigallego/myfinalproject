@@ -12,12 +12,10 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     const accessControlAllowMethods = [
-        // fill the methods
-    ];
+        'POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'];
 
     const accessControlAllowHeaders = [
-        // fill the headers
-    ];
+        'Location', 'Authorization', 'Content-Type'];
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true');

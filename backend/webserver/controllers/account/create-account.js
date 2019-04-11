@@ -23,7 +23,7 @@ async function insertUserIntoDatabase(email, password, fullName) {
     const role = 'user';
 
     console.log('secure password', securePassword);
-    console.log('cre<atedAt', createdAt);
+    console.log('createdAt', createdAt);
     console.log('uuid', uuid);
 
     const connection = await mysqlPool.getConnection();

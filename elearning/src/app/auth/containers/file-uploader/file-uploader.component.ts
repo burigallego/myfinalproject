@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Store } from '@ngxs/store';
+import { UploadAvatar } from '../../store/auth.actions';
 
 class ImageSnippet {
   pending = false;
@@ -17,7 +19,7 @@ export class FileUploaderComponent implements OnInit {
   @Input() imageUrl: string;
   selectedFile: ImageSnippet;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private store: Store) { }
 
   ngOnInit() { }
 
@@ -40,9 +42,9 @@ export class FileUploaderComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.authService
-        .uploadAvatar(this.selectedFile.file)
-        .subscribe(response => this.onSuccess(response), () => this.onError());
+      this.store.dispatch(new UploadAvatar(this.selectedFile.file));
+
+
     });
 
     reader.readAsDataURL(file);

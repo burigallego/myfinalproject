@@ -14,7 +14,10 @@ import {
     Logout,
     UpdateUserProfile,
     UpdateUserProfileSuccess,
-    UpdateUserProfileFailed
+    UpdateUserProfileFailed,
+    UploadAvatarFailed,
+    UploadAvatar,
+    UploadAvatarSuccess
 } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
 import { tap, catchError } from 'rxjs/operators';
@@ -103,11 +106,33 @@ export class AuthState {
         });
     }
 
+    @Action(UploadAvatar)
+    uploadAvatar(
+        { dispatch }: StateContext<Auth>,
+        { image }: UploadAvatar
+    ) {
+        return this.authService.uploadAvatar(image).pipe(
+            tap(response => dispatch(new UploadAvatarSuccess(response))),
+            catchError(error => dispatch(new UploadAvatarFailed(error.error)))
+        );
+    }
+
+    @Action(UploadAvatarSuccess)
+    uploadAvatarSuccess(
+        { patchState, getState }: StateContext<Auth>,
+        { response }: UploadAvatarSuccess
+    ) {
+        patchState({
+            avatarUrl: response.headers.get('Location')
+        });
+    }
+
     @Action([
         LoginFailed,
         RegisterFailed,
         GetUserProfileFailed,
-        UpdateUserProfileFailed
+        UpdateUserProfileFailed,
+        UploadAvatarFailed
     ])
     error({ dispatch }: StateContext<Auth>, { errors }: any) {
         //dispatch(new SetErrors(errors));

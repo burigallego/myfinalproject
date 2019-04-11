@@ -6,6 +6,7 @@ import {
     Auth
 } from '../auth.models';
 import { Error } from 'src/app/error/error.models';
+import { HttpResponse } from '@angular/common/http';
 
 export class Login {
     static readonly type = '[Auth] Login';
@@ -47,7 +48,7 @@ export class GetUserProfileSuccess {
 
 export class GetUserProfileFailed {
     static type = '[Auth] GetUserProfileFailed';
-    constructor(public error: Error[]) { }
+    constructor(public errors: Error[]) { }
 }
 
 export class UpdateUserProfile {
@@ -65,6 +66,20 @@ export class UpdateUserProfileFailed {
     constructor(public errors: Error[]) { }
 }
 
+export class UploadAvatar {
+    static readonly type = '[Auth] UploadAvatar';
+    constructor(public image: File) { }
+}
+
+export class UploadAvatarSuccess {
+    static readonly type = '[Auth] UploadAvatarSuccess';
+    constructor(public response: HttpResponse<any>) { }
+}
+
+export class UploadAvatarFailed {
+    static type = '[Auth] UploadAvatarFailed';
+    constructor(public errors: Error[]) { }
+}
 export class Logout {
     static type = '[Auth] Logout';
 }
