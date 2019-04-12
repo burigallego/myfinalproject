@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use('/api', routes.accountRouter);
 app.use('/api', routes.userRouter);
+app.use('/api', routes.courseRouter);
 
 
 

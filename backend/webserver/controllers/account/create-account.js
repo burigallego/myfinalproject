@@ -36,6 +36,7 @@ async function insertUserIntoDatabase(email, password, fullName) {
         full_name: fullName,
         role
     });
+    connection.release();
 
     return uuid;
 }

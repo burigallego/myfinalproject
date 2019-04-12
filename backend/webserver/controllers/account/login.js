@@ -39,6 +39,7 @@ async function login(req, res, next) {
         const [result] = await connection.query(sqlQuery);
         if (result.length === 1) {
             const userData = result[0];
+            console.log(userData.role);
             /*
             userData es esto:
             {
@@ -77,7 +78,7 @@ async function login(req, res, next) {
                 accessToken: token,
                 expiresIn: jwtTokenExpiration,
             };
-
+            connection.release();
             return res.status(200).json(response);
         }
 
