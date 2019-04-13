@@ -3,9 +3,11 @@
 const accountRouter = require('./account-router');
 const userRouter = require('./user-router');
 const courseRouter = require('./course-router');
+const resourceRouter = require('./resource-router');
 
 module.exports = {
     accountRouter,
     userRouter,
-    courseRouter
+    courseRouter,
+    resourceRouter
 };
