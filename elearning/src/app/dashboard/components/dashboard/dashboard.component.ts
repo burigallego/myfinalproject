@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
-import { GetUserProfile } from 'src/app/auth/store/auth.actions';
+import { GetUserProfile, Logout } from 'src/app/auth/store/auth.actions';
 
 @Component({
   selector: 'el-dashboard',
@@ -21,5 +21,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetUserProfile());
+  }
+
+  logout() {
+    this.store.dispatch(new Logout);
   }
 }
