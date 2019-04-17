@@ -7,11 +7,11 @@ async function getUserCourses(req, res, next) {
 
     const { uuid } = req.claims;
 
-    const coursesQuery = `SELECT u.full_name, c.course_id, c.title, c.description, c.created_at, c.creator
-    FROM users u
-    INNER JOIN users_courses uc ON uc.user_id = u.id 
-    INNER JOIN courses c ON c.course_id = uc.course_id
-    WHERE c.creator = '${uuid}'`;
+    const coursesQuery = `SELECT c.course_id, c.title, c.created_at, c.creator, c.description, c.creator_name 
+    FROM courses c
+    INNER JOIN users_courses uc ON uc.course_id = c.course_id 
+    INNER JOIN users u ON u.id = uc.user_id
+    WHERE uuid = '${uuid}'`;
 
     try {
         const connection = await mysqlPool.getConnection();

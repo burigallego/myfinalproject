@@ -12,6 +12,8 @@ import { AuthModule } from '../auth/auth.module';
 import { JwtInterceptor } from '../auth/services/jwt.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { NgxsModule } from '@ngxs/store';
+import { CourseState } from './store/course.state';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatRadioModule,
     ReactiveFormsModule,
     AuthModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    NgxsModule.forFeature([CourseState])
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

@@ -18,11 +18,17 @@ async function insertCourse(title, description, uuid) {
 
     const connection = await mysqlPool.getConnection();
 
+    const nameQuery = `SELECT full_name FROM users WHERE uuid = '${uuid}'`;
+    const [nameResult] = await connection.query(nameQuery);
+    const [{ full_name: fullName }] = nameResult;
+
+
     await connection.query('INSERT INTO courses SET ?', {
         title,
         description,
         created_at: createdAt,
-        creator: uuid
+        creator: uuid,
+        creator_name: fullName,
     });
     connection.release();
     return title;

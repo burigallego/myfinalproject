@@ -21,12 +21,21 @@ async function updateUserIntoDatabase(fullName, address, tlf, uuid) {
     const sqlUpdateQuery = `UPDATE users
     SET full_name = '${fullName}', address = '${address}', tlf = '${tlf}'
     WHERE uuid='${uuid}'`;
-
+    const creatorNameQuery = `UPDATE courses c
+    JOIN users_courses uc
+    ON c.course_id = uc.course_id
+    JOIN users u
+    ON uc.user_id = u.id
+    AND creator = '${uuid}'
+    SET c.creator_name = u.full_name`;
     try {
         const connection = await mysqlPool.getConnection();
-        const result = await connection.query(sqlUpdateQuery);
+        const resultUpdate = await connection.query(sqlUpdateQuery);
+        const resultCreator = await connection.query(creatorNameQuery);
+        connection.release();
 
     } catch (e) {
+        connection.release();
         console.log(e);
     }
 
@@ -57,6 +66,7 @@ async function updateUserProfile(req, res, next) {
          * Create the user and send response
          */
         const uuid = await updateUserIntoDatabase(fullName, address, tlf, claims.uuid);
+
         res.status(204).json();
 
 
