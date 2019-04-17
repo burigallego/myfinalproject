@@ -6,12 +6,13 @@ const mysqlPool = require('../../../databases/mysql-pool');
 async function validate(payload) {
     const schema = {
         title: Joi.string().min(3).max(128).required(),
+        description: Joi.string()
     };
 
     return Joi.validate(payload, schema);
 }
 
-async function insertCourse(title, uuid) {
+async function insertCourse(title, description, uuid) {
     const now = new Date();
     const createdAt = now.toISOString().substring(0, 19).replace('T', ' ');
 
@@ -19,6 +20,7 @@ async function insertCourse(title, uuid) {
 
     await connection.query('INSERT INTO courses SET ?', {
         title,
+        description,
         created_at: createdAt,
         creator: uuid
     });
@@ -38,14 +40,14 @@ async function createCourse(req, res, next) {
         return res.status(400).send(e);
     }
 
-    const { title } = courseData;
+    const { title, description } = courseData;
 
     try {
         if (role !== 'admin') {
             return res.status(403).send();
         }
 
-        await insertCourse(title, uuid);
+        await insertCourse(title, description, uuid);
 
         const connection = await mysqlPool.getConnection();
 
