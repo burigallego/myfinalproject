@@ -63,14 +63,13 @@ async function createCourse(req, res, next) {
         const [courseResult] = await connection.query(coursesQuery);
         const [{ id: userId }] = userResult;
         const [course] = courseResult;
-        console.log(courseResult);
         const [{ course_id: courseId }] = courseResult;
         await connection.query('INSERT INTO users_courses SET ?', {
             user_id: userId,
             course_id: courseId,
         });
         connection.release();
-        return res.status(204).send(course);
+        return res.status(200).send(course);
 
     } catch (e) {
         // create error

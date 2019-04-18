@@ -15,10 +15,11 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { NgxsModule } from '@ngxs/store';
 import { CourseState } from './store/course.state';
 import { CreateCourseComponent } from './containers/create-course/create-course.component';
+import { AllCoursesComponent } from './containers/all-courses/all-courses.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

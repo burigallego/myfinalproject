@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngxs/store';
+import { AddCourse } from '../../store/course.actions';
 
 @Component({
   selector: 'el-create-course',
@@ -7,7 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCourseComponent implements OnInit {
 
-  constructor() { }
+  courseForm = this.fb.group(
+    {
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]]
+    },
+    { updateOn: 'blur' }
+  );
+
+  constructor(private fb: FormBuilder, private store: Store) { }
+
+  addCourse() {
+    if (this.courseForm.valid) {
+      this.store.dispatch(new AddCourse(this.courseForm.value));
+    }
+  }
 
   ngOnInit() {
   }

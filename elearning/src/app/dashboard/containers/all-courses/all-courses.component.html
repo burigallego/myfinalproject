@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1 class="mat-h1">My courses</h1>
+  <h1 class="mat-h1">All courses</h1>
   <mat-grid-list cols="1" rowHeight="350px">
     <mat-grid-tile *ngFor="let course of courses$ | async">
       <mat-card class="dashboard-card">
@@ -14,6 +14,9 @@
         <mat-card-footer class="dashboard-card-footer">
           created by {{course.creator_name}} at {{course.created_at | date:'mediumDate'}}
         </mat-card-footer>
+        <mat-card-actions>
+          <button md-button>Subscribe</button>
+        </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

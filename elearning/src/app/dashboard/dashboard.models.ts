@@ -6,3 +6,8 @@ export interface Course {
     description: string;
     creator_name: string;
 }
+
+export interface CourseRequest {
+    title: string;
+    description: string;
+}

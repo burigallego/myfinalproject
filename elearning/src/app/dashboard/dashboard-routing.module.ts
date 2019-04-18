@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { WallComponent } from './components/wall/wall.component';
 import { MyAccountComponent } from './containers/my-account/my-account.component';
 import { CreateCourseComponent } from './containers/create-course/create-course.component';
+import { AllCoursesComponent } from './containers/all-courses/all-courses.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'create_course',
         component: CreateCourseComponent
+      },
+      {
+        path: 'all_courses',
+        component: AllCoursesComponent
       }
     ]
   }

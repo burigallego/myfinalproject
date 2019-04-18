@@ -1,5 +1,5 @@
 import { Error } from 'src/app/error/error.models';
-import { Course } from '../dashboard.models';
+import { Course, CourseRequest } from '../dashboard.models';
 
 export class GetUserCourses {
     static readonly type = '[Dashboard] GetUserCourses';
@@ -12,5 +12,34 @@ export class GetUserCoursesSuccess {
 
 export class GetUserCoursesFailed {
     static type = '[Dashboard] GetUserCoursesFailed';
+    constructor(public errors: Error[]) { }
+}
+
+export class GetCourses {
+    static readonly type = '[Dashboard] GetCourses';
+}
+
+export class GetCoursesSuccess {
+    static readonly type = '[Dashboard] GetCoursesSuccess';
+    constructor(public courses: Course[]) { }
+}
+
+export class GetCoursesFailed {
+    static type = '[Dashboard] GetCoursesFailed';
+    constructor(public errors: Error[]) { }
+}
+
+export class AddCourse {
+    static readonly type = '[Dashboard] AddCourse';
+    constructor(public courseRequest: CourseRequest) { }
+}
+
+export class AddCourseSuccess {
+    static readonly type = '[Dashboard] AddCourseSuccess';
+    constructor(public course: Course) { }
+}
+
+export class AddCourseFailed {
+    static type = '[Dashboard] AddCourseFailed';
     constructor(public errors: Error[]) { }
 }

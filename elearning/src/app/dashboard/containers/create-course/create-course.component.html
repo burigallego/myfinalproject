@@ -1,15 +1,18 @@
-<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="Title">
-  </mat-form-field>
+<form class="form-container" [formGroup]="courseForm" (ngSubmit)="addCourse()">
 
-  <mat-form-field>
-    <textarea matInput placeholder="Description"></textarea>
-  </mat-form-field>
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Title" formControlName="title">
+    </mat-form-field>
 
-  <button type="submit" mat-raised-button>
-    Create Course
-  </button>
+    <mat-form-field>
+      <textarea matInput type="textarea" placeholder="Description" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button>
+      Create Course
+    </button>
 
 
-</div>
+  </div>
+</form>

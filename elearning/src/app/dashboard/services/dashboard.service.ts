@@ -15,4 +15,12 @@ export class DashboardService {
         return this.http.get<Course[]>(`${environment.apiBaseUrl}/course/user`);
 
     }
+
+    getCourses() {
+        return this.http.get<Course[]>(`${environment.apiBaseUrl}/course`);
+    }
+
+    addCourse({ title, description }) {
+        return this.http.post<Course>(`${environment.apiBaseUrl}/course`, { title, description });
+    }
 }

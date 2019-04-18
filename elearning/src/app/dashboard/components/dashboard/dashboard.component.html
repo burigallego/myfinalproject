@@ -5,8 +5,8 @@
     <mat-nav-list>
       <a mat-list-item routerLink="/wall">Wall</a>
       <a mat-list-item routerLink="/my_account">My Account</a>
+      <a mat-list-item routerLink="/all_courses">Courses</a>
       <a *ngIf="isAdmin" mat-list-item routerLink="/create_course">Add Course</a>
-
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
