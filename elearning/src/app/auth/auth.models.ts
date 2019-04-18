@@ -8,6 +8,7 @@ export interface Auth {
     avatarUrl: string;
     address: string;
     tlf: string;
+    role: string;
 }
 
 export interface Friend {
@@ -33,6 +34,7 @@ export interface LoginRequest {
 
 export interface LoginResponse {
     uuid: string;
+    role: string;
     email: string;
     expiresIn: number;
     refreshToken: string;

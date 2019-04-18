@@ -6,7 +6,7 @@ async function searchCourses(req, res, next) {
 
     const { q } = req.query;
 
-    const coursesQuery = `SELECT * FROM courses WHERE MATCH(title, description)
+    const coursesQuery = `SELECT * FROM courses WHERE MATCH(title, description, creator_name)
     AGAINST('${q}')`;
 
     try {

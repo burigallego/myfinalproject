@@ -14,10 +14,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { NgxsModule } from '@ngxs/store';
 import { CourseState } from './store/course.state';
+import { CreateCourseComponent } from './containers/create-course/create-course.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

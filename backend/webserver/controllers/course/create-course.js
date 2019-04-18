@@ -58,17 +58,19 @@ async function createCourse(req, res, next) {
         const connection = await mysqlPool.getConnection();
 
         const usersQuery = `SELECT id FROM users WHERE uuid = '${uuid}'`;
-        const coursesQuery = `SELECT course_id FROM courses WHERE title = '${title}'`;
+        const coursesQuery = `SELECT * FROM courses WHERE title = '${title}'`;
         const [userResult] = await connection.query(usersQuery);
         const [courseResult] = await connection.query(coursesQuery);
         const [{ id: userId }] = userResult;
+        const [course] = courseResult;
+        console.log(courseResult);
         const [{ course_id: courseId }] = courseResult;
         await connection.query('INSERT INTO users_courses SET ?', {
             user_id: userId,
             course_id: courseId,
         });
         connection.release();
-        return res.status(204).json();
+        return res.status(204).send(course);
 
     } catch (e) {
         // create error

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { WallComponent } from './components/wall/wall.component';
 import { MyAccountComponent } from './containers/my-account/my-account.component';
+import { CreateCourseComponent } from './containers/create-course/create-course.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'my_account',
         component: MyAccountComponent
+      },
+      {
+        path: 'create_course',
+        component: CreateCourseComponent
       }
     ]
   }

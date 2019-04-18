@@ -77,6 +77,7 @@ async function login(req, res, next) {
             const response = {
                 accessToken: token,
                 expiresIn: jwtTokenExpiration,
+                role: userData.role,
             };
             connection.release();
             return res.status(200).json(response);
