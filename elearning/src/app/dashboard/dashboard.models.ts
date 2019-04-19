@@ -15,3 +15,10 @@ export interface CourseRequest {
 export interface SearchRequest {
     q: string;
 }
+
+export interface Resource {
+    resource_id: number;
+    url: string;
+    created_at: string;
+    type: number;
+}

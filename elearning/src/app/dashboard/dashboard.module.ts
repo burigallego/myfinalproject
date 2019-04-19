@@ -17,10 +17,13 @@ import { CourseState } from './store/course.state';
 import { CreateCourseComponent } from './containers/create-course/create-course.component';
 import { AllCoursesComponent } from './containers/all-courses/all-courses.component';
 import { CourseComponent } from './components/course/course.component';
+import { CardComponent } from './components/card/card.component';
+import { ResourcesComponent } from './containers/resources/resources.component';
+import { ResourceState } from './store/resource.state';
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -39,7 +42,7 @@ import { CourseComponent } from './components/course/course.component';
     ReactiveFormsModule,
     AuthModule,
     MatFileUploadModule,
-    NgxsModule.forFeature([CourseState])
+    NgxsModule.forFeature([CourseState, ResourceState])
 
   ],
   providers: [

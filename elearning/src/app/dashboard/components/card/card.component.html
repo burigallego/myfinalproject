@@ -1,0 +1,13 @@
+<mat-card class="dashboard-card">
+  <mat-card-header>
+    <mat-card-title>
+      <a [routerLink]="['/resources', course.course_id]">{{course.title}}</a>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    <div>{{course.description}}</div>
+  </mat-card-content>
+  <mat-card-footer class="dashboard-card-footer">
+    created by {{course.creator_name}} at {{course.created_at | date:'mediumDate'}}
+  </mat-card-footer>
+</mat-card>
