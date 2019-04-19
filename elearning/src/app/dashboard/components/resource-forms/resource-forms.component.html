@@ -1,0 +1,17 @@
+<div>
+  <ul>
+    <li [class.selected]="isRegisterFormVisible">
+      <a elPreventDefault href="/" (click)="toggleForm(true)">Add Link</a>
+    </li>
+    <li [class.selected]="!isRegisterFormVisible">
+      <a elPreventDefault href="/" (click)="toggleForm(false)">Add File</a>
+    </li>
+  </ul>
+
+  <div class="addlink-form" *ngIf="isRegisterFormVisible">
+    <el-add-link></el-add-link>
+  </div>
+  <div class="addfile-form" *ngIf="!isRegisterFormVisible">
+    <el-add-file></el-add-file>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Course, Resource } from '../dashboard.models';
+import { Course, Resource, LinkRequest } from '../dashboard.models';
 
 @Injectable({
     providedIn: 'root'
@@ -44,5 +44,12 @@ export class DashboardService {
             .set('courseId', `${courseId}`);
 
         return this.http.get<Resource[]>(`${environment.apiBaseUrl}/resource`, { params });
+    }
+
+    createLink({ url, resourceName }: LinkRequest, courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.post<Resource>(`${environment.apiBaseUrl}/resource/link`, { url, resourceName }, { params });
     }
 }

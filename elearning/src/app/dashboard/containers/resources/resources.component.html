@@ -1,4 +1,12 @@
+<el-resource-forms></el-resource-forms>
+
+
 <mat-nav-list>
-  <a mat-list-item href="{{ resource.url }}" target="_blank" *ngFor="let resource of resources$ | async"> {{
-    resource.url }} </a>
+  <div *ngFor="let resource of resources$ | async">
+    <a mat-list-item href="{{ resource.url }}" target="_blank" *ngIf="(resource.resource_name == null); else nameExists">{{resource.url}}</a>
+    <ng-template #nameExists>
+      <a mat-list-item href="{{ resource.url }}" target="_blank">{{resource.resource_name}}</a>
+    </ng-template>
+  </div>
+
 </mat-nav-list>

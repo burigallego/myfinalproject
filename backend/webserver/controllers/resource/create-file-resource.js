@@ -17,6 +17,7 @@ cloudinary.config({
 async function validate(payload) {
     const schema = {
         courseId: Joi.number().integer().positive().allow(0),
+        resourceName: Joi.string()
     };
 
     return Joi.validate(payload, schema);
@@ -33,7 +34,7 @@ async function createFileResource(req, res, next) {
         return res.status(400).send(e.message);
     }
 
-    const { courseId } = fileData;
+    const { courseId, resourceName } = fileData;
     if (role !== 'admin') {
         return res.status(403).send();
     }
@@ -72,7 +73,8 @@ async function createFileResource(req, res, next) {
             await connection.query('INSERT INTO resources SET ?', {
                 url: secureUrl,
                 created_at: createdAt,
-                type
+                type,
+                resource_name: resourceName,
             });
             const resourcesQuery = `SELECT resource_id FROM resources WHERE url = '${secureUrl}'`;
             const [resourceResult] = await connection.query(resourcesQuery);

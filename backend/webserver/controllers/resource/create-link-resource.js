@@ -7,12 +7,13 @@ async function validate(payload) {
     const schema = {
         url: Joi.string().uri(),
         courseId: Joi.number().integer().positive().allow(0),
+        resourceName: Joi.string()
     };
 
     return Joi.validate(payload, schema);
 }
 
-async function insertLink(url) {
+async function insertLink(url, resourceName) {
     const now = new Date();
     const createdAt = now.toISOString().substring(0, 19).replace('T', ' ');
     const type = 0;
@@ -21,7 +22,8 @@ async function insertLink(url) {
     await connection.query('INSERT INTO resources SET ?', {
         url,
         created_at: createdAt,
-        type
+        type,
+        resource_name: resourceName,
     });
     connection.release();
     return url;
@@ -40,26 +42,27 @@ async function createLinkResource(req, res, next) {
         return res.status(400).send(e);
     }
 
-    const { url, courseId } = linkData;
+    const { url, resourceName, courseId } = linkData;
 
     try {
         if (role !== 'admin') {
             return res.status(403).send();
         }
 
-        await insertLink(url);
+        await insertLink(url, resourceName);
 
         const connection = await mysqlPool.getConnection();
 
-        const resourcesQuery = `SELECT resource_id FROM resources WHERE url = '${url}'`;
+        const resourcesQuery = `SELECT * FROM resources WHERE url = '${url}'`;
         const [resourceResult] = await connection.query(resourcesQuery);
         const [{ resource_id: resourceId }] = resourceResult;
+        const [resource] = resourceResult;
         await connection.query('INSERT INTO courses_resources SET ?', {
             course_id: courseId,
             resource_id: resourceId,
         });
         connection.release();
-        return res.status(204).json();
+        return res.status(200).send(resource);
 
     } catch (e) {
         // create error

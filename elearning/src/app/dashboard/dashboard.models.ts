@@ -21,4 +21,10 @@ export interface Resource {
     url: string;
     created_at: string;
     type: number;
+    resource_name: string;
+}
+
+export interface LinkRequest {
+    url: string;
+    resourceName: string;
 }

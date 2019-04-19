@@ -1,7 +1,7 @@
 import { State, Store, StateContext, Action } from '@ngxs/store';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed } from './resource.actions';
+import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
 
 
@@ -31,8 +31,25 @@ export class ResourceState {
 
     }
 
+    @Action(CreateLink)
+    createLink({ dispatch }: StateContext<Resource[]>, { linkRequest, courseId }: CreateLink) {
+        return this.dashboardService.createLink(linkRequest, courseId).pipe(
+            tap(resource => dispatch(new CreateLinkSuccess(resource))),
+            catchError(error => dispatch(new CreateLinkFailed(error.error)))
+        );
+    }
 
-    @Action([GetCourseResourcesFailed])
+    @Action(CreateLinkSuccess)
+    createLinkSuccess(
+        { setState, getState }: StateContext<Resource[]>,
+        { resource }: CreateLinkSuccess
+    ) {
+        setState([...getState(), resource]);
+    }
+
+
+
+    @Action([GetCourseResourcesFailed, CreateLinkFailed])
     error({ dispatch }: StateContext<Resource[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);

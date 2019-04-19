@@ -20,10 +20,14 @@ import { CourseComponent } from './components/course/course.component';
 import { CardComponent } from './components/card/card.component';
 import { ResourcesComponent } from './containers/resources/resources.component';
 import { ResourceState } from './store/resource.state';
+import { ResourceFormsComponent } from './components/resource-forms/resource-forms.component';
+import { AddLinkComponent } from './containers/add-link/add-link.component';
+import { AddFileComponent } from './containers/add-file/add-file.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -42,6 +46,7 @@ import { ResourceState } from './store/resource.state';
     ReactiveFormsModule,
     AuthModule,
     MatFileUploadModule,
+    SharedModule,
     NgxsModule.forFeature([CourseState, ResourceState])
 
   ],

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { ActivatedRoute } from '@angular/router';
-import { GetCourseResources } from '../../store/resource.actions';
+import { GetCourseResources, CreateLink } from '../../store/resource.actions';
 import { ResourceState } from '../../store/resource.state';
 import { Observable } from 'rxjs';
 import { Resource } from '../../dashboard.models';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'el-resources',
   templateUrl: './resources.component.html',
-  styleUrls: ['./resources.component.scss']
+  styleUrls: ['./resources.component.css']
 })
 
 export class ResourcesComponent implements OnInit {
@@ -19,7 +20,7 @@ export class ResourcesComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {

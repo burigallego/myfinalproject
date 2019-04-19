@@ -1,0 +1,16 @@
+<form class="form-container" [formGroup]="linkForm" (ngSubmit)="addLink()">
+
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Url" formControlName="url">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Name" formControlName="resourceName">
+    </mat-form-field>
+    <div class="buttons">
+      <button mat-raised-button type="submit">Add Link</button>
+    </div>
+
+  </div>
+</form>
