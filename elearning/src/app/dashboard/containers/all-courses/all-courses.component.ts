@@ -3,7 +3,8 @@ import { Select, Store } from '@ngxs/store';
 import { CourseState } from '../../store/course.state';
 import { Observable } from 'rxjs';
 import { Course } from '../../dashboard.models';
-import { GetCourses } from '../../store/course.actions';
+import { GetCourses, SearchCourses } from '../../store/course.actions';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'el-all-courses',
@@ -13,10 +14,20 @@ import { GetCourses } from '../../store/course.actions';
 export class AllCoursesComponent implements OnInit {
 
   @Select(CourseState) courses$: Observable<Course[]>;
+  searchForm = this.fb.group(
+    {
+      q: ['', [Validators.required]],
+    },
+    { updateOn: 'blur' }
+  );
 
+  constructor(private fb: FormBuilder, private store: Store) { }
 
-  constructor(private store: Store) { }
-
+  searchCourses() {
+    if (this.searchForm.valid) {
+      this.store.dispatch(new SearchCourses(this.searchForm.value));
+    }
+  }
   ngOnInit() {
     this.store.dispatch(new GetCourses);
   }

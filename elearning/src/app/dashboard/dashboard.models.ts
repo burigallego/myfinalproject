@@ -11,3 +11,7 @@ export interface CourseRequest {
     title: string;
     description: string;
 }
+
+export interface SearchRequest {
+    q: string;
+}

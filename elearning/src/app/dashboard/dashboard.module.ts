@@ -16,10 +16,11 @@ import { NgxsModule } from '@ngxs/store';
 import { CourseState } from './store/course.state';
 import { CreateCourseComponent } from './containers/create-course/create-course.component';
 import { AllCoursesComponent } from './containers/all-courses/all-courses.component';
+import { CourseComponent } from './components/course/course.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

@@ -2,7 +2,7 @@ import { State, Store, StateContext, Action } from '@ngxs/store';
 import { Course } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess } from './course.actions';
+import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SubscribeCourseFailed, SubscribeCourse, SubscribeCourseSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess } from './course.actions';
 
 
 @State<Course[]>({
@@ -47,6 +47,35 @@ export class CourseState {
 
     }
 
+    @Action(SearchCourses)
+    searchCourses({ dispatch }: StateContext<Course[]>, { searchRequest }: SearchCourses) {
+        return this.dashboardService.searchCourses(searchRequest).pipe(
+            tap(courses => dispatch(new SearchCoursesSuccess(courses))),
+            catchError(error => dispatch(new SearchCoursesFailed(error.error)))
+        );
+    }
+
+    @Action(SearchCoursesSuccess)
+    searchCoursesSuccess(
+        { setState }: StateContext<Course[]>,
+        { courses }: SearchCoursesSuccess
+    ) {
+        setState(courses);
+
+    }
+
+    @Action(SubscribeCourse)
+    subscribeCourse({ dispatch }: StateContext<Course[]>, { courseId }: SubscribeCourse) {
+        return this.dashboardService.subscribeCourse(courseId).pipe(
+            tap(() => dispatch(new SubscribeCourseSuccess())),
+            catchError(error => dispatch(new SubscribeCourseFailed(error.error)))
+        );
+    }
+
+    @Action(SubscribeCourseSuccess)
+    subscribeCourseSuccess() { }
+
+
     @Action(AddCourse)
     addCourse({ dispatch }: StateContext<Course[]>, { courseRequest }: AddCourse) {
         return this.dashboardService.addCourse(courseRequest).pipe(
@@ -64,7 +93,7 @@ export class CourseState {
     }
 
 
-    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed])
+    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SubscribeCourseFailed, SearchCoursesFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);

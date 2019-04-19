@@ -1,23 +1,17 @@
+<form class="example-form form-container" [formGroup]="searchForm" (ngSubmit)="searchCourses()">
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" placeholder="Search Courses" formControlName="q">
+  </mat-form-field>
+  <button mat-raised-button type="submit">Search</button>
+</form>
+
+<hr>
+
 <div class="grid-container">
-  <h1 class="mat-h1">All courses</h1>
+  <h1 class="mat-h1">Courses</h1>
   <mat-grid-list cols="1" rowHeight="350px">
     <mat-grid-tile *ngFor="let course of courses$ | async">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{course.title}}
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>{{course.description}}</div>
-        </mat-card-content>
-        <mat-card-footer class="dashboard-card-footer">
-          created by {{course.creator_name}} at {{course.created_at | date:'mediumDate'}}
-        </mat-card-footer>
-        <mat-card-actions>
-          <button md-button>Subscribe</button>
-        </mat-card-actions>
-      </mat-card>
+      <el-course [course]="course"></el-course>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

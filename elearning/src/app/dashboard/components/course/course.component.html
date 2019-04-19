@@ -1,0 +1,16 @@
+<mat-card class="dashboard-card">
+  <mat-card-header>
+    <mat-card-title>
+      {{course.title}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    <div>{{course.description}}</div>
+  </mat-card-content>
+  <mat-card-footer class="dashboard-card-footer">
+    created by {{course.creator_name}} at {{course.created_at | date:'mediumDate'}}
+  </mat-card-footer>
+  <mat-card-actions>
+    <button mat-raised-button (click)="subscribe()">Subscribe</button>
+  </mat-card-actions>
+</mat-card>
