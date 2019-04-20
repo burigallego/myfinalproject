@@ -39,3 +39,13 @@
     outline: 1px solid red;
     padding: 40px;
 }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.unsubscribeButton {
+    margin-left: 15px;
+}

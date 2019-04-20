@@ -44,23 +44,6 @@ export class SearchCoursesFailed {
     constructor(public errors: Error[]) { }
 }
 
-
-export class SubscribeCourse {
-    static readonly type = '[Dashboard] SubscribeCourse';
-    constructor(public courseId: number) { }
-}
-
-export class SubscribeCourseSuccess {
-    static readonly type = '[Dashboard] SubscribeCourseSuccess';
-    constructor(public courseId: number) { }
-}
-
-export class SubscribeCourseFailed {
-    static type = '[Dashboard] SubscribeCourseFailed';
-    constructor(public errors: Error[]) { }
-}
-
-
 export class AddCourse {
     static readonly type = '[Dashboard] AddCourse';
     constructor(public courseRequest: CourseRequest) { }

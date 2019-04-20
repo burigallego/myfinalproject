@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { SubscribeCourse } from '../../store/course.actions';
+import { UnsubscribeCourse, SubscribeCourse } from 'src/app/auth/store/auth.actions';
 
 @Component({
   selector: 'el-course',
@@ -14,17 +14,20 @@ export class CourseComponent implements OnInit {
 
   subscribedCourse;
   isCreator: boolean;
+  isSubscribing;
+  isUnsubscribing;
   constructor(private store: Store) { }
 
   ngOnInit() {
     if (this.user && this.user.yourCourses) {
       this.subscribedCourse = this.user.yourCourses.filter(item => (item.course_id == this.course.course_id));
-      console.log(this.subscribedCourse);
       if (this.subscribedCourse.length !== 0) {
-        this.isCreator = (this.subscribedCourse[0].creator === this.course.creator);
+        this.isCreator = (this.user.uuid === this.subscribedCourse[0].creator);
       } else {
         this.isCreator = false;
-      }
+      };
+      this.isSubscribing = ((this.isCreator == true) || (this.subscribedCourse.length !== 0));
+      this.isUnsubscribing = ((this.isCreator == true) || (this.subscribedCourse.length === 0));
     }
 
   }
@@ -33,4 +36,7 @@ export class CourseComponent implements OnInit {
     this.store.dispatch(new SubscribeCourse(this.course.course_id))
   }
 
+  unsubscribe() {
+    this.store.dispatch(new UnsubscribeCourse(this.course.course_id))
+  }
 }

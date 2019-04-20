@@ -10,7 +10,13 @@
   <mat-card-footer class="dashboard-card-footer">
     created by {{course.creator_name}} at {{course.created_at | date:'mediumDate'}}
   </mat-card-footer>
-  <mat-card-actions>
-    <button mat-raised-button (click)="subscribe()" [disabled]="((isCreator == true) || (subscribedCourse.length !== 0))">Subscribe</button>
-  </mat-card-actions>
+  <div class="buttons">
+    <mat-card-actions>
+      <button mat-raised-button (click)="subscribe(); isSubscribing = true; isUnsubscribing = false" [disabled]="isSubscribing">Subscribe</button>
+    </mat-card-actions>
+    <mat-card-actions class="unsubscribeButton">
+      <button mat-raised-button (click)="unsubscribe(); isUnsubscribing = true; isSubscribing = false;" [disabled]="isUnsubscribing">Unsubscribe</button>
+    </mat-card-actions>
+  </div>
+
 </mat-card>

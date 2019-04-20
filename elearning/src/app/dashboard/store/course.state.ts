@@ -2,7 +2,7 @@ import { State, Store, StateContext, Action } from '@ngxs/store';
 import { Course } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SubscribeCourseFailed, SubscribeCourse, SubscribeCourseSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess } from './course.actions';
+import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess } from './course.actions';
 import { Navigate } from '@ngxs/router-plugin';
 
 
@@ -65,21 +65,6 @@ export class CourseState {
 
     }
 
-    @Action(SubscribeCourse)
-    subscribeCourse({ dispatch }: StateContext<Course[]>, { courseId }: SubscribeCourse) {
-        return this.dashboardService.subscribeCourse(courseId).pipe(
-            tap(() => dispatch(new SubscribeCourseSuccess(courseId))),
-            catchError(error => dispatch(new SubscribeCourseFailed(error.error)))
-        );
-    }
-
-    @Action(SubscribeCourseSuccess)
-    subscribeCourseSuccess(
-        { dispatch }: StateContext<Course[]>,
-        { courseId }: SubscribeCourseSuccess
-    ) {
-        dispatch(new Navigate(['/resources/', courseId]))
-    }
 
 
     @Action(AddCourse)
@@ -99,7 +84,7 @@ export class CourseState {
     }
 
 
-    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SubscribeCourseFailed, SearchCoursesFailed])
+    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);

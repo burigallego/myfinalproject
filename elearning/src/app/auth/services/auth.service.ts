@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { LoginRequest, LoginResponse, Auth, Profile } from '../auth.models';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -57,10 +57,19 @@ export class AuthService {
         });
     }
 
-    search(text: string) {
-        return this.http.get<Profile[]>(`${environment.apiBaseUrl}/user/search`, {
-            params: { q: text }
-        });
+    subscribeCourse(courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.get(`${environment.apiBaseUrl}/course/subscription`, { params });
+    }
+
+
+    unsubscribeCourse(courseId: number) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.delete(`${environment.apiBaseUrl}/course/subscription`, { params });
     }
 
     logout() {

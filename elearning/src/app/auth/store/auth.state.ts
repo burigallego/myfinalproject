@@ -17,7 +17,13 @@ import {
     UpdateUserProfileFailed,
     UploadAvatarFailed,
     UploadAvatar,
-    UploadAvatarSuccess
+    UploadAvatarSuccess,
+    UnsubscribeCourseFailed,
+    UnsubscribeCourse,
+    UnsubscribeCourseSuccess,
+    SubscribeCourse,
+    SubscribeCourseSuccess,
+    SubscribeCourseFailed
 } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
 import { tap, catchError } from 'rxjs/operators';
@@ -49,6 +55,7 @@ export class AuthState {
         dispatch(new Navigate(['/wall']));
     }
 
+
     @Action(Register)
     register({ dispatch }: StateContext<Auth>, action: Register) {
         return this.authService.register(action.register).pipe(
@@ -74,6 +81,62 @@ export class AuthState {
     ) {
         patchState({ ...profile });
     }
+
+    @Action(SubscribeCourse)
+    subscribeCourse({ dispatch }: StateContext<Auth>, { courseId }: SubscribeCourse) {
+
+        const courses = this.store.selectSnapshot(state => state.courses);
+
+        const [courseCreator] = courses.filter(item => (item.course_id === courseId)).map(item => {
+            return {
+                course_id: item.course_id,
+                creator: item.creator,
+            }
+        });
+
+        return this.authService.subscribeCourse(courseId).pipe(
+            tap(() => dispatch(new SubscribeCourseSuccess(courseId, courseCreator))),
+            catchError(error => dispatch(new SubscribeCourseFailed(error.error)))
+        );
+    }
+
+    @Action(SubscribeCourseSuccess)
+    subscribeCourseSuccess(
+        { dispatch, patchState, getState }: StateContext<Auth>,
+        { courseId, courseCreator }: SubscribeCourseSuccess
+    ) {
+        patchState({
+            yourCourses: [...getState().yourCourses, courseCreator]
+        });
+
+        dispatch(new Navigate(['/resources/', courseId]))
+    }
+
+
+    @Action(UnsubscribeCourse)
+    unsubscribeCourse({ dispatch }: StateContext<Auth>, { courseId }: UnsubscribeCourse) {
+        const currentUser = this.store.selectSnapshot(state => state.auth);
+        const [courseCreator] = currentUser.yourCourses.filter(item => (item.course_id == courseId))
+        console.log(courseCreator);
+        return this.authService.unsubscribeCourse(courseId).pipe(
+            tap(() =>
+                dispatch(new UnsubscribeCourseSuccess(courseCreator))
+            ),
+            catchError(error => dispatch(new UnsubscribeCourseFailed(error.error)))
+        );
+    }
+
+    @Action(UnsubscribeCourseSuccess)
+    unsubscribeCourseSuccess(
+        { patchState, getState }: StateContext<Auth>,
+        { courseCreator }: UnsubscribeCourseSuccess
+    ) {
+        patchState({
+            yourCourses: getState().yourCourses.filter(item => (item.course_id !== courseCreator.course_id))
+        });
+
+    }
+
 
     @Action(Logout)
     logout({ setState, dispatch }: StateContext<Auth>) {
@@ -132,7 +195,9 @@ export class AuthState {
         RegisterFailed,
         GetUserProfileFailed,
         UpdateUserProfileFailed,
-        UploadAvatarFailed
+        UploadAvatarFailed,
+        SubscribeCourseFailed,
+        UnsubscribeCourseFailed
     ])
     error({ dispatch }: StateContext<Auth>, { errors }: any) {
         //dispatch(new SetErrors(errors));

@@ -22,12 +22,6 @@ export class DashboardService {
         return this.http.get<Course[]>(`${environment.apiBaseUrl}/course`);
     }
 
-    subscribeCourse(courseId) {
-        const params = new HttpParams()
-            .set('courseId', `${courseId}`);
-
-        return this.http.get(`${environment.apiBaseUrl}/course/subscription`, { params });
-    }
 
     searchCourses({ q }) {
         const params = new HttpParams()

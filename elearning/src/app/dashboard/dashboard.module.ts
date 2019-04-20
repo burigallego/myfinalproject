@@ -25,6 +25,7 @@ import { AddFileComponent } from './containers/add-file/add-file.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { AuthState } from '../auth/store/auth.state';
 
 
 
@@ -52,7 +53,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     SharedModule,
     MaterialFileInputModule,
     MatFileUploadModule,
-    NgxsModule.forFeature([CourseState, ResourceState])
+    NgxsModule.forFeature([CourseState, ResourceState, AuthState])
 
   ],
   providers: [
