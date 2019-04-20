@@ -1,4 +1,4 @@
-<el-resource-forms></el-resource-forms>
+<el-resource-forms *ngIf="((course.creator == currentUser.uuid) && (currentUser.role == 'admin'))"></el-resource-forms>
 
 
 <mat-nav-list>

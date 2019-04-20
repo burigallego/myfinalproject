@@ -9,6 +9,7 @@ export interface Auth {
     address: string;
     tlf: string;
     role: string;
+    yourCourses: CourseCreator[];
 }
 
 export interface Friend {
@@ -61,4 +62,9 @@ export interface Preferences {
     twitter?: string;
     github?: string;
     description?: string;
+}
+
+export interface CourseCreator {
+    course_id: number;
+    creator: string;
 }

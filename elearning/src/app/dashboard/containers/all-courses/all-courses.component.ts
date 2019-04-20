@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Course } from '../../dashboard.models';
 import { GetCourses, SearchCourses } from '../../store/course.actions';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthState } from 'src/app/auth/store/auth.state';
+import { Auth } from 'src/app/auth/auth.models';
 
 @Component({
   selector: 'el-all-courses',
@@ -14,6 +16,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class AllCoursesComponent implements OnInit {
 
   @Select(CourseState) courses$: Observable<Course[]>;
+  @Select(AuthState) user$: Observable<Auth>;
+
+  currentUser;
+
   searchForm = this.fb.group(
     {
       q: ['', [Validators.required]],
@@ -30,6 +36,9 @@ export class AllCoursesComponent implements OnInit {
   }
   ngOnInit() {
     this.store.dispatch(new GetCourses);
+    this.user$.subscribe(user => {
+      this.currentUser = user
+    });
   }
 
 }

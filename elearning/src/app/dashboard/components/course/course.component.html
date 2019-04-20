@@ -11,6 +11,6 @@
     created by {{course.creator_name}} at {{course.created_at | date:'mediumDate'}}
   </mat-card-footer>
   <mat-card-actions>
-    <button mat-raised-button (click)="subscribe()">Subscribe</button>
+    <button mat-raised-button (click)="subscribe()" [disabled]="((isCreator == true) || (subscribedCourse.length !== 0))">Subscribe</button>
   </mat-card-actions>
 </mat-card>

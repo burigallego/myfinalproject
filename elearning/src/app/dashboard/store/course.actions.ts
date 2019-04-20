@@ -31,7 +31,7 @@ export class GetCoursesFailed {
 
 export class SearchCourses {
     static readonly type = '[Dashboard] SearchCourses';
-    constructor(public searchRequest: SearchRequest ) { }
+    constructor(public searchRequest: SearchRequest) { }
 }
 
 export class SearchCoursesSuccess {
@@ -52,6 +52,7 @@ export class SubscribeCourse {
 
 export class SubscribeCourseSuccess {
     static readonly type = '[Dashboard] SubscribeCourseSuccess';
+    constructor(public courseId: number) { }
 }
 
 export class SubscribeCourseFailed {

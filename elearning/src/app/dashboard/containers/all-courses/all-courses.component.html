@@ -11,7 +11,7 @@
   <h1 class="mat-h1">Courses</h1>
   <mat-grid-list cols="1" rowHeight="350px">
     <mat-grid-tile *ngFor="let course of courses$ | async">
-      <el-course [course]="course"></el-course>
+      <el-course [course]="course" [user]="currentUser"></el-course>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
