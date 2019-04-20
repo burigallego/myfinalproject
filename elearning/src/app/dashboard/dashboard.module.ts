@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatRadioModule } from '@angular/material';
@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from '../auth/auth.module';
 import { JwtInterceptor } from '../auth/services/jwt.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatFileUploadModule } from 'angular-material-fileupload';
 import { NgxsModule } from '@ngxs/store';
 import { CourseState } from './store/course.state';
 import { CreateCourseComponent } from './containers/create-course/create-course.component';
@@ -24,12 +23,17 @@ import { ResourceFormsComponent } from './components/resource-forms/resource-for
 import { AddLinkComponent } from './containers/add-link/add-link.component';
 import { AddFileComponent } from './containers/add-file/add-file.component';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+
+
 
 
 @NgModule({
   declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent],
   imports: [
     CommonModule,
+    BrowserModule,
     DashboardRoutingModule,
     MatGridListModule,
     MatCardModule,
@@ -45,8 +49,9 @@ import { SharedModule } from '../shared/shared.module';
     MatRadioModule,
     ReactiveFormsModule,
     AuthModule,
-    MatFileUploadModule,
     SharedModule,
+    MaterialFileInputModule,
+    MatFileUploadModule,
     NgxsModule.forFeature([CourseState, ResourceState])
 
   ],

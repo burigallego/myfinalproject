@@ -28,3 +28,8 @@ export interface LinkRequest {
     url: string;
     resourceName: string;
 }
+
+export interface FileRequest {
+    resourceName: string;
+    file: File;
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Course, Resource, LinkRequest } from '../dashboard.models';
+import { Course, Resource, LinkRequest, FileRequest } from '../dashboard.models';
 
 @Injectable({
     providedIn: 'root'
@@ -52,4 +52,16 @@ export class DashboardService {
 
         return this.http.post<Resource>(`${environment.apiBaseUrl}/resource/link`, { url, resourceName }, { params });
     }
+
+    createFile({ resourceName, file }: FileRequest, courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`)
+            .set('resourceName', `${resourceName}`);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        return this.http.post<Resource>(`${environment.apiBaseUrl}/resource/file`, formData, { params });
+    }
+
 }

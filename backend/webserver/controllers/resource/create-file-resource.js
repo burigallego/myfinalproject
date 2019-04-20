@@ -76,9 +76,10 @@ async function createFileResource(req, res, next) {
                 type,
                 resource_name: resourceName,
             });
-            const resourcesQuery = `SELECT resource_id FROM resources WHERE url = '${secureUrl}'`;
+            const resourcesQuery = `SELECT * FROM resources WHERE url = '${secureUrl}'`;
             const [resourceResult] = await connection.query(resourcesQuery);
             const [{ resource_id: resourceId }] = resourceResult;
+            const [resource] = resourceResult;
             await connection.query('INSERT INTO courses_resources SET ?', {
                 course_id: courseId,
                 resource_id: resourceId,
@@ -87,7 +88,7 @@ async function createFileResource(req, res, next) {
 
             // devolve el 204 y el header location con la url de la foto
             res.header('Location', secureUrl);
-            return res.status(204).send();
+            return res.status(200).send(resource);
         } catch (e) {
             console.log(e);
             return res.status(500).send(err.message);
