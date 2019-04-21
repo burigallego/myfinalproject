@@ -62,3 +62,18 @@ export class DeleteLinkFailed {
     static type = '[Dashboard] DeleteLinkFailed';
     constructor(public errors: Error[]) { }
 }
+
+export class DeleteFile {
+    static readonly type = '[Dashboard] DeleteFile';
+    constructor(public resourceId: number, public courseId: number, public publicId: string) { }
+}
+
+export class DeleteFileSuccess {
+    static readonly type = '[Dashboard] DeleteFileSuccess';
+    constructor(public resourceId: number) { }
+}
+
+export class DeleteFileFailed {
+    static type = '[Dashboard] DeleteLinkFailed';
+    constructor(public errors: Error[]) { }
+}

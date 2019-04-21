@@ -65,4 +65,13 @@ export class DashboardService {
 
         return this.http.delete(`${environment.apiBaseUrl}/resource/link`, { params });
     }
+
+    deleteFile(resourceId, courseId, publicId) {
+        const params = new HttpParams()
+            .set('resourceId', `${resourceId}`)
+            .set('courseId', `${courseId}`)
+            .set('publicId', `${publicId}`);
+
+        return this.http.delete(`${environment.apiBaseUrl}/resource/file`, { params })
+    }
 }

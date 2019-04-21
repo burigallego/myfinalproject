@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngxs/store';
-import { DeleteLink } from '../../store/resource.actions';
-import { CourseComponent } from '../course/course.component';
+import { DeleteLink, DeleteFile } from '../../store/resource.actions';
 
 @Component({
   selector: 'el-resource',
@@ -24,11 +23,15 @@ export class ResourceComponent implements OnInit {
     this.store.dispatch(new DeleteLink(this.resource.resource_id, this.course.course_id));
   }
 
+  deleteFile() {
+    this.store.dispatch(new DeleteFile(this.resource.resource_id, this.course.course_id, this.resource.public_id));
+  }
+
   deleteResource() {
     if (this.resource.type == 0) {
       this.deleteLink();
     } else {
-
+      this.deleteFile();
     }
   }
 

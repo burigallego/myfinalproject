@@ -1,6 +1,16 @@
 'use strict';
 
+const cloudinary = require('cloudinary');
 const mysqlPool = require('../../../databases/mysql-pool');
+const cloudName = process.env.CLOUDINARI_CLOUD_NAME;
+const apiKey = process.env.CLOUDINARI_API_KEY;
+const apiSecret = process.env.CLOUDINARI_API_SECRET;
+
+cloudinary.config({
+    cloud_name: cloudName,
+    api_key: apiKey,
+    api_secret: apiSecret,
+});
 
 
 async function deleteFileFromDatabase(resourceId) {
@@ -13,9 +23,9 @@ async function deleteFileFromDatabase(resourceId) {
 }
 
 async function deleteFile(req, res, next) {
-    const { resourceId, courseId } = req.query;
+    const { resourceId, courseId, publicId } = req.query;
     const { role } = req.claims;
-    const { publicId } = req.body;
+
 
     try {
         if (role !== 'admin') {

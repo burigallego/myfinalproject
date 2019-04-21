@@ -1,7 +1,7 @@
 import { State, Store, StateContext, Action } from '@ngxs/store';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess } from './resource.actions';
+import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess, DeleteFileFailed, DeleteFile, DeleteFileSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
 
 
@@ -63,6 +63,22 @@ export class ResourceState {
         setState(getState().filter(item => (item.resource_id !== resourceId)));
     }
 
+    @Action(DeleteFile)
+    deleteFile({ dispatch }: StateContext<Resource[]>, { resourceId, courseId, publicId }: DeleteFile) {
+        return this.dashboardService.deleteFile(resourceId, courseId, publicId).pipe(
+            tap(() => dispatch(new DeleteFileSuccess(resourceId))),
+            catchError(error => dispatch(new DeleteFileFailed(error.error)))
+        );
+    }
+
+    @Action(DeleteFileSuccess)
+    deleteFileSuccess(
+        { setState, getState }: StateContext<Resource[]>,
+        { resourceId }: DeleteFileSuccess
+    ) {
+        setState(getState().filter(item => (item.resource_id !== resourceId)));
+    }
+
     @Action(CreateFile)
     createFile({ dispatch }: StateContext<Resource[]>, { fileRequest, courseId }: CreateFile) {
         return this.dashboardService.createFile(fileRequest, courseId).pipe(
@@ -84,7 +100,7 @@ export class ResourceState {
 
 
 
-    @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed])
+    @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed, DeleteFileFailed])
     error({ dispatch }: StateContext<Resource[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);
