@@ -47,3 +47,18 @@ export class CreateFileFailed {
     static type = '[Dashboard] CreateFileFailed';
     constructor(public errors: Error[]) { }
 }
+
+export class DeleteLink {
+    static readonly type = '[Dashboard] DeleteLink';
+    constructor(public resourceId: number, public courseId: number) { }
+}
+
+export class DeleteLinkSuccess {
+    static readonly type = '[Dashboard] DeleteLinkSuccess';
+    constructor(public resourceId: number) { }
+}
+
+export class DeleteLinkFailed {
+    static type = '[Dashboard] DeleteLinkFailed';
+    constructor(public errors: Error[]) { }
+}

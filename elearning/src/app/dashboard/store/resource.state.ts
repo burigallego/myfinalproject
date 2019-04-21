@@ -1,7 +1,7 @@
 import { State, Store, StateContext, Action } from '@ngxs/store';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess } from './resource.actions';
+import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
 
 
@@ -47,6 +47,22 @@ export class ResourceState {
         setState([...getState(), resource]);
     }
 
+    @Action(DeleteLink)
+    deleteLink({ dispatch }: StateContext<Resource[]>, { resourceId, courseId }: DeleteLink) {
+        return this.dashboardService.deleteLink(resourceId, courseId).pipe(
+            tap(() => dispatch(new DeleteLinkSuccess(resourceId))),
+            catchError(error => dispatch(new DeleteLinkFailed(error.error)))
+        );
+    }
+
+    @Action(DeleteLinkSuccess)
+    deleteLinkSuccess(
+        { setState, getState }: StateContext<Resource[]>,
+        { resourceId }: DeleteLinkSuccess
+    ) {
+        setState(getState().filter(item => (item.resource_id !== resourceId)));
+    }
+
     @Action(CreateFile)
     createFile({ dispatch }: StateContext<Resource[]>, { fileRequest, courseId }: CreateFile) {
         return this.dashboardService.createFile(fileRequest, courseId).pipe(
@@ -68,7 +84,7 @@ export class ResourceState {
 
 
 
-    @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed])
+    @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed])
     error({ dispatch }: StateContext<Resource[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);

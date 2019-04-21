@@ -44,11 +44,11 @@ async function createFileResource(req, res, next) {
     }
 
     // necesito la imagen que suben desde postman/ browser / whatever
-
+    const publicId = uuidv4();
     // subir foto a cloudinary
     cloudinary.v2.uploader.upload_stream({
         resource_type: 'auto',
-        public_id: uuidv4(),
+        public_id: publicId
     }, async (err, result) => {
         if (err) {
             console.error('hubo error', err);
@@ -75,6 +75,7 @@ async function createFileResource(req, res, next) {
                 created_at: createdAt,
                 type,
                 resource_name: resourceName,
+                public_id: publicId
             });
             const resourcesQuery = `SELECT * FROM resources WHERE url = '${secureUrl}'`;
             const [resourceResult] = await connection.query(resourcesQuery);

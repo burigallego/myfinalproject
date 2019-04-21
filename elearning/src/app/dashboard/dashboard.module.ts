@@ -26,12 +26,14 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { AuthState } from '../auth/store/auth.state';
+import { ResourceComponent } from './components/resource/resource.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -53,6 +55,7 @@ import { AuthState } from '../auth/store/auth.state';
     SharedModule,
     MaterialFileInputModule,
     MatFileUploadModule,
+    FontAwesomeModule,
     NgxsModule.forFeature([CourseState, ResourceState, AuthState])
 
   ],

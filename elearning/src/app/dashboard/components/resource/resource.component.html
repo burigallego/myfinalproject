@@ -1,0 +1,9 @@
+<div class="resourceWrapper">
+  <a mat-list-item href="{{ resource.url }}" target="_blank" *ngIf="(resource.resource_name == null); else nameExists">{{resource.url}}</a>
+  <ng-template #nameExists>
+    <a mat-list-item href="{{ resource.url }}" target="_blank">{{resource.resource_name}}</a>
+  </ng-template>
+  <a class="deleteIconWrapper" href="#" (click)="deleteResource();false">
+    <fa-icon [icon]="deleteIcon"></fa-icon>
+  </a>
+</div>
