@@ -17,7 +17,9 @@ async function deleteFileFromDatabase(resourceId) {
     const connection = await mysqlPool.getConnection();
     const deleteLinkQuery = `DELETE FROM resources WHERE resource_id = '${resourceId}'`;
 
-    await connection.query(deleteLinkQuery)
+    await connection.query(deleteLinkQuery);
+
+    connection.release();
 
     return resourceId;
 }

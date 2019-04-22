@@ -8,7 +8,7 @@ async function getCourses(req, res, next) {
     try {
         const connection = await mysqlPool.getConnection();
         const [result] = await connection.query(coursesQuery);
-
+        connection.release();
         return res.send(result);
     } catch (e) {
         next(e);

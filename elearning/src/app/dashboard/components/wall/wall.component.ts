@@ -6,6 +6,8 @@ import { GetUserCourses } from '../../store/course.actions';
 import { CourseState } from '../../store/course.state';
 import { Observable } from 'rxjs';
 import { Course } from '../../dashboard.models';
+import { AuthState } from 'src/app/auth/store/auth.state';
+import { Auth } from 'src/app/auth/auth.models';
 
 @Component({
   selector: 'el-wall',
@@ -15,7 +17,10 @@ import { Course } from '../../dashboard.models';
 export class WallComponent implements OnInit {
 
   @Select(CourseState) courses$: Observable<Course[]>;
+  @Select(AuthState) user$: Observable<Auth>;
 
+
+  currentUser;
   // userCourses;
 
   // /** Based on the screen size, switch from standard to one column per row */
@@ -56,9 +61,9 @@ export class WallComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetUserCourses());
-    // this.courses$.subscribe(courses => {
-    //   this.userCourses = courses;
-    // })
+    this.user$.subscribe(user => {
+      this.currentUser = user;
+    })
   }
 
   constructor(private breakpointObserver: BreakpointObserver, private store: Store) { }

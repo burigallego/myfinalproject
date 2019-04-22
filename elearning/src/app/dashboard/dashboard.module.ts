@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatRadioModule } from '@angular/material';
+import { MatDialogModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatRadioModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { WallComponent } from './components/wall/wall.component';
 import { MyAccountComponent } from './containers/my-account/my-account.component';
@@ -28,12 +28,14 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { AuthState } from '../auth/store/auth.state';
 import { ResourceComponent } from './components/resource/resource.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DeleteCourseDialogComponent } from './containers/delete-course-dialog/delete-course-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -50,6 +52,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     AuthModule,
     SharedModule,
@@ -61,6 +65,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
-  ]
+  ],
+  entryComponents: [DeleteCourseDialogComponent],
 })
 export class DashboardModule { }

@@ -24,6 +24,7 @@ async function getUserProfile(req, res, next) {
             avatarUrl: result.avatar_url,
             yourCourses,
         };
+        connection.release();
         return res.status(200).send(profileData);
     } catch (e) {
         return res.status(500).send(e.message);

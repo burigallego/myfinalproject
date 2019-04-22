@@ -74,4 +74,12 @@ export class DashboardService {
 
         return this.http.delete(`${environment.apiBaseUrl}/resource/file`, { params })
     }
+
+    deleteCourse(courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`)
+
+        return this.http.delete(`${environment.apiBaseUrl}/course`, { params })
+    }
 }
+

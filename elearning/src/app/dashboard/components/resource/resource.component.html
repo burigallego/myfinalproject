@@ -3,7 +3,7 @@
   <ng-template #nameExists>
     <a mat-list-item href="{{ resource.url }}" target="_blank">{{resource.resource_name}}</a>
   </ng-template>
-  <a class="deleteIconWrapper" href="#" (click)="deleteResource();false">
+  <a class="deleteIconWrapper" href="#" (click)="openDialog();false" *ngIf="((course.creator == user.uuid) && (user.role == 'admin'))">
     <fa-icon [icon]="deleteIcon"></fa-icon>
   </a>
 </div>

@@ -58,3 +58,18 @@ export class AddCourseFailed {
     static type = '[Dashboard] AddCourseFailed';
     constructor(public errors: Error[]) { }
 }
+
+export class DeleteCourse {
+    static readonly type = '[Dashboard] DeleteCourse';
+    constructor(public courseId: number) { }
+}
+
+export class DeleteCourseSuccess {
+    static readonly type = '[Dashboard] DeleteCourseSuccess';
+    constructor(public courseId: number) { }
+}
+
+export class DeleteCourseFailed {
+    static type = '[Dashboard] DeleteCourseFailed';
+    constructor(public errors: Error[]) { }
+}

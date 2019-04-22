@@ -3,7 +3,7 @@
 
 <mat-nav-list class="resourceList">
   <div *ngFor="let resource of resources$ | async">
-    <el-resource [resource]="resource" [course]="course"></el-resource>
+    <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
   </div>
 
 </mat-nav-list>

@@ -52,7 +52,7 @@ async function uploadAvatar(req, res, next) {
         try {
 
             await connection.query(avatarQuery);
-
+            connection.release();
             // devolve el 204 y el header location con la url de la foto
             res.header('Location', secureUrl);
             return res.status(204).send();

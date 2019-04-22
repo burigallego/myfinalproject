@@ -2,8 +2,7 @@ import { State, Store, StateContext, Action } from '@ngxs/store';
 import { Course } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess } from './course.actions';
-import { Navigate } from '@ngxs/router-plugin';
+import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess } from './course.actions';
 
 
 @State<Course[]>({
@@ -83,8 +82,23 @@ export class CourseState {
         setState([...getState(), course]);
     }
 
+    @Action(DeleteCourse)
+    deleteCourse({ dispatch }: StateContext<Course[]>, { courseId }: DeleteCourse) {
+        return this.dashboardService.deleteCourse(courseId).pipe(
+            tap(() => dispatch(new DeleteCourseSuccess(courseId))),
+            catchError(error => dispatch(new DeleteCourseFailed(error.error)))
+        );
+    }
 
-    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed])
+    @Action(DeleteCourseSuccess)
+    deleteCourseSuccess(
+        { setState, getState }: StateContext<Course[]>,
+        { courseId }: DeleteCourseSuccess
+    ) {
+        setState(getState().filter(course => (course.course_id != courseId)));
+    }
+
+    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);

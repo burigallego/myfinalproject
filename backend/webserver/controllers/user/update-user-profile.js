@@ -35,7 +35,6 @@ async function updateUserIntoDatabase(fullName, address, tlf, uuid) {
         connection.release();
 
     } catch (e) {
-        connection.release();
         console.log(e);
     }
 

@@ -82,7 +82,7 @@ async function login(req, res, next) {
             connection.release();
             return res.status(200).json(response);
         }
-
+        connection.release();
         return res.status(404).send();
     } catch (e) {
         console.log(e);

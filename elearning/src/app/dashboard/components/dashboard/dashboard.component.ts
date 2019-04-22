@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new GetUserProfile());
     this.user$.subscribe(user => {
-      if (user.role == "admin") {
+      if ((user) && (user.role == "admin")) {
         this.isAdmin = true;
       } else {
         this.isAdmin = false;
