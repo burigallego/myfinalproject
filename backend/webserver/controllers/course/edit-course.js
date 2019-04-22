@@ -7,7 +7,7 @@ async function validate(payload) {
     const schema = {
         title: Joi.string().allow(null),
         description: Joi.string().allow(null),
-
+        courseId: Joi.number().integer().positive().allow(0),
     };
 
     return Joi.validate(payload, schema);
@@ -16,7 +16,6 @@ async function validate(payload) {
 async function updateCourseIntoDatabase(title, description, courseId) {
 
 
-    const connection = await mysqlPool.getConnection();
     const sqlUpdateQuery = `UPDATE courses
     SET  title = '${title}', description = '${description}'
     WHERE course_id='${courseId}'`;
@@ -43,7 +42,7 @@ async function editCourse(req, res, next) {
      * 1. validator datos
      */
     try {
-        await validate(userDataProfile);
+        await validate(courseUpdateProfile);
 
     } catch (e) {
         return res.status(400).send(e);
@@ -51,13 +50,13 @@ async function editCourse(req, res, next) {
     const {
         title,
         description
-    } = userDataProfile;
+    } = courseUpdateProfile;
 
     try {
         /**
          * Create the user and send response
          */
-        if (role != admin) {
+        if (role != 'admin') {
             res.status(403).send('Unauthorized user');
         }
 
@@ -67,7 +66,7 @@ async function editCourse(req, res, next) {
 
 
     } catch (e) {
-        // create error
+        console.error(e);
         res.status(500).json();
     }
 

@@ -30,12 +30,13 @@ import { ResourceComponent } from './components/resource/resource.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DeleteCourseDialogComponent } from './containers/delete-course-dialog/delete-course-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditCoursePopupComponent } from './containers/edit-course-popup/edit-course-popup.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -66,6 +67,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
-  entryComponents: [DeleteCourseDialogComponent],
+  entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent],
 })
 export class DashboardModule { }

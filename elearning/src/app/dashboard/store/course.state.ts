@@ -2,7 +2,7 @@ import { State, Store, StateContext, Action } from '@ngxs/store';
 import { Course } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess } from './course.actions';
+import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess } from './course.actions';
 
 
 @State<Course[]>({
@@ -98,7 +98,34 @@ export class CourseState {
         setState(getState().filter(course => (course.course_id != courseId)));
     }
 
-    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed])
+    @Action(EditCourse)
+    editCourse({ dispatch }: StateContext<Course[]>, { courseRequest, courseId }: EditCourse) {
+        return this.dashboardService.editCourse(courseRequest, courseId).pipe(
+            tap(() => dispatch(new EditCourseSuccess(courseRequest, courseId))),
+            catchError(error => dispatch(new EditCourseFailed(error.error)))
+        );
+    }
+
+    @Action(EditCourseSuccess)
+    editCourseSuccess(
+        { setState, getState }: StateContext<Course[]>,
+        { courseRequest, courseId }: EditCourseSuccess
+    ) {
+        setState(getState().map(course => {
+            if (course.course_id == courseId) {
+                {
+                    return {
+                        ...course,
+                        title: courseRequest.title,
+                        description: courseRequest.description
+                    }
+                }
+            }
+            return course;
+        }));
+    }
+
+    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);
