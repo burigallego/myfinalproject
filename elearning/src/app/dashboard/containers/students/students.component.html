@@ -1,3 +1,13 @@
-<p>
-  students works!
-</p>
+<h1>List of students of this course</h1>
+
+<hr>
+
+<mat-nav-list class="studentList">
+
+  <div *ngFor="let student of users$ | async">
+    <el-student [student]="student" [user]="currentUser"></el-student>
+  </div>
+
+</mat-nav-list>
+
+<a [routerLink]="['/resources', courseId]" class="back">back</a>

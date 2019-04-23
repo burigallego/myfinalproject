@@ -1,0 +1,17 @@
+.studentList {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin : 20px;
+}
+
+.back {
+    font-size: 1rem;
+    text-decoration: underline;
+    margin: 10px;
+}

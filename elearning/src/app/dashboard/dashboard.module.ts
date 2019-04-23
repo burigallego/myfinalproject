@@ -32,12 +32,15 @@ import { DeleteCourseDialogComponent } from './containers/delete-course-dialog/d
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditCoursePopupComponent } from './containers/edit-course-popup/edit-course-popup.component';
 import { EditResourcePopupComponent } from './containers/edit-resource-popup/edit-resource-popup.component';
+import { ProfileState } from './store/profile.state';
+import { StudentsComponent } from './containers/students/students.component';
+import { StudentComponent } from './component/student/student.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -62,7 +65,7 @@ import { EditResourcePopupComponent } from './containers/edit-resource-popup/edi
     MaterialFileInputModule,
     MatFileUploadModule,
     FontAwesomeModule,
-    NgxsModule.forFeature([CourseState, ResourceState, AuthState])
+    NgxsModule.forFeature([CourseState, ResourceState, AuthState, ProfileState])
 
   ],
   providers: [

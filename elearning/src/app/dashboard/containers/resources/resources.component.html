@@ -1,7 +1,15 @@
 <el-resource-forms *ngIf="((course.creator == currentUser.uuid) && (currentUser.role == 'admin'))"></el-resource-forms>
 
 
+<div class="header">
+  <h1>{{course.title}}</h1>
+  <a [routerLink]="['/students', course.course_id]">
+    <fa-icon [icon]="studentsIcon"></fa-icon>
+  </a>
+</div>
+
 <mat-nav-list class="resourceList">
+
   <div *ngFor="let resource of resources$ | async">
     <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
   </div>

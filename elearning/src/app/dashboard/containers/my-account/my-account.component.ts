@@ -19,7 +19,7 @@ export class MyAccountComponent implements OnInit {
     this.user$.subscribe(user => {
       if (user && user.avatarUrl) {
         this.profileImageUrl = user.avatarUrl;
-      } else {
+      } else if (user) {
         this.profileImageUrl = `https://api.adorable.io/avatars/128/${
           user.uuid
           }`;

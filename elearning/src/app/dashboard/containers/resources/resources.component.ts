@@ -9,6 +9,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthState } from 'src/app/auth/store/auth.state';
 import { Auth } from 'src/app/auth/auth.models';
 import { CourseState } from '../../store/course.state';
+import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
+import { GetCourse } from '../../store/course.actions';
+
 
 @Component({
   selector: 'el-resources',
@@ -22,6 +25,7 @@ export class ResourcesComponent implements OnInit {
   @Select(AuthState) user$: Observable<Auth>;
   @Select(CourseState) courses$: Observable<Course[]>;
 
+  studentsIcon = faGraduationCap;
   course;
   currentUser;
   constructor(
@@ -32,10 +36,11 @@ export class ResourcesComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.store.dispatch(new GetCourseResources(routeParams.courseId));
+      this.store.dispatch(new GetCourse(routeParams.courseId))
       this.courses$.subscribe(courses => {
-        [this.course] = courses.filter(course => (course.course_id == routeParams.courseId))
+        [this.course] = courses
       });
-    })
+    });
     this.user$.subscribe(user => {
       this.currentUser = user;
     });

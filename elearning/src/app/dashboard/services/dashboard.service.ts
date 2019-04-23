@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course, Resource, LinkRequest, FileRequest, CourseRequest, ResourceRequest } from '../dashboard.models';
+import { Profile } from 'src/app/auth/auth.models';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,13 @@ export class DashboardService {
         return this.http.get<Course[]>(`${environment.apiBaseUrl}/course`);
     }
 
+    getCourse(courseId: number) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.get<Course>(`${environment.apiBaseUrl}/course/id`, { params });
+
+    }
 
     searchCourses({ q }) {
         const params = new HttpParams()
@@ -94,6 +102,13 @@ export class DashboardService {
             .set('resourceId', `${resourceId}`);
 
         return this.http.put(`${environment.apiBaseUrl}/resource`, { resourceName }, { params });
+    }
+
+    getCourseUsers(courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.get<Profile[]>(`${environment.apiBaseUrl}/user/course`, { params });
     }
 }
 

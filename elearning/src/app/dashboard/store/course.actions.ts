@@ -29,6 +29,21 @@ export class GetCoursesFailed {
     constructor(public errors: Error[]) { }
 }
 
+export class GetCourse {
+    static readonly type = '[Dashboard] GetCourse';
+    constructor(public courseId: number) { }
+}
+
+export class GetCourseSuccess {
+    static readonly type = '[Dashboard] GetCourseSuccess';
+    constructor(public course: Course) { }
+}
+
+export class GetCourseFailed {
+    static type = '[Dashboard] GetCourseFailed';
+    constructor(public errors: Error[]) { }
+}
+
 export class SearchCourses {
     static readonly type = '[Dashboard] SearchCourses';
     constructor(public searchRequest: SearchRequest) { }

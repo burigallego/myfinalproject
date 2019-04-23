@@ -2,7 +2,7 @@ import { State, Store, StateContext, Action } from '@ngxs/store';
 import { Course } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess } from './course.actions';
+import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess, GetCourseFailed, GetCourse, GetCourseSuccess } from './course.actions';
 
 
 @State<Course[]>({
@@ -44,6 +44,23 @@ export class CourseState {
         { courses }: GetCoursesSuccess
     ) {
         setState(courses);
+
+    }
+
+    @Action(GetCourse)
+    getCourse({ dispatch }: StateContext<Course[]>, { courseId }: GetCourse) {
+        return this.dashboardService.getCourse(courseId).pipe(
+            tap(course => dispatch(new GetCourseSuccess(course))),
+            catchError(error => dispatch(new GetCourseFailed(error.error)))
+        );
+    }
+
+    @Action(GetCourseSuccess)
+    getCourseSuccess(
+        { setState }: StateContext<Course[]>,
+        { course }: GetCourseSuccess
+    ) {
+        setState([course]);
 
     }
 
@@ -125,7 +142,7 @@ export class CourseState {
         }));
     }
 
-    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed])
+    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed, GetCourseFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);
