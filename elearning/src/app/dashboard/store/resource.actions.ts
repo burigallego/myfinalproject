@@ -1,5 +1,5 @@
 import { Error } from 'src/app/error/error.models';
-import { Resource, LinkRequest, FileRequest } from '../dashboard.models';
+import { Resource, LinkRequest, FileRequest, ResourceRequest } from '../dashboard.models';
 
 
 
@@ -75,5 +75,20 @@ export class DeleteFileSuccess {
 
 export class DeleteFileFailed {
     static type = '[Dashboard] DeleteLinkFailed';
+    constructor(public errors: Error[]) { }
+}
+
+export class EditResource {
+    static readonly type = '[Dashboard] EditResource';
+    constructor(public resourceRequest: ResourceRequest, public resourceId: number) { }
+}
+
+export class EditResourceSuccess {
+    static readonly type = '[Dashboard] EditResourceSuccess';
+    constructor(public resourceRequest: ResourceRequest, public resourceId: number) { }
+}
+
+export class EditResourceFailed {
+    static type = '[Dashboard] EditResourceFailed';
     constructor(public errors: Error[]) { }
 }

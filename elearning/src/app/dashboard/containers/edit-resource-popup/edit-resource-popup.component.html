@@ -1,0 +1,13 @@
+<mat-dialog-content [formGroup]="editResourceForm">
+
+  <mat-form-field>
+    <input matInput placeholder="Edit Name" formControlName="resourceName">
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="edit()">Edit</button>
+</mat-dialog-actions>

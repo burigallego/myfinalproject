@@ -33,3 +33,7 @@ export interface FileRequest {
     resourceName: string;
     file: File;
 }
+
+export interface ResourceRequest {
+    resourceName: string;
+}

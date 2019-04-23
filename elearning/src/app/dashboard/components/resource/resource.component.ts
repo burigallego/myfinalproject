@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngxs/store';
-import { DeleteLink, DeleteFile } from '../../store/resource.actions';
+import { DeleteLink, DeleteFile, EditResource } from '../../store/resource.actions';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DeleteCourseDialogComponent } from '../../containers/delete-course-dialog/delete-course-dialog.component';
+import { EditResourcePopupComponent } from '../../containers/edit-resource-popup/edit-resource-popup.component';
+import { ResourceRequest } from '../../dashboard.models';
 
 @Component({
   selector: 'el-resource',
@@ -18,6 +20,8 @@ export class ResourceComponent implements OnInit {
 
 
   deleteIcon = faTrash;
+  editIcon = faPencilAlt;
+
   constructor(private store: Store, private dialog: MatDialog) { }
 
   openDialog() {
@@ -39,6 +43,28 @@ export class ResourceComponent implements OnInit {
 
   }
 
+  openEdit() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      resourceName: this.resource.resource_name,
+    };
+
+
+
+    const dialogRef = this.dialog.open(EditResourcePopupComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.editResource(result, this.resource.resource_id);
+
+      }
+    })
+  }
+
   ngOnInit() {
   }
 
@@ -56,6 +82,10 @@ export class ResourceComponent implements OnInit {
     } else {
       this.deleteFile();
     }
+  }
+
+  editResource(resourceRequest: ResourceRequest, resourceId) {
+    this.store.dispatch(new EditResource(resourceRequest, resourceId));
   }
 
 }

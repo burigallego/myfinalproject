@@ -1,7 +1,7 @@
 import { State, Store, StateContext, Action } from '@ngxs/store';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess, DeleteFileFailed, DeleteFile, DeleteFileSuccess } from './resource.actions';
+import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess, DeleteFileFailed, DeleteFile, DeleteFileSuccess, EditResourceFailed, EditResource, EditResourceSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
 
 
@@ -95,12 +95,38 @@ export class ResourceState {
         setState([...getState(), resource]);
     }
 
+    @Action(EditResource)
+    editResource({ dispatch }: StateContext<Resource[]>, { resourceRequest, resourceId }: EditResource) {
+        return this.dashboardService.editResource(resourceRequest, resourceId).pipe(
+            tap(() => dispatch(new EditResourceSuccess(resourceRequest, resourceId))),
+            catchError(error => dispatch(new EditResourceFailed(error.error)))
+        );
+    }
+
+    @Action(EditResourceSuccess)
+    editResourceSuccess(
+        { setState, getState }: StateContext<Resource[]>,
+        { resourceRequest, resourceId }: EditResourceSuccess
+    ) {
+        setState(getState().map(resource => {
+            if (resource.resource_id == resourceId) {
+                {
+                    return {
+                        ...resource,
+                        resource_name: resourceRequest.resourceName,
+                    }
+                }
+            }
+            return resource;
+        }));
+    }
 
 
 
 
 
-    @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed, DeleteFileFailed])
+
+    @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed, DeleteFileFailed, EditResourceFailed])
     error({ dispatch }: StateContext<Resource[]>, { errors }: any) {
         //dispatch(new SetErrors(errors));
         console.log(errors);

@@ -13,7 +13,6 @@ import { Course } from '../../dashboard.models';
 })
 export class EditCoursePopupComponent implements OnInit {
 
-  @Select(CourseState) courses$: Observable<Course[]>;
 
   description: string;
   title: string;
