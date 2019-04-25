@@ -22,6 +22,7 @@ export interface Resource {
     created_at: string;
     type: number;
     resource_name: string;
+    file_name: string;
 }
 
 export interface LinkRequest {

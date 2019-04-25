@@ -4,7 +4,6 @@
     <a mat-list-item href="{{ resource.url }}" target="_blank">{{resource.resource_name}}</a>
   </ng-template>
 
-
   <div class="editdelete" *ngIf="((course.creator == user.uuid) && (user.role == 'admin'))">
     <a class="edit" href="#" (click)="openEdit();false">
       <fa-icon [icon]="editIcon"></fa-icon>
@@ -13,4 +12,6 @@
       <fa-icon [icon]="deleteIcon"></fa-icon>
     </a>
   </div>
+
+
 </div>

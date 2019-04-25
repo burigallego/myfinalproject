@@ -7,7 +7,7 @@ async function getCourseResources(req, res, next) {
     const { uuid } = req.claims;
     const { courseId } = req.query;
 
-    const resourcesQuery = `SELECT  r.url, r.type, r.created_at, r.resource_id, r.resource_name
+    const resourcesQuery = `SELECT  r.url, r.type, r.created_at, r.resource_id, r.resource_name, r.file_name
     FROM resources r
     INNER JOIN courses_resources cr ON cr.resource_id = r.resource_id 
     INNER JOIN courses c ON c.course_id = cr.course_id

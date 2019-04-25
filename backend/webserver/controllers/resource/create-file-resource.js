@@ -75,7 +75,8 @@ async function createFileResource(req, res, next) {
                 created_at: createdAt,
                 type,
                 resource_name: resourceName,
-                public_id: publicId
+                public_id: publicId,
+                file_name: file.originalname
             });
             const resourcesQuery = `SELECT * FROM resources WHERE url = '${secureUrl}'`;
             const [resourceResult] = await connection.query(resourcesQuery);

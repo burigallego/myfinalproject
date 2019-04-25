@@ -7,11 +7,13 @@ import { CreateCourseComponent } from './containers/create-course/create-course.
 import { AllCoursesComponent } from './containers/all-courses/all-courses.component';
 import { ResourcesComponent } from './containers/resources/resources.component';
 import { StudentsComponent } from './containers/students/students.component';
+import { AuthGuard } from '../auth/services/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'wall',

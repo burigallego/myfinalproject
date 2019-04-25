@@ -7,7 +7,11 @@
     }
 }
 
-
+.dledde {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .editdelete {
     display: flex;
     flex-direction: row;
@@ -19,5 +23,9 @@
 }
 
 .delete {
+    margin-right: 10px;
+}
+
+.dload {
     margin-right: 10px;
 }

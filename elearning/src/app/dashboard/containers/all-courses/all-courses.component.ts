@@ -25,9 +25,8 @@ export class AllCoursesComponent implements OnInit {
 
   searchForm = this.fb.group(
     {
-      q: ['', [Validators.required]],
+      q: [''],
     },
-    { updateOn: 'blur' }
   );
 
   constructor(private fb: FormBuilder, private store: Store) { }
