@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { CourseState } from '../../store/course.state';
-import { Observable } from 'rxjs';
+import { Observable, fromEvent } from 'rxjs';
 import { Course } from '../../dashboard.models';
 import { GetCourses, SearchCourses } from '../../store/course.actions';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -18,6 +18,9 @@ export class AllCoursesComponent implements OnInit {
   @Select(CourseState) courses$: Observable<Course[]>;
   @Select(AuthState) user$: Observable<Auth>;
 
+
+
+
   currentUser;
 
   searchForm = this.fb.group(
@@ -29,16 +32,21 @@ export class AllCoursesComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private store: Store) { }
 
+
+
   searchCourses() {
     if (this.searchForm.valid) {
       this.store.dispatch(new SearchCourses(this.searchForm.value));
     }
   }
+
+
   ngOnInit() {
     this.store.dispatch(new GetCourses);
     this.user$.subscribe(user => {
       this.currentUser = user
     });
+
   }
 
 }

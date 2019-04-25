@@ -34,13 +34,14 @@ import { EditCoursePopupComponent } from './containers/edit-course-popup/edit-co
 import { EditResourcePopupComponent } from './containers/edit-resource-popup/edit-resource-popup.component';
 import { ProfileState } from './store/profile.state';
 import { StudentsComponent } from './containers/students/students.component';
-import { StudentComponent } from './component/student/student.component';
+import { StudentComponent } from './components/student/student.component';
+import { ProfilePopupComponent } from './containers/profile-popup/profile-popup.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -71,6 +72,6 @@ import { StudentComponent } from './component/student/student.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
-  entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent],
+  entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, ProfilePopupComponent],
 })
 export class DashboardModule { }

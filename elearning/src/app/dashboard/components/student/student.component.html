@@ -1,0 +1,7 @@
+<div class="student">
+  <img src="{{student.avatarUrl}}" alt="foto de perfil">
+  <a mat-list-item routerLink="/my_account" *ngIf="isMe; else others">{{student.fullName}}</a>
+  <ng-template #others>
+    <a mat-list-item href="#" (click)="openDialog();false">{{student.fullName}}</a>
+  </ng-template>
+</div>
