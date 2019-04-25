@@ -36,6 +36,7 @@ import { ProfileState } from './store/profile.state';
 import { StudentsComponent } from './containers/students/students.component';
 import { StudentComponent } from './components/student/student.component';
 import { ProfilePopupComponent } from './containers/profile-popup/profile-popup.component';
+import { ErrorModule } from '../error/error.module';
 
 
 
@@ -66,6 +67,7 @@ import { ProfilePopupComponent } from './containers/profile-popup/profile-popup.
     MaterialFileInputModule,
     MatFileUploadModule,
     FontAwesomeModule,
+    ErrorModule,
     NgxsModule.forFeature([CourseState, ResourceState, AuthState, ProfileState])
 
   ],

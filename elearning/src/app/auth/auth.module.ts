@@ -16,6 +16,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
 import { FileUploaderComponent } from './containers/file-uploader/file-uploader.component';
 import { MatCardModule, MatMenuModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatSelectModule, MatRadioModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ErrorModule } from '../error/error.module';
 
 
 
@@ -42,6 +43,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    ErrorModule,
     NgxsModule.forFeature([AuthState])
   ],
   providers: [

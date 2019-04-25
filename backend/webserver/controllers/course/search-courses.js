@@ -7,7 +7,7 @@ async function searchCourses(req, res, next) {
     const { q } = req.query;
 
     const coursesQuery = `SELECT * FROM courses WHERE MATCH(title, description, creator_name)
-    AGAINST('${q}')`;
+    AGAINST('${q}*' in BOOLEAN MODE)`;
 
     try {
         const connection = await mysqlPool.getConnection();

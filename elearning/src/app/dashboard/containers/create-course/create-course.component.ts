@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { AddCourse } from '../../store/course.actions';
+import { GetUserProfile } from 'src/app/auth/store/auth.actions';
 
 @Component({
   selector: 'el-create-course',
@@ -28,5 +29,7 @@ export class CreateCourseComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 
 }

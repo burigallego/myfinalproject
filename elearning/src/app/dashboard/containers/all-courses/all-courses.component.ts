@@ -7,6 +7,7 @@ import { GetCourses, SearchCourses } from '../../store/course.actions';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthState } from 'src/app/auth/store/auth.state';
 import { Auth } from 'src/app/auth/auth.models';
+import { GetUserProfile } from 'src/app/auth/store/auth.actions';
 
 @Component({
   selector: 'el-all-courses',
@@ -41,10 +42,12 @@ export class AllCoursesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.store.dispatch(new GetCourses);
+    this.store.dispatch(new GetUserProfile());
     this.user$.subscribe(user => {
       this.currentUser = user
     });
+    this.store.dispatch(new GetCourses());
+
 
   }
 
