@@ -27,6 +27,7 @@ import {
 } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
 import { tap, catchError } from 'rxjs/operators';
+import { SetErrors } from 'src/app/error/store/error.actions';
 
 @State<Auth>({
     name: 'auth',
@@ -200,7 +201,7 @@ export class AuthState {
         UnsubscribeCourseFailed
     ])
     error({ dispatch }: StateContext<Auth>, { errors }: any) {
-        //dispatch(new SetErrors(errors));
+        dispatch(new SetErrors(errors));
         console.log(errors);
     }
 }

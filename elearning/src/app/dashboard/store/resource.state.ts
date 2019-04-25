@@ -3,6 +3,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
 import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess, DeleteFileFailed, DeleteFile, DeleteFileSuccess, EditResourceFailed, EditResource, EditResourceSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
+import { SetErrors } from 'src/app/error/store/error.actions';
 
 
 @State<Resource[]>({
@@ -128,7 +129,7 @@ export class ResourceState {
 
     @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed, DeleteFileFailed, EditResourceFailed])
     error({ dispatch }: StateContext<Resource[]>, { errors }: any) {
-        //dispatch(new SetErrors(errors));
+        dispatch(new SetErrors(errors));
         console.log(errors);
     }
 }

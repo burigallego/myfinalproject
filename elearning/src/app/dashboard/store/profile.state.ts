@@ -3,6 +3,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { tap, catchError } from 'rxjs/operators';
 import { Profile } from 'src/app/auth/auth.models';
 import { GetCourseUsersFailed, GetCourseUsers, GetCourseUsersSuccess } from './profile.actions';
+import { SetErrors } from 'src/app/error/store/error.actions';
 
 
 @State<Profile[]>({
@@ -36,7 +37,7 @@ export class ProfileState {
         GetCourseUsersFailed
     ])
     error({ dispatch }: StateContext<Profile>, { errors }: any) {
-        //dispatch(new SetErrors(errors));
+        dispatch(new SetErrors(errors));
         console.log(errors);
     }
 }

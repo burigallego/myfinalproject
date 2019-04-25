@@ -3,6 +3,7 @@ import { Course } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
 import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess, GetCourseFailed, GetCourse, GetCourseSuccess } from './course.actions';
+import { SetErrors } from 'src/app/error/store/error.actions';
 
 
 @State<Course[]>({
@@ -144,7 +145,7 @@ export class CourseState {
 
     @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed, GetCourseFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
-        //dispatch(new SetErrors(errors));
+        dispatch(new SetErrors(errors));
         console.log(errors);
     }
 }
