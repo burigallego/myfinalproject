@@ -1,6 +1,6 @@
 <div class="grid-container">
   <h1 class="mat-h1">My courses</h1>
-  <mat-grid-list cols="1" rowHeight="350px">
+  <mat-grid-list [cols]="cols" rowHeight="350px">
     <mat-grid-tile *ngFor="let course of courses$ | async">
       <el-card [course]="course" [user]="currentUser"></el-card>
     </mat-grid-tile>

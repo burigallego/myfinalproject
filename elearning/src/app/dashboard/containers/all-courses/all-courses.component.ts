@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { CourseState } from '../../store/course.state';
 import { Observable, fromEvent } from 'rxjs';
@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthState } from 'src/app/auth/store/auth.state';
 import { Auth } from 'src/app/auth/auth.models';
 import { GetUserProfile } from 'src/app/auth/store/auth.actions';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'el-all-courses',
@@ -19,7 +20,7 @@ export class AllCoursesComponent implements OnInit {
   @Select(CourseState) courses$: Observable<Course[]>;
   @Select(AuthState) user$: Observable<Auth>;
 
-
+  @Input() cols;
 
 
   currentUser;
@@ -30,7 +31,7 @@ export class AllCoursesComponent implements OnInit {
     },
   );
 
-  constructor(private fb: FormBuilder, private store: Store) { }
+  constructor(private fb: FormBuilder, private store: Store, private breakpointObserver: BreakpointObserver) { }
 
 
 
@@ -42,12 +43,17 @@ export class AllCoursesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.store.dispatch(new GetUserProfile());
+    //this.store.dispatch(new GetUserProfile());
     this.user$.subscribe(user => {
       this.currentUser = user
     });
     this.store.dispatch(new GetCourses());
-
+    this.breakpointObserver.observe('(max-width: 1200px)').subscribe(result => {
+      if (result.matches) {
+        this.cols = 1;
+      }
+      else this.cols = 2;
+    })
 
   }
 

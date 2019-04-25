@@ -4,6 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
 import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess, GetCourseFailed, GetCourse, GetCourseSuccess } from './course.actions';
 import { SetErrors } from 'src/app/error/store/error.actions';
+import { GetUserProfile } from 'src/app/auth/store/auth.actions';
 
 
 @State<Course[]>({
@@ -94,10 +95,11 @@ export class CourseState {
 
     @Action(AddCourseSuccess)
     addCourseSuccess(
-        { setState, getState }: StateContext<Course[]>,
+        { setState, getState, dispatch }: StateContext<Course[]>,
         { course }: AddCourseSuccess
     ) {
         setState([...getState(), course]);
+        dispatch(new GetUserProfile());
     }
 
     @Action(DeleteCourse)

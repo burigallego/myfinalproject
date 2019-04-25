@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 })
 export class BackButtonComponent {
 
+  @Input() color;
   constructor(private location: Location) { }
 
   goBack() {

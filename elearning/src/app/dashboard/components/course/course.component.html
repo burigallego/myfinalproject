@@ -12,10 +12,12 @@
   </mat-card-footer>
   <div class="buttons">
     <mat-card-actions>
-      <button mat-raised-button (click)="subscribe(); isSubscribing = true; isUnsubscribing = false" [disabled]="isSubscribing">Subscribe</button>
+      <button mat-raised-button color="primary" (click)="subscribe(); isSubscribing = true; isUnsubscribing = false"
+        [disabled]="isSubscribing">Subscribe</button>
     </mat-card-actions>
     <mat-card-actions class="unsubscribeButton">
-      <button mat-raised-button (click)="unsubscribe(); isUnsubscribing = true; isSubscribing = false;" [disabled]="isUnsubscribing">Unsubscribe</button>
+      <button mat-raised-button color="primary" (click)="unsubscribe(); isUnsubscribing = true; isSubscribing = false;"
+        [disabled]="isUnsubscribing">Unsubscribe</button>
     </mat-card-actions>
   </div>
 

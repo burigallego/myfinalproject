@@ -1,11 +1,18 @@
-<h4><b>Choose a profile image</b></h4>
+<div class="accountwrapper">
+    <div class="firstpart">
+        <h4><b>Choose a profile image</b></h4>
 
-<el-file-uploader [imageUrl]="profileImageUrl"></el-file-uploader>
+        <el-file-uploader class="uploader" [imageUrl]="profileImageUrl"></el-file-uploader>
 
-<hr />
+        <hr />
+    </div>
 
-<h4><b>Update you profile details</b></h4>
+    <div class="secondpart">
+        <h4><b>Update you profile details</b></h4>
 
-<el-profile></el-profile>
+        <el-profile class="profile"></el-profile>
 
-<el-back-button></el-back-button>
+        <el-back-button class="buttons" color="primary"></el-back-button>
+    </div>
+
+</div>

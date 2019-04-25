@@ -5,7 +5,6 @@ import { DeleteCourse, EditCourse } from '../../store/course.actions';
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { DeleteCourseDialogComponent } from '../../containers/delete-course-dialog/delete-course-dialog.component';
 import { EditCoursePopupComponent } from '../../containers/edit-course-popup/edit-course-popup.component';
-import { CourseComponent } from '../course/course.component';
 import { CourseRequest } from '../../dashboard.models';
 
 

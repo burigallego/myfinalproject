@@ -15,6 +15,7 @@
   .dashboard-card-content {
     text-align: center;
     font-size: 1.2rem;
+    word-break: break-all;
   }
   
   .dashboard-card-footer {
@@ -38,7 +39,7 @@
   .mat-card-content{
     flex-grow: 1;
     overflow: auto;
-    outline: 1px solid red;
+    outline: 1px solid gray;
     padding: 40px;
   }
 
@@ -54,4 +55,9 @@
 
   .edit {
     margin-right: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: blueviolet;
   }

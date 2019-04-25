@@ -25,3 +25,22 @@
 .col:last-child {
   margin-right: 0;
 }
+
+.uploader {
+  margin-left: 20px;
+}
+
+h4 {
+  margin-left: 20px;
+}
+
+.accountwrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.buttons {
+  margin-left: 10px;
+}

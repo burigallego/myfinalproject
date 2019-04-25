@@ -15,3 +15,7 @@ h1 {
     text-decoration: underline;
     margin: 10px;
 }
+
+.mat-raised-button {
+    margin-left: 20px;
+}

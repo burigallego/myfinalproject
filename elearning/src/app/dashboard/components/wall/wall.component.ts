@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Store, Select } from '@ngxs/store';
@@ -19,50 +19,24 @@ export class WallComponent implements OnInit {
   @Select(CourseState) courses$: Observable<Course[]>;
   @Select(AuthState) user$: Observable<Auth>;
 
+  @Input() cols;
 
   currentUser;
-  // userCourses;
 
-  // /** Based on the screen size, switch from standard to one column per row */
-  // cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-  //   map(({ matches }) => {
-  //     if (matches) {
-  //       return this.userCourses.map(course => {
-  //         course.rows = 1;
-  //         course.cols = 1;
-  //       })
-  //     }
 
-  //     // { title: 'Card 1', cols: 2, rows: 1 },
-  //     // { title: 'Card 2', cols: 1, rows: 1 },
-  //     // { title: 'Card 3', cols: 1, rows: 2 },
-  //     // { title: 'Card 4', cols: 1, rows: 1 }
 
-  //     return this.userCourses.map((course, index) => {
-  //       if (index % 4 == 0) {
-  //         course.cols = 2;
-  //         course.rows = 1;
-  //       }
-  //       if (index % 4 == 1) {
-  //         course.cols = 1;
-  //         course.rows = 1;
-  //       }
-  //       if (index % 4 == 2) {
-  //         course.cols = 1;
-  //         course.rows = 2;
-  //       }
-  //       if (index % 4 == 3) {
-  //         course.cols = 1;
-  //         course.rows = 1;
-  //       }
-  //     })
-  //   })
-  // );
+
 
   ngOnInit() {
     this.store.dispatch(new GetUserCourses());
     this.user$.subscribe(user => {
       this.currentUser = user;
+    })
+    this.breakpointObserver.observe('(max-width: 1200px)').subscribe(result => {
+      if (result.matches) {
+        this.cols = 1;
+      }
+      else this.cols = 2;
     })
   }
 
