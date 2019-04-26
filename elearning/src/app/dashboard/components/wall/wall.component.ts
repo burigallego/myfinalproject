@@ -21,7 +21,7 @@ export class WallComponent implements OnInit {
 
   @Input() cols;
 
-  currentUser;
+  // currentUser;
 
 
 
@@ -29,9 +29,9 @@ export class WallComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetUserCourses());
-    this.user$.subscribe(user => {
-      this.currentUser = user;
-    })
+    // this.user$.subscribe(user => {
+    //   this.currentUser = user;
+    // })
     this.breakpointObserver.observe('(max-width: 1200px)').subscribe(result => {
       if (result.matches) {
         this.cols = 1;

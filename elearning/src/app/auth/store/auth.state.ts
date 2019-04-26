@@ -28,6 +28,7 @@ import {
 import { Navigate } from '@ngxs/router-plugin';
 import { tap, catchError } from 'rxjs/operators';
 import { SetErrors } from 'src/app/error/store/error.actions';
+import { GetCourses } from 'src/app/dashboard/store/course.actions';
 
 @State<Auth>({
     name: 'auth',
@@ -109,8 +110,7 @@ export class AuthState {
         patchState({
             yourCourses: [...getState().yourCourses, courseCreator]
         });
-
-        dispatch(new Navigate(['/resources/', courseId]))
+        dispatch(new Navigate(['/resources/', courseId]));
     }
 
 
@@ -129,13 +129,12 @@ export class AuthState {
 
     @Action(UnsubscribeCourseSuccess)
     unsubscribeCourseSuccess(
-        { patchState, getState }: StateContext<Auth>,
+        { patchState, getState, dispatch }: StateContext<Auth>,
         { courseCreator }: UnsubscribeCourseSuccess
     ) {
         patchState({
             yourCourses: getState().yourCourses.filter(item => (item.course_id !== courseCreator.course_id))
         });
-
     }
 
 

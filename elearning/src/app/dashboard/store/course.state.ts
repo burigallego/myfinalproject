@@ -99,7 +99,6 @@ export class CourseState {
         { course }: AddCourseSuccess
     ) {
         setState([...getState(), course]);
-        dispatch(new GetUserProfile());
     }
 
     @Action(DeleteCourse)

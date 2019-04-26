@@ -1,4 +1,4 @@
-<el-resource-forms *ngIf="((course.creator == currentUser.uuid) && (currentUser.role == 'admin'))"></el-resource-forms>
+<el-resource-forms *ngIf="((user$ | async) && (courses$ | async) && (course.creator == currentUser.uuid) && (currentUser.role == 'admin'))"></el-resource-forms>
 
 
 <div class="header">
@@ -9,9 +9,11 @@
 </div>
 
 <mat-nav-list class="resourceList">
+  <ng-container *ngIf="(user$ | async) as currentUser">
+    <div *ngFor="let resource of resources$ | async">
+      <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
+    </div>
+  </ng-container>
 
-  <div *ngFor="let resource of resources$ | async">
-    <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
-  </div>
 
 </mat-nav-list>

@@ -23,7 +23,7 @@ export class AllCoursesComponent implements OnInit {
   @Input() cols;
 
 
-  currentUser;
+  ;
 
   searchForm = this.fb.group(
     {
@@ -44,9 +44,9 @@ export class AllCoursesComponent implements OnInit {
 
   ngOnInit() {
     //this.store.dispatch(new GetUserProfile());
-    this.user$.subscribe(user => {
-      this.currentUser = user
-    });
+    // this.user$.subscribe(user => {
+    //   this.currentUser = user
+    // });
     this.store.dispatch(new GetCourses());
     this.breakpointObserver.observe('(max-width: 1200px)').subscribe(result => {
       if (result.matches) {
