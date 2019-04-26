@@ -103,3 +103,33 @@ export class EditCourseFailed {
     static type = '[Dashboard] EditCourseFailed';
     constructor(public errors: Error[]) { }
 }
+
+export class SubscribeCourse {
+    static readonly type = '[Auth] SubscribeCourse';
+    constructor(public courseId: number) { }
+}
+
+export class SubscribeCourseSuccess {
+    static readonly type = '[Auth] SubscribeCourseSuccess';
+    constructor(public courseId: number) { }
+}
+
+export class SubscribeCourseFailed {
+    static type = '[Auth] SubscribeCourseFailed';
+    constructor(public errors: Error[]) { }
+}
+
+export class UnsubscribeCourse {
+    static readonly type = '[Auth] UnsubscribeCourse';
+    constructor(public courseId: number) { }
+}
+
+export class UnsubscribeCourseSuccess {
+    static readonly type = '[Auth] UnsubscribeCourseSuccess';
+    constructor(public courseId: number) { }
+}
+
+export class UnsubscribeCourseFailed {
+    static type = '[Auth] UnsubscribeCourseFailed';
+    constructor(public errors: Error[]) { }
+}

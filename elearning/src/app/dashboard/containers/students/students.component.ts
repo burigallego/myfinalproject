@@ -24,7 +24,7 @@ export class StudentsComponent implements OnInit {
       this.store.dispatch(new GetCourseUsers(routeParams.courseId));
       this.courseId = routeParams.courseId;
     });
-    this.user$.subscribe(user => this.currentUser = user);
+    // this.user$.subscribe(user => this.currentUser = user);
   }
 
 }

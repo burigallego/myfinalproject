@@ -1,7 +1,9 @@
 .example-container {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 150px;
+
+
 }
   
 .example-container > .mat-form-field {
@@ -14,3 +16,4 @@ button {
     width: 20%;
     margin: 0 auto;
 }
+

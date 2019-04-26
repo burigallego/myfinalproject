@@ -56,7 +56,8 @@ async function createCourse(req, res, next) {
         await insertCourse(title, description, uuid);
 
         const connection = await mysqlPool.getConnection();
-
+        const now = new Date();
+        const subscribedAt = now.toISOString().substring(0, 19).replace('T', ' ');
         const usersQuery = `SELECT id FROM users WHERE uuid = '${uuid}'`;
         const coursesQuery = `SELECT * FROM courses WHERE title = '${title}'`;
         const [userResult] = await connection.query(usersQuery);
@@ -67,6 +68,7 @@ async function createCourse(req, res, next) {
         await connection.query('INSERT INTO users_courses SET ?', {
             user_id: userId,
             course_id: courseId,
+            subscribed_at: subscribedAt
         });
         connection.release();
         return res.status(200).send(course);

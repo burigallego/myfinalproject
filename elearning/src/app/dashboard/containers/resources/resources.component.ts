@@ -23,11 +23,11 @@ export class ResourcesComponent implements OnInit {
 
   @Select(ResourceState) resources$: Observable<Resource[]>;
   @Select(AuthState) user$: Observable<Auth>;
-  @Select(CourseState) courses$: Observable<Course[]>;
+  @Select(CourseState.getCourse) course$: Observable<Course[]>;
 
   studentsIcon = faGraduationCap;
-  course;
-  currentUser;
+  // course;
+  // currentUser;
   constructor(
     private store: Store,
     private route: ActivatedRoute
@@ -37,13 +37,13 @@ export class ResourcesComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.store.dispatch(new GetCourseResources(routeParams.courseId));
       this.store.dispatch(new GetCourse(routeParams.courseId))
-      this.courses$.subscribe(courses => {
-        [this.course] = courses
-      });
+      // this.course$.subscribe(course => {
+      //   this.course = course
+      // });
     });
-    this.user$.subscribe(user => {
-      this.currentUser = user;
-    });
+    // this.user$.subscribe(user => {
+    //   this.currentUser = user;
+    // });
   }
 
 

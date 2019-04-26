@@ -16,7 +16,7 @@ import { Auth } from 'src/app/auth/auth.models';
 })
 export class WallComponent implements OnInit {
 
-  @Select(CourseState) courses$: Observable<Course[]>;
+  @Select(CourseState.getMyCourses) courses$: Observable<Course[]>;
   @Select(AuthState) user$: Observable<Auth>;
 
   @Input() cols;

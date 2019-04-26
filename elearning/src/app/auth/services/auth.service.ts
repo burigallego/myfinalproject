@@ -57,20 +57,7 @@ export class AuthService {
         });
     }
 
-    subscribeCourse(courseId) {
-        const params = new HttpParams()
-            .set('courseId', `${courseId}`);
 
-        return this.http.get(`${environment.apiBaseUrl}/course/subscription`, { params });
-    }
-
-
-    unsubscribeCourse(courseId: number) {
-        const params = new HttpParams()
-            .set('courseId', `${courseId}`);
-
-        return this.http.delete(`${environment.apiBaseUrl}/course/subscription`, { params });
-    }
 
     logout() {
         localStorage.removeItem('auth');

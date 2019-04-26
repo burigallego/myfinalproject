@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UnsubscribeCourse, SubscribeCourse } from 'src/app/auth/store/auth.actions';
+import { SubscribeCourse, UnsubscribeCourse } from '../../store/course.actions';
 
 @Component({
   selector: 'el-course',
@@ -12,26 +12,10 @@ export class CourseComponent implements OnInit {
   @Input() course;
   @Input() user;
 
-  subscribedCourse;
-  isCreator: boolean;
-  isSubscribing;
-  isUnsubscribing;
+
   constructor(private store: Store) { }
 
   ngOnInit() {
-    while (!this.user) {
-
-    }
-    if (this.user && this.user.yourCourses) {
-      this.subscribedCourse = this.user.yourCourses.filter(item => (item.course_id == this.course.course_id));
-      if (this.subscribedCourse.length !== 0) {
-        this.isCreator = (this.user.uuid === this.subscribedCourse[0].creator);
-      } else {
-        this.isCreator = false;
-      };
-      this.isSubscribing = ((this.isCreator == true) || (this.subscribedCourse.length !== 0));
-      this.isUnsubscribing = ((this.isCreator == true) || (this.subscribedCourse.length === 0));
-    }
 
   }
 

@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { CourseState } from '../../store/course.state';
 import { Observable, fromEvent } from 'rxjs';
 import { Course } from '../../dashboard.models';
-import { GetCourses, SearchCourses } from '../../store/course.actions';
+import { GetCourses, SearchCourses, GetUserCourses } from '../../store/course.actions';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthState } from 'src/app/auth/store/auth.state';
 import { Auth } from 'src/app/auth/auth.models';
@@ -17,7 +17,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class AllCoursesComponent implements OnInit {
 
-  @Select(CourseState) courses$: Observable<Course[]>;
+  @Select(CourseState.getSubscribedStatusCourses) allCourses$: Observable<Course[]>;
+  @Select(CourseState.getMyCourses) myCourses$: Observable<Course[]>
   @Select(AuthState) user$: Observable<Auth>;
 
   @Input() cols;
@@ -48,6 +49,7 @@ export class AllCoursesComponent implements OnInit {
     //   this.currentUser = user
     // });
     this.store.dispatch(new GetCourses());
+    this.store.dispatch(new GetUserCourses());
     this.breakpointObserver.observe('(max-width: 1200px)').subscribe(result => {
       if (result.matches) {
         this.cols = 1;

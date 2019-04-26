@@ -5,8 +5,14 @@ export interface Course {
     creator: string;
     description: string;
     creator_name: string;
+    isSubscribed: boolean;
 }
 
+export interface Courses {
+    myCourses: Course[];
+    allCourses: Course[];
+    course: Course;
+}
 export interface CourseRequest {
     title: string;
     description: string;

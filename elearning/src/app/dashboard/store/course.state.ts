@@ -1,22 +1,65 @@
-import { State, Store, StateContext, Action } from '@ngxs/store';
-import { Course } from '../dashboard.models';
+import { State, Store, StateContext, Action, Selector } from '@ngxs/store';
+import { Course, Courses } from '../dashboard.models';
 import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
-import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess, GetCourseFailed, GetCourse, GetCourseSuccess } from './course.actions';
+import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess, GetCourseFailed, GetCourse, GetCourseSuccess, SubscribeCourse, SubscribeCourseSuccess, SubscribeCourseFailed, UnsubscribeCourseFailed, UnsubscribeCourse, UnsubscribeCourseSuccess } from './course.actions';
 import { SetErrors } from 'src/app/error/store/error.actions';
 import { GetUserProfile } from 'src/app/auth/store/auth.actions';
+import { Navigate } from '@ngxs/router-plugin';
 
 
-@State<Course[]>({
+@State<Courses>({
     name: 'courses',
-    defaults: []
+    defaults: {
+        myCourses: [],
+        allCourses: [],
+        course: null,
+    }
 })
 
 export class CourseState {
     constructor(private store: Store, private dashboardService: DashboardService) { }
 
+
+    @Selector()
+    static getAllCourses({ allCourses }: Courses) {
+        return allCourses;
+    }
+
+    @Selector()
+    static getMyCourses({ myCourses }: Courses) {
+        return myCourses;
+    }
+
+    @Selector()
+    static getCourse({ course }: Courses) {
+        return course;
+    }
+
+    @Selector()
+    static getSubscribedStatusCourses({ myCourses, allCourses }: Courses) {
+
+        const subscribedCourses = allCourses.map((course) => {
+            const courseInMyCourses = myCourses.filter(item => (item.course_id == course.course_id));
+            if (courseInMyCourses.length > 0) {
+                return {
+                    ...course,
+                    isSubscribed: true
+                }
+            } else return {
+                ...course,
+                isSubscribed: false
+            }
+
+        })
+
+        return subscribedCourses
+    }
+
+
+
     @Action(GetUserCourses)
-    getUserCourses({ dispatch }: StateContext<Course[]>, action: GetUserCourses) {
+    getUserCourses({ dispatch }: StateContext<Courses>, action: GetUserCourses) {
         return this.dashboardService.getUserCourses().pipe(
             tap(courses => dispatch(new GetUserCoursesSuccess(courses))),
             catchError(error => dispatch(new GetUserCoursesFailed(error.error)))
@@ -25,15 +68,17 @@ export class CourseState {
 
     @Action(GetUserCoursesSuccess)
     getUserCoursesSuccess(
-        { setState }: StateContext<Course[]>,
+        { patchState }: StateContext<Courses>,
         { courses }: GetUserCoursesSuccess
     ) {
-        setState(courses);
+        patchState({
+            myCourses: courses
+        })
 
     }
 
     @Action(GetCourses)
-    getCourses({ dispatch }: StateContext<Course[]>, action: GetCourses) {
+    getCourses({ dispatch }: StateContext<Courses>, action: GetCourses) {
         return this.dashboardService.getCourses().pipe(
             tap(courses => dispatch(new GetCoursesSuccess(courses))),
             catchError(error => dispatch(new GetCoursesFailed(error.error)))
@@ -42,15 +87,17 @@ export class CourseState {
 
     @Action(GetCoursesSuccess)
     getCoursesSuccess(
-        { setState }: StateContext<Course[]>,
+        { patchState }: StateContext<Courses>,
         { courses }: GetCoursesSuccess
     ) {
-        setState(courses);
+        patchState({
+            allCourses: courses
+        });
 
     }
 
     @Action(GetCourse)
-    getCourse({ dispatch }: StateContext<Course[]>, { courseId }: GetCourse) {
+    getCourse({ dispatch }: StateContext<Courses>, { courseId }: GetCourse) {
         return this.dashboardService.getCourse(courseId).pipe(
             tap(course => dispatch(new GetCourseSuccess(course))),
             catchError(error => dispatch(new GetCourseFailed(error.error)))
@@ -59,15 +106,17 @@ export class CourseState {
 
     @Action(GetCourseSuccess)
     getCourseSuccess(
-        { setState }: StateContext<Course[]>,
+        { patchState }: StateContext<Courses>,
         { course }: GetCourseSuccess
     ) {
-        setState([course]);
+        patchState({
+            course: { ...course }
+        });
 
     }
 
     @Action(SearchCourses)
-    searchCourses({ dispatch }: StateContext<Course[]>, { searchRequest }: SearchCourses) {
+    searchCourses({ dispatch }: StateContext<Courses>, { searchRequest }: SearchCourses) {
         return this.dashboardService.searchCourses(searchRequest).pipe(
             tap(courses => dispatch(new SearchCoursesSuccess(courses))),
             catchError(error => dispatch(new SearchCoursesFailed(error.error)))
@@ -76,17 +125,19 @@ export class CourseState {
 
     @Action(SearchCoursesSuccess)
     searchCoursesSuccess(
-        { setState }: StateContext<Course[]>,
+        { patchState }: StateContext<Courses>,
         { courses }: SearchCoursesSuccess
     ) {
-        setState(courses);
+        patchState({
+            allCourses: courses
+        });
 
     }
 
 
 
     @Action(AddCourse)
-    addCourse({ dispatch }: StateContext<Course[]>, { courseRequest }: AddCourse) {
+    addCourse({ dispatch }: StateContext<Courses>, { courseRequest }: AddCourse) {
         return this.dashboardService.addCourse(courseRequest).pipe(
             tap(course => dispatch(new AddCourseSuccess(course))),
             catchError(error => dispatch(new AddCourseFailed(error.error)))
@@ -95,14 +146,17 @@ export class CourseState {
 
     @Action(AddCourseSuccess)
     addCourseSuccess(
-        { setState, getState, dispatch }: StateContext<Course[]>,
+        { patchState, getState, dispatch }: StateContext<Courses>,
         { course }: AddCourseSuccess
     ) {
-        setState([...getState(), course]);
+        patchState({
+            myCourses: [...getState().myCourses, course],
+            allCourses: [...getState().allCourses, course]
+        });
     }
 
     @Action(DeleteCourse)
-    deleteCourse({ dispatch }: StateContext<Course[]>, { courseId }: DeleteCourse) {
+    deleteCourse({ dispatch }: StateContext<Courses>, { courseId }: DeleteCourse) {
         return this.dashboardService.deleteCourse(courseId).pipe(
             tap(() => dispatch(new DeleteCourseSuccess(courseId))),
             catchError(error => dispatch(new DeleteCourseFailed(error.error)))
@@ -111,14 +165,17 @@ export class CourseState {
 
     @Action(DeleteCourseSuccess)
     deleteCourseSuccess(
-        { setState, getState }: StateContext<Course[]>,
+        { patchState, getState }: StateContext<Courses>,
         { courseId }: DeleteCourseSuccess
     ) {
-        setState(getState().filter(course => (course.course_id != courseId)));
+        patchState({
+            myCourses: getState().myCourses.filter(course => (course.course_id != courseId)),
+            allCourses: getState().allCourses.filter(course => (course.course_id != courseId))
+        })
     }
 
     @Action(EditCourse)
-    editCourse({ dispatch }: StateContext<Course[]>, { courseRequest, courseId }: EditCourse) {
+    editCourse({ dispatch }: StateContext<Courses>, { courseRequest, courseId }: EditCourse) {
         return this.dashboardService.editCourse(courseRequest, courseId).pipe(
             tap(() => dispatch(new EditCourseSuccess(courseRequest, courseId))),
             catchError(error => dispatch(new EditCourseFailed(error.error)))
@@ -127,24 +184,84 @@ export class CourseState {
 
     @Action(EditCourseSuccess)
     editCourseSuccess(
-        { setState, getState }: StateContext<Course[]>,
+        { patchState, getState }: StateContext<Courses>,
         { courseRequest, courseId }: EditCourseSuccess
     ) {
-        setState(getState().map(course => {
-            if (course.course_id == courseId) {
-                {
-                    return {
-                        ...course,
-                        title: courseRequest.title,
-                        description: courseRequest.description
+        patchState({
+            myCourses: getState().myCourses.map(course => {
+                if (course.course_id == courseId) {
+                    {
+                        return {
+                            ...course,
+                            title: courseRequest.title,
+                            description: courseRequest.description
+                        }
                     }
                 }
-            }
-            return course;
-        }));
+                return course;
+            }),
+            allCourses: getState().allCourses.map(course => {
+                if (course.course_id == courseId) {
+                    {
+                        return {
+                            ...course,
+                            title: courseRequest.title,
+                            description: courseRequest.description
+                        }
+                    }
+                }
+                return course;
+            })
+        });
     }
 
-    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed, GetCourseFailed])
+    @Action(SubscribeCourse)
+    subscribeCourse({ dispatch }: StateContext<Courses>, { courseId }: SubscribeCourse) {
+
+
+
+        return this.dashboardService.subscribeCourse(courseId).pipe(
+            tap(() => dispatch(new SubscribeCourseSuccess(courseId))),
+            catchError(error => dispatch(new SubscribeCourseFailed(error.error)))
+        );
+    }
+
+    @Action(SubscribeCourseSuccess)
+    subscribeCourseSuccess(
+        { dispatch, patchState, getState }: StateContext<Courses>,
+        { courseId }: SubscribeCourseSuccess
+    ) {
+        const [newCourse] = getState().allCourses.filter(course => (course.course_id == courseId))
+        patchState({
+            myCourses: [...getState().myCourses, newCourse]
+        });
+        dispatch(new Navigate(['/resources/', courseId]));
+    }
+
+
+    @Action(UnsubscribeCourse)
+    unsubscribeCourse({ dispatch }: StateContext<Courses>, { courseId }: UnsubscribeCourse) {
+
+        return this.dashboardService.unsubscribeCourse(courseId).pipe(
+            tap(() =>
+                dispatch(new UnsubscribeCourseSuccess(courseId))
+            ),
+            catchError(error => dispatch(new UnsubscribeCourseFailed(error.error)))
+        );
+    }
+
+    @Action(UnsubscribeCourseSuccess)
+    unsubscribeCourseSuccess(
+        { patchState, getState, dispatch }: StateContext<Courses>,
+        { courseId }: UnsubscribeCourseSuccess
+    ) {
+        patchState({
+            myCourses: getState().myCourses.filter(course => (course.course_id !== courseId))
+        });
+    }
+
+    @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed, GetCourseFailed, SubscribeCourseFailed,
+        UnsubscribeCourseFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         dispatch(new SetErrors(errors));
         console.log(errors);

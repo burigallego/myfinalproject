@@ -48,6 +48,21 @@ export class DashboardService {
         return this.http.get<Resource[]>(`${environment.apiBaseUrl}/resource`, { params });
     }
 
+    subscribeCourse(courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.get(`${environment.apiBaseUrl}/course/subscription`, { params });
+    }
+
+
+    unsubscribeCourse(courseId: number) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.delete(`${environment.apiBaseUrl}/course/subscription`, { params });
+    }
+
     createLink({ url, resourceName }: LinkRequest, courseId) {
         const params = new HttpParams()
             .set('courseId', `${courseId}`);
