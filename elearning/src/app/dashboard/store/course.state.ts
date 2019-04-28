@@ -4,8 +4,9 @@ import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
 import { GetUserCourses, GetUserCoursesSuccess, GetUserCoursesFailed, AddCourseFailed, AddCourse, AddCourseSuccess, GetCoursesFailed, GetCourses, GetCoursesSuccess, SearchCoursesFailed, SearchCourses, SearchCoursesSuccess, DeleteCourseFailed, DeleteCourse, DeleteCourseSuccess, EditCourseFailed, EditCourse, EditCourseSuccess, GetCourseFailed, GetCourse, GetCourseSuccess, SubscribeCourse, SubscribeCourseSuccess, SubscribeCourseFailed, UnsubscribeCourseFailed, UnsubscribeCourse, UnsubscribeCourseSuccess } from './course.actions';
 import { SetErrors } from 'src/app/error/store/error.actions';
-import { GetUserProfile } from 'src/app/auth/store/auth.actions';
+import { GetUserProfile, Logout } from 'src/app/auth/store/auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @State<Courses>({
@@ -18,7 +19,7 @@ import { Navigate } from '@ngxs/router-plugin';
 })
 
 export class CourseState {
-    constructor(private store: Store, private dashboardService: DashboardService) { }
+    constructor(private store: Store, private dashboardService: DashboardService, private authService: AuthService) { }
 
 
     @Selector()
@@ -260,10 +261,21 @@ export class CourseState {
         });
     }
 
+    @Action(Logout)
+    logout({ setState, dispatch }: StateContext<Courses>) {
+        this.authService.logout();
+        setState({
+            myCourses: [],
+            allCourses: [],
+            course: null,
+        });
+    }
+
     @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed, GetCourseFailed, SubscribeCourseFailed,
         UnsubscribeCourseFailed])
     error({ dispatch }: StateContext<Course[]>, { errors }: any) {
         dispatch(new SetErrors(errors));
         console.log(errors);
     }
+
 }

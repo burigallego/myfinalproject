@@ -4,6 +4,8 @@ import { DashboardService } from '../services/dashboard.service';
 import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess, DeleteFileFailed, DeleteFile, DeleteFileSuccess, EditResourceFailed, EditResource, EditResourceSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
 import { SetErrors } from 'src/app/error/store/error.actions';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Logout } from 'src/app/auth/store/auth.actions';
 
 
 @State<Resource[]>({
@@ -12,7 +14,7 @@ import { SetErrors } from 'src/app/error/store/error.actions';
 })
 
 export class ResourceState {
-    constructor(private store: Store, private dashboardService: DashboardService) { }
+    constructor(private store: Store, private dashboardService: DashboardService, private authService: AuthService) { }
 
 
     @Action(GetCourseResources)
@@ -122,7 +124,11 @@ export class ResourceState {
         }));
     }
 
-
+    @Action(Logout)
+    logout({ setState, dispatch }: StateContext<Resource[]>) {
+        this.authService.logout();
+        setState([]);
+    }
 
 
 

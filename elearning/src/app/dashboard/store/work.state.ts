@@ -4,6 +4,9 @@ import { tap, catchError } from 'rxjs/operators';
 import { SetErrors } from 'src/app/error/store/error.actions';
 import { Work } from '../dashboard.models';
 import { SendWorkFailed, SendWork, SendWorkSuccess, GetWorksFailed, GetWorks, GetWorksSuccess } from './work.actions';
+import { Logout } from 'src/app/auth/store/auth.actions';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Navigate } from '@ngxs/router-plugin';
 
 @State<Work>({
     name: 'work',
@@ -12,7 +15,7 @@ import { SendWorkFailed, SendWork, SendWorkSuccess, GetWorksFailed, GetWorks, Ge
 
 export class WorkState {
 
-    constructor(private store: Store, private dashboardService: DashboardService) { }
+    constructor(private store: Store, private dashboardService: DashboardService, private authService: AuthService) { }
 
 
 
@@ -47,6 +50,12 @@ export class WorkState {
             courseId,
             url: response.headers.get('Location')
         })
+    }
+
+    @Action(Logout)
+    logout({ setState, dispatch }: StateContext<Work>) {
+        this.authService.logout();
+        setState(null);
     }
 
     @Action([

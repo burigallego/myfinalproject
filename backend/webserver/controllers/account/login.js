@@ -83,7 +83,7 @@ async function login(req, res, next) {
             return res.status(200).json(response);
         }
         connection.release();
-        return res.status(404).send();
+        return res.status(404).send(e);
     } catch (e) {
         console.log(e);
         return res.status(500).send(e.message);

@@ -4,6 +4,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { Profile } from 'src/app/auth/auth.models';
 import { GetCourseUsersFailed, GetCourseUsers, GetCourseUsersSuccess } from './profile.actions';
 import { SetErrors } from 'src/app/error/store/error.actions';
+import { Logout } from 'src/app/auth/store/auth.actions';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @State<Profile[]>({
@@ -13,7 +15,7 @@ import { SetErrors } from 'src/app/error/store/error.actions';
 
 export class ProfileState {
 
-    constructor(private store: Store, private dashboardService: DashboardService) { }
+    constructor(private store: Store, private dashboardService: DashboardService, private authService: AuthService) { }
 
     @Action(GetCourseUsers)
     getCourseUsers({ dispatch }: StateContext<Profile[]>, { courseId }: GetCourseUsers) {
@@ -31,6 +33,12 @@ export class ProfileState {
         { users }: GetCourseUsersSuccess
     ) {
         setState(users);
+    }
+
+    @Action(Logout)
+    logout({ setState, dispatch }: StateContext<Profile[]>) {
+        this.authService.logout();
+        setState([]);
     }
 
     @Action([
