@@ -46,7 +46,8 @@ async function sendFile(req, res, next) {
         resource_type: 'auto',
         public_id: publicId,
         folder: `works${courseId}`,
-        tags: courseId
+        tags: courseId,
+
     }, async (err, result) => {
         if (err) {
             console.error('hubo error', err);

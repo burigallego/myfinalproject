@@ -1,6 +1,7 @@
 'use strict';
 
 const cloudinary = require('cloudinary');
+const mysqlPool = require('../../../databases/mysql-pool');
 
 const cloudName = process.env.CLOUDINARI_CLOUD_NAME;
 const apiKey = process.env.CLOUDINARI_API_KEY;
@@ -20,10 +21,14 @@ async function getCourseResources(req, res, next) {
     if (role !== 'admin') {
         return res.status(403).send();
     }
+    const fileQuery = `SELECT course_id FROM works where course_id = '${courseId}'`;
 
     try {
-
-
+        const connection = await mysqlPool.getConnection();
+        const [result] = await connection.query(fileQuery);
+        if (result.length == 0) {
+            return res.send('No files');
+        }
         const url = cloudinary.v2.utils.download_zip_url(
             { tags: courseId });
         res.header('Location', url);

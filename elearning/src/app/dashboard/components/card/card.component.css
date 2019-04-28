@@ -41,6 +41,7 @@
     overflow: auto;
     outline: 1px solid gray;
     padding: 40px;
+    background-color: lightgray;
   }
 
   .title {
