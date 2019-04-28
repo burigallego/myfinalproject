@@ -7,6 +7,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ClickPreventDefaultDirective } from './directives/click-prevent-default.directive';
 import { BackButtonComponent } from './containers/back-button/back-button.component';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxsModule } from '@ngxs/store';
+import { ErrorState } from '../error/store/error.state';
 
 
 
@@ -15,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [PageNotFoundComponent, ClickPreventDefaultDirective, BackButtonComponent],
   imports: [
-    CommonModule, FontAwesomeModule, RouterModule, MatGridListModule, MatButtonModule],
+    CommonModule, FontAwesomeModule, RouterModule, MatGridListModule, MatButtonModule, NgxsModule.forFeature([ErrorState])
+  ],
   exports: [ClickPreventDefaultDirective, PageNotFoundComponent, BackButtonComponent]
 })
 export class SharedModule { }

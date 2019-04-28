@@ -92,3 +92,5 @@ export class EditResourceFailed {
     static type = '[Dashboard] EditResourceFailed';
     constructor(public errors: Error[]) { }
 }
+
+

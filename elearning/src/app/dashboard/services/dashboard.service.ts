@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Course, Resource, LinkRequest, FileRequest, CourseRequest, ResourceRequest } from '../dashboard.models';
+import { Course, Resource, LinkRequest, FileRequest, CourseRequest, ResourceRequest, WorkRequest } from '../dashboard.models';
 import { Profile } from 'src/app/auth/auth.models';
 
 @Injectable({
@@ -124,6 +124,25 @@ export class DashboardService {
             .set('courseId', `${courseId}`);
 
         return this.http.get<Profile[]>(`${environment.apiBaseUrl}/user/course`, { params });
+    }
+
+    sendWork({ file }: WorkRequest, courseId) {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        return this.http.post(`${environment.apiBaseUrl}/work`, formData, { params });
+
+    }
+
+    getWorks(courseId): Observable<HttpResponse<any>> {
+        const params = new HttpParams()
+            .set('courseId', `${courseId}`);
+
+        return this.http.get(`${environment.apiBaseUrl}/work`, { observe: 'response', params });
+
     }
 }
 

@@ -44,3 +44,12 @@ export interface FileRequest {
 export interface ResourceRequest {
     resourceName: string;
 }
+
+export interface WorkRequest {
+    file: File;
+}
+
+export interface Work {
+    courseId: number;
+    url: string;
+}

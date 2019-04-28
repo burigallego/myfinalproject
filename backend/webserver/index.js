@@ -31,6 +31,7 @@ app.use('/api', routes.accountRouter);
 app.use('/api', routes.userRouter);
 app.use('/api', routes.courseRouter);
 app.use('/api', routes.resourceRouter);
+app.use('/api', routes.workRouter);
 
 
 

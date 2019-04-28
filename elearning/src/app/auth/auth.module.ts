@@ -17,6 +17,7 @@ import { FileUploaderComponent } from './containers/file-uploader/file-uploader.
 import { MatCardModule, MatMenuModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatSelectModule, MatRadioModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ErrorModule } from '../error/error.module';
+import { ErrorState } from '../error/store/error.state';
 
 
 
@@ -44,7 +45,7 @@ import { ErrorModule } from '../error/error.module';
     MatInputModule,
     MatButtonModule,
     ErrorModule,
-    NgxsModule.forFeature([AuthState])
+    NgxsModule.forFeature([AuthState, ErrorState])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

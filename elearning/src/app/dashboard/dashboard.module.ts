@@ -37,12 +37,15 @@ import { StudentsComponent } from './containers/students/students.component';
 import { StudentComponent } from './components/student/student.component';
 import { ProfilePopupComponent } from './containers/profile-popup/profile-popup.component';
 import { ErrorModule } from '../error/error.module';
+import { ErrorState } from '../error/store/error.state';
+import { WorkUploadComponent } from './containers/work-upload/work-upload.component';
+import { WorkState } from './store/work.state';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -68,7 +71,7 @@ import { ErrorModule } from '../error/error.module';
     MatFileUploadModule,
     FontAwesomeModule,
     ErrorModule,
-    NgxsModule.forFeature([CourseState, ResourceState, AuthState, ProfileState])
+    NgxsModule.forFeature([CourseState, ResourceState, AuthState, ProfileState, ErrorState, WorkState])
 
   ],
   providers: [

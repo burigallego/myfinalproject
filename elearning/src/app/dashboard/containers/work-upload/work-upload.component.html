@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <form class="form-container" [formGroup]="workForm" (ngSubmit)="addWork()">
+
+    <div class="example-container">
+
+      <mat-form-field>
+        <ngx-mat-file-input type="file" placeholder="File" formControlName="file" (change)="onFileChange($event)"
+          #fileInput></ngx-mat-file-input>
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-raised-button type="submit">Upload Work</button>
+      </div>
+
+    </div>
+
+  </form>
+
+  <div class="download" target="_blank" *ngIf="(course.creator == user.uuid)">
+    <a [href]="work.url">
+      <fa-icon [icon]="downloadIcon"></fa-icon>
+    </a>
+  </div>
+</div>

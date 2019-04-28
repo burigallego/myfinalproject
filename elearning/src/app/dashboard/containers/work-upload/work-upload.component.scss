@@ -1,0 +1,34 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+
+}
+  
+.example-container > .mat-form-field {
+    width: 100%;
+}
+
+.buttons {
+   display: flex;
+   flex-direction: row;
+
+}
+
+.wrapper {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+
+}
+
+fa-icon {
+    font-size: 1.5rem;
+}
+
+.download {
+    margin: 20px 0;
+}
