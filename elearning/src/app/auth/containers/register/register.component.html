@@ -4,14 +4,18 @@
   <mat-form-field>
     <input matInput type="text" placeholder="Full Name" formControlName="fullName">
   </mat-form-field>
+  <mat-error *ngIf="registerForm.get('fullName').invalid">{{getErrorName()}}</mat-error>
   <mat-form-field>
     <input matInput type="email" placeholder="Email" formControlName="email">
+    <mat-error *ngIf="registerForm.get('email').invalid">{{getErrorEmail()}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" formControlName="password">
+    <mat-error *ngIf="registerForm.get('password').invalid">{{getErrorPassword()}}</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+    <input matInput [errorStateMatcher]="matcher" type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+    <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</mat-error>
   </mat-form-field>
   <button mat-raised-button type="submit">Register</button>
 </form>

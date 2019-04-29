@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MatDialogModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatRadioModule } from '@angular/material';
+import { MatDialogModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatSelectModule, MatRadioModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { WallComponent } from './components/wall/wall.component';
 import { MyAccountComponent } from './containers/my-account/my-account.component';
@@ -76,7 +76,9 @@ import { AuthGuard } from '../auth/services/auth.guard';
 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+
   ],
   entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, ProfilePopupComponent],
 })

@@ -2,9 +2,11 @@
   <el-error></el-error>
   <mat-form-field>
     <input matInput type="email" placeholder="Email" formControlName="email">
+    <mat-error *ngIf="loginForm.get('email').invalid">{{getErrorEmail()}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" formControlName="password">
+    <mat-error *ngIf="loginForm.get('password').invalid">{{getErrorPassword()}}</mat-error>
   </mat-form-field>
   <button mat-raised-button type="submit">Login</button>
 </form>

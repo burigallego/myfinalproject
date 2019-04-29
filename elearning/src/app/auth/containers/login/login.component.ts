@@ -13,13 +13,23 @@ import { Login } from '../../store/auth.actions';
 export class LoginComponent {
   loginForm = this.fb.group(
     {
-      email: ['', [Validators.required, MailValidator]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     },
     { updateOn: 'blur' }
   );
 
   constructor(private fb: FormBuilder, private store: Store) { }
+
+  getErrorEmail() {
+    return this.loginForm.get('email').hasError('required') ? 'You must enter a value' :
+      this.loginForm.get('email').hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
+  getErrorPassword() {
+    return this.loginForm.get('password').hasError('required') ? 'You must enter a value' : '';
+  }
 
   login() {
     if (this.loginForm.valid) {
