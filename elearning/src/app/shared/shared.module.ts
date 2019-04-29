@@ -9,16 +9,17 @@ import { BackButtonComponent } from './containers/back-button/back-button.compon
 import { MatButtonModule } from '@angular/material/button';
 import { NgxsModule } from '@ngxs/store';
 import { ErrorState } from '../error/store/error.state';
+import { ErrorsComponent } from './components/errors/errors.component';
 
 
 
 
 
 @NgModule({
-  declarations: [PageNotFoundComponent, ClickPreventDefaultDirective, BackButtonComponent],
+  declarations: [PageNotFoundComponent, ClickPreventDefaultDirective, BackButtonComponent, ErrorsComponent],
   imports: [
     CommonModule, FontAwesomeModule, RouterModule, MatGridListModule, MatButtonModule, NgxsModule.forFeature([ErrorState])
   ],
-  exports: [ClickPreventDefaultDirective, PageNotFoundComponent, BackButtonComponent]
+  exports: [ClickPreventDefaultDirective, PageNotFoundComponent, BackButtonComponent, ErrorsComponent]
 })
 export class SharedModule { }

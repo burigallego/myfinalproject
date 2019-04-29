@@ -3,7 +3,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { DashboardService } from '../services/dashboard.service';
 import { GetCourseResources, GetCourseResourcesSuccess, GetCourseResourcesFailed, CreateLinkFailed, CreateLink, CreateLinkSuccess, CreateFileFailed, CreateFile, CreateFileSuccess, DeleteLinkFailed, DeleteLink, DeleteLinkSuccess, DeleteFileFailed, DeleteFile, DeleteFileSuccess, EditResourceFailed, EditResource, EditResourceSuccess } from './resource.actions';
 import { Resource } from '../dashboard.models';
-import { SetErrors } from 'src/app/error/store/error.actions';
+import { SetErrors, GoErrorPages } from 'src/app/error/store/error.actions';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Logout } from 'src/app/auth/store/auth.actions';
 
@@ -134,8 +134,10 @@ export class ResourceState {
 
 
     @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed, DeleteFileFailed, EditResourceFailed])
-    error({ dispatch }: StateContext<Resource[]>, { error }: any) {
-        dispatch(new SetErrors(error));
-        console.log(error);
+    goError({ dispatch }: StateContext<Resource[]>, { error }: any) {
+
+
+        dispatch(new GoErrorPages(error));
+        console.log(error)
     }
 }

@@ -4,7 +4,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 
 export class SetErrors {
-    static readonly type = '[Error] Set';
+    static readonly type = '[Error] SetError';
+    constructor(public error: HttpErrorResponse) { }
+}
+
+export class GoErrorPages {
+    static readonly type = '[Error] GoErrorPages ';
     constructor(public error: HttpErrorResponse) { }
 }
 

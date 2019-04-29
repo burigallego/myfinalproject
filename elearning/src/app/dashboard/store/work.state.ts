@@ -1,7 +1,7 @@
 import { State, Store, StateContext, Action, Selector } from '@ngxs/store';
 import { DashboardService } from '../services/dashboard.service';
 import { tap, catchError } from 'rxjs/operators';
-import { SetErrors } from 'src/app/error/store/error.actions';
+import { SetErrors, GoErrorPages } from 'src/app/error/store/error.actions';
 import { Work } from '../dashboard.models';
 import { SendWorkFailed, SendWork, SendWorkSuccess, GetWorksFailed, GetWorks, GetWorksSuccess } from './work.actions';
 import { Logout } from 'src/app/auth/store/auth.actions';
@@ -61,9 +61,9 @@ export class WorkState {
     @Action([
         SendWorkFailed, GetWorksFailed
     ])
-    error({ dispatch }: StateContext<Work>, { error }: any) {
-        dispatch(new SetErrors(error));
-        console.log(error);
+    goError({ dispatch }: StateContext<Work>, { error }: any) {
+        dispatch(new GoErrorPages(error));
+        console.log(error)
     }
 
 }

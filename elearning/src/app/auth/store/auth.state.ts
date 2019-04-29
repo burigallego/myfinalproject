@@ -23,7 +23,7 @@ import {
 } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
 import { tap, catchError } from 'rxjs/operators';
-import { SetErrors } from 'src/app/error/store/error.actions';
+import { SetErrors, GoErrorPages } from 'src/app/error/store/error.actions';
 import { GetCourses } from 'src/app/dashboard/store/course.actions';
 
 @State<Auth>({
@@ -147,14 +147,24 @@ export class AuthState {
     }
 
     @Action([
-        LoginFailed,
-        RegisterFailed,
         GetUserProfileFailed,
         UpdateUserProfileFailed,
         UploadAvatarFailed,
+    ])
+    goError({ dispatch }: StateContext<Auth>, { error }: any) {
+        dispatch(new GoErrorPages(error));
+        console.log(error)
+    }
+
+    @Action([
+        LoginFailed,
+        RegisterFailed,
+
     ])
     error({ dispatch }: StateContext<Auth>, { error }: any) {
         dispatch(new SetErrors(error));
         console.log(error);
     }
+
+
 }

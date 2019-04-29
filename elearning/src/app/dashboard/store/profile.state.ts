@@ -3,7 +3,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { tap, catchError } from 'rxjs/operators';
 import { Profile } from 'src/app/auth/auth.models';
 import { GetCourseUsersFailed, GetCourseUsers, GetCourseUsersSuccess } from './profile.actions';
-import { SetErrors } from 'src/app/error/store/error.actions';
+import { SetErrors, GoErrorPages } from 'src/app/error/store/error.actions';
 import { Logout } from 'src/app/auth/store/auth.actions';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -44,8 +44,8 @@ export class ProfileState {
     @Action([
         GetCourseUsersFailed
     ])
-    error({ dispatch }: StateContext<Profile>, { error }: any) {
-        dispatch(new SetErrors(error));
-        console.log(error);
+    goError({ dispatch }: StateContext<Profile[]>, { error }: any) {
+        dispatch(new GoErrorPages(error));
+        console.log(error)
     }
 }

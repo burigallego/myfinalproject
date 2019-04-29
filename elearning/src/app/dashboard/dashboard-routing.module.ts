@@ -8,45 +8,45 @@ import { AllCoursesComponent } from './containers/all-courses/all-courses.compon
 import { ResourcesComponent } from './containers/resources/resources.component';
 import { StudentsComponent } from './containers/students/students.component';
 import { AuthGuard } from '../auth/services/auth.guard';
+import { ErrorsComponent } from '../shared/components/errors/errors.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'wall',
-        component: WallComponent,
-        canActivate: [AuthGuard]
+        component: WallComponent
       },
       {
         path: 'my_account',
-        component: MyAccountComponent,
-        canActivate: [AuthGuard]
+        component: MyAccountComponent
       },
       {
         path: 'create_course',
-        component: CreateCourseComponent,
-        canActivate: [AuthGuard]
+        component: CreateCourseComponent
       },
       {
         path: 'all_courses',
-        component: AllCoursesComponent,
-        canActivate: [AuthGuard]
+        component: AllCoursesComponent
       },
       {
         path: 'resources/:courseId',
-        component: ResourcesComponent,
-        canActivate: [AuthGuard]
+        component: ResourcesComponent
       },
       {
         path: 'students/:courseId',
-        component: StudentsComponent,
-        canActivate: [AuthGuard]
+        component: StudentsComponent
       }
     ]
-  }
+  },
+  {
+    path: 'errors/:status',
+    component: ErrorsComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
