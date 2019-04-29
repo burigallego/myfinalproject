@@ -18,6 +18,7 @@ import {
     UploadAvatarFailed,
     UploadAvatar,
     UploadAvatarSuccess,
+    DeleteToken,
 
 } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
@@ -38,7 +39,7 @@ export class AuthState {
     login({ dispatch }: StateContext<Auth>, action: Login) {
         return this.authService.login(action.login).pipe(
             tap(data => dispatch(new LoginSuccess(data))),
-            catchError(error => dispatch(new LoginFailed(error.error)))
+            catchError(error => dispatch(new LoginFailed(error)))
         );
     }
 
@@ -57,7 +58,7 @@ export class AuthState {
     register({ dispatch }: StateContext<Auth>, action: Register) {
         return this.authService.register(action.register).pipe(
             tap(() => dispatch(new RegisterSuccess())),
-            catchError(error => dispatch(new RegisterFailed(error.error)))
+            catchError(error => dispatch(new RegisterFailed(error)))
         );
     }
 
@@ -67,7 +68,7 @@ export class AuthState {
             tap(profileResponse =>
                 dispatch(new GetUserProfileSuccess(profileResponse))
             ),
-            catchError(error => dispatch(new GetUserProfileFailed(error.error)))
+            catchError(error => dispatch(new GetUserProfileFailed(error)))
         );
     }
 
@@ -89,6 +90,8 @@ export class AuthState {
         dispatch(new Navigate(['/welcome']));
     }
 
+
+
     @Action(RegisterSuccess)
     registerSuccess(ctx: StateContext<Auth>) { }
 
@@ -99,7 +102,7 @@ export class AuthState {
     ) {
         return this.authService.updateUserProfile(profile).pipe(
             tap(() => dispatch(new UpdateUserProfileSuccess(profile))),
-            catchError(error => dispatch(new UpdateUserProfileFailed(error.error)))
+            catchError(error => dispatch(new UpdateUserProfileFailed(error)))
         );
     }
 
@@ -120,7 +123,7 @@ export class AuthState {
     ) {
         return this.authService.uploadAvatar(image).pipe(
             tap(response => dispatch(new UploadAvatarSuccess(response))),
-            catchError(error => dispatch(new UploadAvatarFailed(error.error)))
+            catchError(error => dispatch(new UploadAvatarFailed(error)))
         );
     }
 
@@ -134,6 +137,15 @@ export class AuthState {
         });
     }
 
+    @Action(DeleteToken)
+    deleteToken({ patchState }: StateContext<Auth>) {
+        patchState(
+            {
+                accessToken: null
+            }
+        )
+    }
+
     @Action([
         LoginFailed,
         RegisterFailed,
@@ -141,8 +153,8 @@ export class AuthState {
         UpdateUserProfileFailed,
         UploadAvatarFailed,
     ])
-    error({ dispatch }: StateContext<Auth>, { errors }: any) {
-        dispatch(new SetErrors(errors));
-        console.log(errors);
+    error({ dispatch }: StateContext<Auth>, { error }: any) {
+        dispatch(new SetErrors(error));
+        console.log(error);
     }
 }

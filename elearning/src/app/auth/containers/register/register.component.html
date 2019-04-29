@@ -1,4 +1,6 @@
 <form class="form-container" [formGroup]="registerForm" (ngSubmit)="register()">
+  <el-error></el-error>
+
   <mat-form-field>
     <input matInput type="text" placeholder="Full Name" formControlName="fullName">
   </mat-form-field>

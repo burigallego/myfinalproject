@@ -1,5 +1,6 @@
-import { Error } from 'src/app/error/error.models';
+// import { Error }from 'src/app/error/error.models';
 import { Profile } from 'src/app/auth/auth.models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 export class GetCourseUsers {
@@ -14,5 +15,5 @@ export class GetCourseUsersSuccess {
 
 export class GetCourseUsersFailed {
     static type = '[Auth] GetCourseUsersFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }

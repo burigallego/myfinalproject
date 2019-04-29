@@ -23,7 +23,7 @@ export class ProfileState {
             tap(users =>
                 dispatch(new GetCourseUsersSuccess(users))
             ),
-            catchError(error => dispatch(new GetCourseUsersFailed(error.error)))
+            catchError(error => dispatch(new GetCourseUsersFailed(error)))
         );
     }
 
@@ -44,8 +44,8 @@ export class ProfileState {
     @Action([
         GetCourseUsersFailed
     ])
-    error({ dispatch }: StateContext<Profile>, { errors }: any) {
-        dispatch(new SetErrors(errors));
-        console.log(errors);
+    error({ dispatch }: StateContext<Profile>, { error }: any) {
+        dispatch(new SetErrors(error));
+        console.log(error);
     }
 }

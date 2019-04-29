@@ -1,9 +1,11 @@
-import { Error } from '../error.models';
+import { HttpErrorResponse } from '@angular/common/http';
+
+// import { Error }from '../error.models';
 
 
 export class SetErrors {
     static readonly type = '[Error] Set';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class ResetErrors {

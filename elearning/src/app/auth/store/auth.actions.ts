@@ -5,8 +5,9 @@ import {
     Profile,
     Auth
 } from '../auth.models';
-import { Error } from 'src/app/error/error.models';
-import { HttpResponse } from '@angular/common/http';
+
+// import { Error }from 'src/app/error/error.models';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 export class Login {
     static readonly type = '[Auth] Login';
@@ -20,7 +21,7 @@ export class LoginSuccess {
 
 export class LoginFailed {
     static type = '[Auth] LoginFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class Register {
@@ -34,7 +35,7 @@ export class RegisterSuccess {
 
 export class RegisterFailed {
     static type = '[Auth] RegisterFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class GetUserProfile {
@@ -48,7 +49,7 @@ export class GetUserProfileSuccess {
 
 export class GetUserProfileFailed {
     static type = '[Auth] GetUserProfileFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 
@@ -64,7 +65,7 @@ export class UpdateUserProfileSuccess {
 
 export class UpdateUserProfileFailed {
     static type = '[Auth] UpdateUserProfileFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class UploadAvatar {
@@ -79,8 +80,13 @@ export class UploadAvatarSuccess {
 
 export class UploadAvatarFailed {
     static type = '[Auth] UploadAvatarFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
+
+export class DeleteToken {
+    static type = '[Auth] DeleteToken';
+}
+
 export class Logout {
     static type = '[Auth] Logout';
 }

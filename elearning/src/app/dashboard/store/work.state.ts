@@ -25,7 +25,7 @@ export class WorkState {
             tap(() =>
                 dispatch(new SendWorkSuccess())
             ),
-            catchError(error => dispatch(new SendWorkFailed(error.error)))
+            catchError(error => dispatch(new SendWorkFailed(error)))
         );
     }
 
@@ -36,7 +36,7 @@ export class WorkState {
     getWorks({ dispatch }: StateContext<Work>, { courseId }: GetWorks) {
         return this.dashboardService.getWorks(courseId).pipe(
             tap(response => dispatch(new GetWorksSuccess(response, courseId))),
-            catchError(error => dispatch(new GetWorksFailed(error.error)))
+            catchError(error => dispatch(new GetWorksFailed(error)))
         );
 
     }
@@ -61,9 +61,9 @@ export class WorkState {
     @Action([
         SendWorkFailed, GetWorksFailed
     ])
-    error({ dispatch }: StateContext<Work>, { errors }: any) {
-        dispatch(new SetErrors(errors));
-        console.log(errors);
+    error({ dispatch }: StateContext<Work>, { error }: any) {
+        dispatch(new SetErrors(error));
+        console.log(error);
     }
 
 }

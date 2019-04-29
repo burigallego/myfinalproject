@@ -63,7 +63,7 @@ export class CourseState {
     getUserCourses({ dispatch }: StateContext<Courses>, action: GetUserCourses) {
         return this.dashboardService.getUserCourses().pipe(
             tap(courses => dispatch(new GetUserCoursesSuccess(courses))),
-            catchError(error => dispatch(new GetUserCoursesFailed(error.error)))
+            catchError(error => dispatch(new GetUserCoursesFailed(error)))
         );
     }
 
@@ -82,7 +82,7 @@ export class CourseState {
     getCourses({ dispatch }: StateContext<Courses>, action: GetCourses) {
         return this.dashboardService.getCourses().pipe(
             tap(courses => dispatch(new GetCoursesSuccess(courses))),
-            catchError(error => dispatch(new GetCoursesFailed(error.error)))
+            catchError(error => dispatch(new GetCoursesFailed(error)))
         );
     }
 
@@ -101,7 +101,7 @@ export class CourseState {
     getCourse({ dispatch }: StateContext<Courses>, { courseId }: GetCourse) {
         return this.dashboardService.getCourse(courseId).pipe(
             tap(course => dispatch(new GetCourseSuccess(course))),
-            catchError(error => dispatch(new GetCourseFailed(error.error)))
+            catchError(error => dispatch(new GetCourseFailed(error)))
         );
     }
 
@@ -120,7 +120,7 @@ export class CourseState {
     searchCourses({ dispatch }: StateContext<Courses>, { searchRequest }: SearchCourses) {
         return this.dashboardService.searchCourses(searchRequest).pipe(
             tap(courses => dispatch(new SearchCoursesSuccess(courses))),
-            catchError(error => dispatch(new SearchCoursesFailed(error.error)))
+            catchError(error => dispatch(new SearchCoursesFailed(error)))
         );
     }
 
@@ -141,7 +141,7 @@ export class CourseState {
     addCourse({ dispatch }: StateContext<Courses>, { courseRequest }: AddCourse) {
         return this.dashboardService.addCourse(courseRequest).pipe(
             tap(course => dispatch(new AddCourseSuccess(course))),
-            catchError(error => dispatch(new AddCourseFailed(error.error)))
+            catchError(error => dispatch(new AddCourseFailed(error)))
         );
     }
 
@@ -160,7 +160,7 @@ export class CourseState {
     deleteCourse({ dispatch }: StateContext<Courses>, { courseId }: DeleteCourse) {
         return this.dashboardService.deleteCourse(courseId).pipe(
             tap(() => dispatch(new DeleteCourseSuccess(courseId))),
-            catchError(error => dispatch(new DeleteCourseFailed(error.error)))
+            catchError(error => dispatch(new DeleteCourseFailed(error)))
         );
     }
 
@@ -179,7 +179,7 @@ export class CourseState {
     editCourse({ dispatch }: StateContext<Courses>, { courseRequest, courseId }: EditCourse) {
         return this.dashboardService.editCourse(courseRequest, courseId).pipe(
             tap(() => dispatch(new EditCourseSuccess(courseRequest, courseId))),
-            catchError(error => dispatch(new EditCourseFailed(error.error)))
+            catchError(error => dispatch(new EditCourseFailed(error)))
         );
     }
 
@@ -223,7 +223,7 @@ export class CourseState {
 
         return this.dashboardService.subscribeCourse(courseId).pipe(
             tap(() => dispatch(new SubscribeCourseSuccess(courseId))),
-            catchError(error => dispatch(new SubscribeCourseFailed(error.error)))
+            catchError(error => dispatch(new SubscribeCourseFailed(error)))
         );
     }
 
@@ -247,7 +247,7 @@ export class CourseState {
             tap(() =>
                 dispatch(new UnsubscribeCourseSuccess(courseId))
             ),
-            catchError(error => dispatch(new UnsubscribeCourseFailed(error.error)))
+            catchError(error => dispatch(new UnsubscribeCourseFailed(error)))
         );
     }
 
@@ -273,9 +273,9 @@ export class CourseState {
 
     @Action([GetUserCoursesFailed, GetCoursesFailed, AddCourseFailed, SearchCoursesFailed, DeleteCourseFailed, EditCourseFailed, GetCourseFailed, SubscribeCourseFailed,
         UnsubscribeCourseFailed])
-    error({ dispatch }: StateContext<Course[]>, { errors }: any) {
-        dispatch(new SetErrors(errors));
-        console.log(errors);
+    error({ dispatch }: StateContext<Course[]>, { error }: any) {
+        dispatch(new SetErrors(error));
+        console.log(error);
     }
 
 }

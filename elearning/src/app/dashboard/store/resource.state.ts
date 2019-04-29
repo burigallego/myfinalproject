@@ -21,7 +21,7 @@ export class ResourceState {
     getCourseResources({ dispatch }: StateContext<Resource[]>, { courseId }: GetCourseResources) {
         return this.dashboardService.getCourseResources(courseId).pipe(
             tap(resources => dispatch(new GetCourseResourcesSuccess(resources))),
-            catchError(error => dispatch(new GetCourseResourcesFailed(error.error)))
+            catchError(error => dispatch(new GetCourseResourcesFailed(error)))
         );
     }
 
@@ -38,7 +38,7 @@ export class ResourceState {
     createLink({ dispatch }: StateContext<Resource[]>, { linkRequest, courseId }: CreateLink) {
         return this.dashboardService.createLink(linkRequest, courseId).pipe(
             tap(resource => dispatch(new CreateLinkSuccess(resource))),
-            catchError(error => dispatch(new CreateLinkFailed(error.error)))
+            catchError(error => dispatch(new CreateLinkFailed(error)))
         );
     }
 
@@ -54,7 +54,7 @@ export class ResourceState {
     deleteLink({ dispatch }: StateContext<Resource[]>, { resourceId, courseId }: DeleteLink) {
         return this.dashboardService.deleteLink(resourceId, courseId).pipe(
             tap(() => dispatch(new DeleteLinkSuccess(resourceId))),
-            catchError(error => dispatch(new DeleteLinkFailed(error.error)))
+            catchError(error => dispatch(new DeleteLinkFailed(error)))
         );
     }
 
@@ -70,7 +70,7 @@ export class ResourceState {
     deleteFile({ dispatch }: StateContext<Resource[]>, { resourceId, courseId, publicId }: DeleteFile) {
         return this.dashboardService.deleteFile(resourceId, courseId, publicId).pipe(
             tap(() => dispatch(new DeleteFileSuccess(resourceId))),
-            catchError(error => dispatch(new DeleteFileFailed(error.error)))
+            catchError(error => dispatch(new DeleteFileFailed(error)))
         );
     }
 
@@ -86,7 +86,7 @@ export class ResourceState {
     createFile({ dispatch }: StateContext<Resource[]>, { fileRequest, courseId }: CreateFile) {
         return this.dashboardService.createFile(fileRequest, courseId).pipe(
             tap(resource => dispatch(new CreateFileSuccess(resource))),
-            catchError(error => dispatch(new CreateFileFailed(error.error)))
+            catchError(error => dispatch(new CreateFileFailed(error)))
         );
     }
 
@@ -102,7 +102,7 @@ export class ResourceState {
     editResource({ dispatch }: StateContext<Resource[]>, { resourceRequest, resourceId }: EditResource) {
         return this.dashboardService.editResource(resourceRequest, resourceId).pipe(
             tap(() => dispatch(new EditResourceSuccess(resourceRequest, resourceId))),
-            catchError(error => dispatch(new EditResourceFailed(error.error)))
+            catchError(error => dispatch(new EditResourceFailed(error)))
         );
     }
 
@@ -134,8 +134,8 @@ export class ResourceState {
 
 
     @Action([GetCourseResourcesFailed, CreateLinkFailed, CreateFileFailed, DeleteLinkFailed, DeleteFileFailed, EditResourceFailed])
-    error({ dispatch }: StateContext<Resource[]>, { errors }: any) {
-        dispatch(new SetErrors(errors));
-        console.log(errors);
+    error({ dispatch }: StateContext<Resource[]>, { error }: any) {
+        dispatch(new SetErrors(error));
+        console.log(error);
     }
 }

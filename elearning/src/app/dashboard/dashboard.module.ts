@@ -40,6 +40,7 @@ import { ErrorModule } from '../error/error.module';
 import { ErrorState } from '../error/store/error.state';
 import { WorkUploadComponent } from './containers/work-upload/work-upload.component';
 import { WorkState } from './store/work.state';
+import { AuthGuard } from '../auth/services/auth.guard';
 
 
 

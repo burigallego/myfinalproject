@@ -17,27 +17,33 @@ const routes: Routes = [
     children: [
       {
         path: 'wall',
-        component: WallComponent
+        component: WallComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'my_account',
-        component: MyAccountComponent
+        component: MyAccountComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'create_course',
-        component: CreateCourseComponent
+        component: CreateCourseComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'all_courses',
-        component: AllCoursesComponent
+        component: AllCoursesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'resources/:courseId',
-        component: ResourcesComponent
+        component: ResourcesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'students/:courseId',
-        component: StudentsComponent
+        component: StudentsComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }

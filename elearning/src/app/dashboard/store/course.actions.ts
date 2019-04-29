@@ -1,5 +1,6 @@
-import { Error } from 'src/app/error/error.models';
+// import { Error }from 'src/app/error/error.models';
 import { Course, CourseRequest, SearchRequest } from '../dashboard.models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export class GetUserCourses {
     static readonly type = '[Dashboard] GetUserCourses';
@@ -12,7 +13,7 @@ export class GetUserCoursesSuccess {
 
 export class GetUserCoursesFailed {
     static type = '[Dashboard] GetUserCoursesFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class GetCourses {
@@ -26,7 +27,7 @@ export class GetCoursesSuccess {
 
 export class GetCoursesFailed {
     static type = '[Dashboard] GetCoursesFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class GetCourse {
@@ -41,7 +42,7 @@ export class GetCourseSuccess {
 
 export class GetCourseFailed {
     static type = '[Dashboard] GetCourseFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class SearchCourses {
@@ -56,7 +57,7 @@ export class SearchCoursesSuccess {
 
 export class SearchCoursesFailed {
     static type = '[Dashboard] GetCoursesFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class AddCourse {
@@ -71,7 +72,7 @@ export class AddCourseSuccess {
 
 export class AddCourseFailed {
     static type = '[Dashboard] AddCourseFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class DeleteCourse {
@@ -86,7 +87,7 @@ export class DeleteCourseSuccess {
 
 export class DeleteCourseFailed {
     static type = '[Dashboard] DeleteCourseFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class EditCourse {
@@ -101,7 +102,7 @@ export class EditCourseSuccess {
 
 export class EditCourseFailed {
     static type = '[Dashboard] EditCourseFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class SubscribeCourse {
@@ -116,7 +117,7 @@ export class SubscribeCourseSuccess {
 
 export class SubscribeCourseFailed {
     static type = '[Auth] SubscribeCourseFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class UnsubscribeCourse {
@@ -131,5 +132,5 @@ export class UnsubscribeCourseSuccess {
 
 export class UnsubscribeCourseFailed {
     static type = '[Auth] UnsubscribeCourseFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }

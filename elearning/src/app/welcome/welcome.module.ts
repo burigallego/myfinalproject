@@ -10,6 +10,7 @@ import { MatSelectModule, MatInputModule, MatGridListModule } from '@angular/mat
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthModule } from '../auth/auth.module';
+import { ErrorModule } from '../error/error.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AuthModule } from '../auth/auth.module';
     BrowserAnimationsModule,
     MatGridListModule,
     FontAwesomeModule,
-    AuthModule
+    AuthModule,
+    ErrorModule
   ]
 })
 export class WelcomeModule { }

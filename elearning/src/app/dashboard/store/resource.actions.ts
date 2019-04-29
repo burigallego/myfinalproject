@@ -1,5 +1,6 @@
-import { Error } from 'src/app/error/error.models';
+// import { Error }from 'src/app/error/error.models';
 import { Resource, LinkRequest, FileRequest, ResourceRequest } from '../dashboard.models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -15,7 +16,7 @@ export class GetCourseResourcesSuccess {
 
 export class GetCourseResourcesFailed {
     static type = '[Dashboard] GetCourseResourcesFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class CreateLink {
@@ -30,7 +31,7 @@ export class CreateLinkSuccess {
 
 export class CreateLinkFailed {
     static type = '[Dashboard] CreateLinkFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class CreateFile {
@@ -45,7 +46,7 @@ export class CreateFileSuccess {
 
 export class CreateFileFailed {
     static type = '[Dashboard] CreateFileFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class DeleteLink {
@@ -60,7 +61,7 @@ export class DeleteLinkSuccess {
 
 export class DeleteLinkFailed {
     static type = '[Dashboard] DeleteLinkFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class DeleteFile {
@@ -75,7 +76,7 @@ export class DeleteFileSuccess {
 
 export class DeleteFileFailed {
     static type = '[Dashboard] DeleteLinkFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 export class EditResource {
@@ -90,7 +91,7 @@ export class EditResourceSuccess {
 
 export class EditResourceFailed {
     static type = '[Dashboard] EditResourceFailed';
-    constructor(public errors: Error[]) { }
+    constructor(public error: HttpErrorResponse) { }
 }
 
 
