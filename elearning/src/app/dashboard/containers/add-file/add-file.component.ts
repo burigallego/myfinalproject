@@ -23,14 +23,12 @@ export class AddFileComponent {
 
   onFileChange(event) {
     const reader = new FileReader();
-
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
 
       reader.onload = () => {
         this.fileForm.get('file').setValue(file);
-
       };
     }
   }
@@ -38,7 +36,6 @@ export class AddFileComponent {
 
 
   addFile() {
-    this.loading = true;
     if (this.fileForm.valid) {
       this.route.params.subscribe(routeParams => {
         this.store.dispatch(new CreateFile(this.fileForm.value, routeParams.courseId));

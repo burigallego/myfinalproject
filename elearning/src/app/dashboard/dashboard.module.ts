@@ -43,6 +43,7 @@ import { WorkState } from './store/work.state';
 import { AuthGuard } from '../auth/services/auth.guard';
 import { RegisterSuccessPopupComponent } from './containers/register-success-popup/register-success-popup.component';
 import { CourseSuccessPopupComponent } from './containers/course-success-popup/course-success-popup.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -66,6 +67,7 @@ import { CourseSuccessPopupComponent } from './containers/course-success-popup/c
     MatSelectModule,
     MatRadioModule,
     MatDialogModule,
+    MatProgressBarModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AuthModule,
