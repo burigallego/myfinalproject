@@ -36,10 +36,13 @@ export class ResourcesComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  user;
+
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       this.store.dispatch(new GetCourseResources(routeParams.courseId));
       this.store.dispatch(new GetCourse(routeParams.courseId));
+
       this.store.dispatch(new GetWorks(routeParams.courseId));
     });
 

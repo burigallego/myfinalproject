@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { MatchPasswordValidator } from '../../validators/match-pasword.validator';
-import { Store, Actions, ofAction, ofActionSuccessful } from '@ngxs/store';
+import { Store, Actions, ofAction, ofActionSuccessful, ofActionCompleted } from '@ngxs/store';
 import { Register, RegisterSuccess } from '../../store/auth.actions';
 import { ErrorStateMatcher, MatDialog, MatDialogConfig } from '@angular/material';
 import { RegisterSuccessPopupComponent } from 'src/app/dashboard/containers/register-success-popup/register-success-popup.component';
@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.actions$
-      .pipe(ofActionSuccessful(RegisterSuccess))
+      .pipe(ofActionCompleted(RegisterSuccess))
       .subscribe(() => {
         this.openDialog();
       });

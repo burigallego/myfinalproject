@@ -15,12 +15,9 @@ cloudinary.config({
 
 async function getCourseResources(req, res, next) {
 
-    const { role } = req.claims;
     const { courseId } = req.query;
 
-    if (role !== 'admin') {
-        return res.status(403).send();
-    }
+
 
     try {
 

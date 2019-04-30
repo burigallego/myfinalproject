@@ -52,7 +52,7 @@ async function login(req, res, next) {
       }
         */
             if (!userData.activated_at) {
-                return res.status(403).send();
+                return res.status(403).send('This account is not activated');
             }
 
             /**
@@ -60,7 +60,7 @@ async function login(req, res, next) {
              */
             const correctPassword = await bcrypt.compare(accountData.password, userData.password);
             if (correctPassword === false) { // !laPasswordEstaOk
-                return res.status(401).send();
+                return res.status(401).send('The password is incorrect');
             }
 
             /**
@@ -83,7 +83,7 @@ async function login(req, res, next) {
             return res.status(200).json(response);
         }
         connection.release();
-        return res.status(404).send(e);
+        return res.status(404).send('Incorrect account');
     } catch (e) {
         console.log(e);
         return res.status(500).send(e.message);
