@@ -26,8 +26,8 @@ export class ErrorComponent implements OnDestroy {
     this.store.dispatch(new ResetErrors());
   }
 
-  getErrorMessage({ statusText }) {
-    return statusText
+  getErrorMessage({ error }) {
+    return error
   }
 
   ngOnDestroy() {

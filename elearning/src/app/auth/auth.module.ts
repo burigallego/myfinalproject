@@ -19,6 +19,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ErrorModule } from '../error/error.module';
 import { ErrorState } from '../error/store/error.state';
 import { RegisterSuccessPopupComponent } from '../dashboard/containers/register-success-popup/register-success-popup.component';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 
 
