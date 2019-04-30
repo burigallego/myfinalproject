@@ -4,14 +4,14 @@
   <mat-form-field>
     <input matInput type="text" placeholder="Full Name" formControlName="fullName">
   </mat-form-field>
-  <mat-error *ngIf="registerForm.get('fullName').invalid">{{getErrorName()}}</mat-error>
+  <mat-error *ngIf="registerForm.get('fullName').invalid && (registerForm.get('fullName').dirty || registerForm.get('fullName').touched)">{{getErrorName()}}</mat-error>
   <mat-form-field>
     <input matInput type="email" placeholder="Email" formControlName="email">
-    <mat-error *ngIf="registerForm.get('email').invalid">{{getErrorEmail()}}</mat-error>
+    <mat-error *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched)">{{getErrorEmail()}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" formControlName="password">
-    <mat-error *ngIf="registerForm.get('password').invalid">{{getErrorPassword()}}</mat-error>
+    <mat-error *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">{{getErrorPassword()}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput [errorStateMatcher]="matcher" type="password" placeholder="Confirm Password" formControlName="confirmPassword">

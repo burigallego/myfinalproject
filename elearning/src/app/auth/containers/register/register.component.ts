@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { MatchPasswordValidator } from '../../validators/match-pasword.validator';
 import { Store, Actions, ofAction } from '@ngxs/store';
@@ -7,7 +7,7 @@ import { ErrorStateMatcher } from '@angular/material';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return control.dirty;
+    return control.dirty && form.invalid;
   }
 }
 
@@ -17,12 +17,15 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
+
+
   registerForm = this.fb.group(
     {
       fullName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['']
     },
     {
       updateOn: 'blur',
@@ -46,6 +49,7 @@ export class RegisterComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
+  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
 
 
   constructor(
@@ -57,7 +61,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.actions$
       .pipe(ofAction(RegisterSuccess))
-      .subscribe(() => this.registerForm.reset());
+      .subscribe(() => {
+      });
   }
 
   register() {
@@ -66,6 +71,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.store.dispatch(new Register(this.registerForm.value));
+    this.formDirective.resetForm();
   }
 
   markFormGroupAsTouched(formGroup: FormGroup) {
@@ -73,5 +79,7 @@ export class RegisterComponent implements OnInit {
       control.markAsTouched()
     );
   }
+
+
 }
 
