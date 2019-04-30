@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Store } from '@ngxs/store';
-import { AddCourse } from '../../store/course.actions';
+import { Store, Actions, ofActionCompleted } from '@ngxs/store';
+import { AddCourse, AddCourseSuccess } from '../../store/course.actions';
 import { GetUserProfile } from 'src/app/auth/store/auth.actions';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { CourseSuccessPopupComponent } from '../course-success-popup/course-success-popup.component';
 
 @Component({
   selector: 'el-create-course',
@@ -19,7 +21,7 @@ export class CreateCourseComponent implements OnInit {
     { updateOn: 'blur' }
   );
 
-  constructor(private fb: FormBuilder, private store: Store) { }
+  constructor(private fb: FormBuilder, private store: Store, private actions$: Actions, private dialog: MatDialog) { }
 
   addCourse() {
     if (this.courseForm.valid) {
@@ -28,8 +30,29 @@ export class CreateCourseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.actions$
+      .pipe(ofActionCompleted(AddCourseSuccess))
+      .subscribe(() => {
+        this.openDialog();
+      });
   }
 
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '500px';
+
+
+
+
+
+    const dialogRef = this.dialog.open(CourseSuccessPopupComponent, dialogConfig);
+
+
+  }
 
 
 }

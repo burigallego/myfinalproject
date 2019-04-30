@@ -38,9 +38,19 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 100%;
+  height: 90%;
 }
 
 .buttons {
   margin-left: 10px;
+}
+
+.secondpart {
+  width :90%;
+  margin :30px auto;
+  height: 100%;
+}
+
+.profile {
+ height: 100%; 
 }

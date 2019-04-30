@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-
+    dialogConfig.width = '500px';
 
 
 

@@ -47,6 +47,8 @@ export class CardComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    dialogConfig.height = '300px';
     dialogConfig.data = {
       title: this.course.title,
       description: this.course.description

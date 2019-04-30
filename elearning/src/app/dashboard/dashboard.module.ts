@@ -42,12 +42,13 @@ import { WorkUploadComponent } from './containers/work-upload/work-upload.compon
 import { WorkState } from './store/work.state';
 import { AuthGuard } from '../auth/services/auth.guard';
 import { RegisterSuccessPopupComponent } from './containers/register-success-popup/register-success-popup.component';
+import { CourseSuccessPopupComponent } from './containers/course-success-popup/course-success-popup.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent, RegisterSuccessPopupComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent, RegisterSuccessPopupComponent, CourseSuccessPopupComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -82,6 +83,6 @@ import { RegisterSuccessPopupComponent } from './containers/register-success-pop
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
 
   ],
-  entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, ProfilePopupComponent],
+  entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, ProfilePopupComponent, CourseSuccessPopupComponent],
 })
 export class DashboardModule { }

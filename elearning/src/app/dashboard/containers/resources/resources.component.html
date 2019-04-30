@@ -17,7 +17,8 @@
 <mat-nav-list class="resourceList">
   <ng-container *ngIf="(course$ | async ) as course">
     <ng-container *ngIf="(user$ | async) as currentUser">
-      <div *ngFor="let resource of resources$ | async">
+      <div *ngFor="let 
+      resource of resources$ | async">
         <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
       </div>
       <ng-container *ngIf="(work$ | async ) as work">
