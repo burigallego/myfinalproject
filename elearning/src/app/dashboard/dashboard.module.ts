@@ -41,12 +41,13 @@ import { ErrorState } from '../error/store/error.state';
 import { WorkUploadComponent } from './containers/work-upload/work-upload.component';
 import { WorkState } from './store/work.state';
 import { AuthGuard } from '../auth/services/auth.guard';
+import { RegisterSuccessPopupComponent } from './containers/register-success-popup/register-success-popup.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent, RegisterSuccessPopupComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -72,9 +73,10 @@ import { AuthGuard } from '../auth/services/auth.guard';
     MatFileUploadModule,
     FontAwesomeModule,
     ErrorModule,
-    NgxsModule.forFeature([CourseState, ResourceState, AuthState, ProfileState, ErrorState, WorkState])
+    NgxsModule.forFeature([CourseState, ResourceState, AuthState, ProfileState, ErrorState, WorkState]),
 
   ],
+  exports: [RegisterSuccessPopupComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }

@@ -126,6 +126,15 @@ async function create(req, res, next) {
     } = accountData;
 
     try {
+
+        const emailQuery = `SELECT email FROM users where email = '${email}'`;
+        const connection = await mysqlPool.getConnection();
+        const [result] = await connection.query(emailQuery);
+        if (result.length > 0) {
+            connection.release();
+            return res.status(409).send('This email already exists');
+        }
+
         /**
          * Create the user and send response
          */

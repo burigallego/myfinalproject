@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { MatchPasswordValidator } from '../../validators/match-pasword.validator';
-import { Store, Actions, ofAction } from '@ngxs/store';
+import { Store, Actions, ofAction, ofActionSuccessful } from '@ngxs/store';
 import { Register, RegisterSuccess } from '../../store/auth.actions';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, MatDialog, MatDialogConfig } from '@angular/material';
+import { RegisterSuccessPopupComponent } from 'src/app/dashboard/containers/register-success-popup/register-success-popup.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -55,13 +56,15 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private actions$: Actions
+    private actions$: Actions,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.actions$
-      .pipe(ofAction(RegisterSuccess))
+      .pipe(ofActionSuccessful(RegisterSuccess))
       .subscribe(() => {
+        this.openDialog();
       });
   }
 
@@ -78,6 +81,21 @@ export class RegisterComponent implements OnInit {
     Object.values(formGroup.controls).forEach(control =>
       control.markAsTouched()
     );
+  }
+
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+
+
+
+    const dialogRef = this.dialog.open(RegisterSuccessPopupComponent, dialogConfig);
+
+
   }
 
 

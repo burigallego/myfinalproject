@@ -18,6 +18,7 @@ import { MatCardModule, MatMenuModule, MatIconModule, MatToolbarModule, MatSiden
 import { LayoutModule } from '@angular/cdk/layout';
 import { ErrorModule } from '../error/error.module';
 import { ErrorState } from '../error/store/error.state';
+import { RegisterSuccessPopupComponent } from '../dashboard/containers/register-success-popup/register-success-popup.component';
 
 
 
@@ -50,6 +51,7 @@ import { ErrorState } from '../error/store/error.state';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
-  exports: [LoginComponent, RegisterComponent, ProfileComponent, FileUploaderComponent]
+  exports: [LoginComponent, RegisterComponent, ProfileComponent, FileUploaderComponent],
+  entryComponents: [RegisterSuccessPopupComponent]
 })
 export class AuthModule { }
