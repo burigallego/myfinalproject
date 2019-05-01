@@ -44,12 +44,13 @@ import { AuthGuard } from '../auth/services/auth.guard';
 import { RegisterSuccessPopupComponent } from './containers/register-success-popup/register-success-popup.component';
 import { CourseSuccessPopupComponent } from './containers/course-success-popup/course-success-popup.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { WorkSuccessPopupComponent } from './containers/work-success-popup/work-success-popup.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent, RegisterSuccessPopupComponent, CourseSuccessPopupComponent],
+  declarations: [DashboardComponent, WallComponent, MyAccountComponent, CreateCourseComponent, AllCoursesComponent, CourseComponent, CardComponent, ResourcesComponent, ResourceFormsComponent, AddLinkComponent, AddFileComponent, ResourceComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, StudentsComponent, StudentComponent, ProfilePopupComponent, WorkUploadComponent, RegisterSuccessPopupComponent, CourseSuccessPopupComponent, WorkSuccessPopupComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -85,6 +86,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
 
   ],
-  entryComponents: [DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, ProfilePopupComponent, CourseSuccessPopupComponent],
+  entryComponents: [WorkSuccessPopupComponent, DeleteCourseDialogComponent, EditCoursePopupComponent, EditResourcePopupComponent, ProfilePopupComponent, CourseSuccessPopupComponent],
 })
 export class DashboardModule { }

@@ -3,11 +3,14 @@
     flex-direction: row;
     justify-content: flex-start;
     margin: 10px 0;
-}   img {
+    background-color: lightgray;
+   img {
         height: 80px;
         width: 80px;
         margin: 10px;
     }
     a {
         margin: 40px;
+        font-size: 1.2rem;
     }
+}

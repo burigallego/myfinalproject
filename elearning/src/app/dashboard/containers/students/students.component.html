@@ -3,11 +3,11 @@
 <hr>
 
 <mat-nav-list class="studentList">
-  <ng-container *ngIf="(user$ | async) as currentUser">
+  <div class="list" *ngIf="(user$ | async) as currentUser">
     <div *ngFor="let student of users$ | async">
       <el-student [student]="student" [user]="currentUser"></el-student>
     </div>
-  </ng-container>
+  </div>
 
 
 </mat-nav-list>

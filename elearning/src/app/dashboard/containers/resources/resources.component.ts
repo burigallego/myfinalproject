@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
+import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
 import { ActivatedRoute } from '@angular/router';
 import { GetCourseResources, CreateLink } from '../../store/resource.actions';
 import { ResourceState } from '../../store/resource.state';
@@ -12,7 +12,9 @@ import { CourseState } from '../../store/course.state';
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { GetCourse } from '../../store/course.actions';
 import { WorkState } from '../../store/work.state';
-import { GetWorks } from '../../store/work.actions';
+import { GetWorks, SendWorkSuccess } from '../../store/work.actions';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { WorkSuccessPopupComponent } from '../work-success-popup/work-success-popup.component';
 
 
 @Component({
@@ -33,7 +35,9 @@ export class ResourcesComponent implements OnInit {
   // currentUser;
   constructor(
     private store: Store,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private actions$: Actions,
+    private dialog: MatDialog
   ) { }
 
   user;
@@ -42,9 +46,27 @@ export class ResourcesComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.store.dispatch(new GetCourseResources(routeParams.courseId));
       this.store.dispatch(new GetCourse(routeParams.courseId));
-
       this.store.dispatch(new GetWorks(routeParams.courseId));
     });
+    this.actions$
+      .pipe(ofActionCompleted(SendWorkSuccess))
+      .subscribe(() => {
+        this.openDialog();
+      });
+
+  }
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+
+
+
+    const dialogRef = this.dialog.open(WorkSuccessPopupComponent, dialogConfig);
+
 
   }
 
