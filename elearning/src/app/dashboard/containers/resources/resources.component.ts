@@ -40,7 +40,7 @@ export class ResourcesComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  user;
+
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {

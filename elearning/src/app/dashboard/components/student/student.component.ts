@@ -15,6 +15,9 @@ export class StudentComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
 
+  imageUrl;
+
+
   openDialog() {
 
     const dialogConfig = new MatDialogConfig();
@@ -36,6 +39,7 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.isMe = (this.user.uuid == this.student.uuid);
+    this.imageUrl = this.student.avatarUrl || `https://api.adorable.io/avatars/128/${this.student.uuid}`;
   }
 
 }
