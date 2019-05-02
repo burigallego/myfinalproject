@@ -38,7 +38,7 @@
     overflow: auto;
     outline: 1px solid gray;
     padding: 40px;
-    word-break: break-all;
+    word-break: normal;
     background-color: lightgray;
 }
 
