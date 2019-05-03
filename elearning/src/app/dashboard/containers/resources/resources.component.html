@@ -21,9 +21,7 @@
       resource of resources$ | async">
         <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
       </div>
-      <ng-container *ngIf="(work$ | async ) as work">
-        <el-work-upload [course]="course" [user]="currentUser" [work]="work"></el-work-upload>
-      </ng-container>
+      <el-work-upload [course]="course" [user]="currentUser"></el-work-upload>
     </ng-container>
   </ng-container>
 </mat-nav-list>

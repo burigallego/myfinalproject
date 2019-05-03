@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthModule } from '../auth/auth.module';
 import { ErrorModule } from '../error/error.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import { ErrorModule } from '../error/error.module';
     BrowserAnimationsModule,
     MatGridListModule,
     FontAwesomeModule,
+    FlexLayoutModule,
     AuthModule,
     ErrorModule
   ]

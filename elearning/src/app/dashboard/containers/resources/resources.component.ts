@@ -46,7 +46,6 @@ export class ResourcesComponent implements OnInit {
     this.route.params.subscribe(routeParams => {
       this.store.dispatch(new GetCourseResources(routeParams.courseId));
       this.store.dispatch(new GetCourse(routeParams.courseId));
-      this.store.dispatch(new GetWorks(routeParams.courseId));
     });
     this.actions$
       .pipe(ofActionCompleted(SendWorkSuccess))

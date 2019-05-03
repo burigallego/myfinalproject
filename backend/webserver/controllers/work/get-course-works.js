@@ -16,12 +16,21 @@ cloudinary.config({
 async function getCourseResources(req, res, next) {
 
     const { courseId } = req.query;
+    const { uuid, role } = req.claims;
 
-
-
+    if (role != 'admin') {
+        return res.status(403).send();
+    }
     try {
 
-
+        // const connection = await mysqlPool.getConnection();
+        // const noFileQuery = `SELECT work_id FROM works WHERE course_id = '${courseId}'`;
+        // const [result] = await connection.query(noFileQuery);
+        // if (result.length == 0) {
+        //     connection.release();
+        //     res.status(412).send('No files');
+        // }
+        // connection.release();
         const url = cloudinary.v2.utils.download_zip_url({
             tags: courseId,
         });

@@ -34,8 +34,11 @@ export class ErrorState {
         if (error.status == 401) {
             dispatch(new DeleteToken());
             dispatch(new ResetErrors())
+        } else if (error.status == 412) {
+            console.log(error.error);
         } else {
             dispatch(new Navigate(['/errors', error.status]));
+
         }
 
     }

@@ -1,8 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Store } from '@ngxs/store';
-import { SendWork } from '../../store/work.actions';
+import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
+import { SendWork, GetWorks, GetWorksFailed } from '../../store/work.actions';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { WorkState } from '../../store/work.state';
+import { Observable } from 'rxjs';
+import { Work } from '../../dashboard.models';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'el-work-upload',
@@ -13,7 +17,9 @@ export class WorkUploadComponent implements OnInit {
 
   @Input() course;
   @Input() user;
-  @Input() work;
+
+  @Select(WorkState) work$: Observable<Work>;
+
 
   loading: boolean = false;
 
@@ -22,7 +28,7 @@ export class WorkUploadComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
 
 
-  constructor(private fb: FormBuilder, private store: Store, private cd: ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder, private store: Store, private cd: ChangeDetectorRef, private actions$: Actions, private dialog: MatDialog) { }
 
   workForm = this.fb.group({
     file: []
@@ -51,8 +57,10 @@ export class WorkUploadComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.user.role == 'admin') {
+      this.store.dispatch(new GetWorks(this.course.course_id));
+    }
 
   }
-
 
 }
