@@ -17,5 +17,5 @@
     <input matInput [errorStateMatcher]="matcher" type="password" placeholder="Confirm Password" formControlName="confirmPassword">
     <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</mat-error>
   </mat-form-field>
-  <button mat-raised-button type="submit">Register</button>
+  <button mat-raised-button color="primary" type="submit">Register</button>
 </form>
