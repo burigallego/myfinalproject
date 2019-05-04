@@ -4,11 +4,13 @@ div {
       padding-top: 20px;
       text-align: center;
       margin-bottom: 20px;
+      max-height: 400px;
+      height: inherit;
       li {
         display: inline-block;
         margin-right: 30px;
         a {
-          margin-top: 20 px;
+          margin-top: 20px;
           color: gray;
           text-decoration: none;
         }

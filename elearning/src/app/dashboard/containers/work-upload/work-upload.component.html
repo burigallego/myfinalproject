@@ -15,7 +15,7 @@
 
   </form>
 
-  <div class="download" target="_blank" *ngIf="(course.creator == user.uuid)">
+  <div class="download" target="_blank" *ngIf="(course.creator == user.uuid) && (work$ |async) as work">
     <a [href]="work.url">
       <fa-icon [icon]="downloadIcon"></fa-icon>
     </a>

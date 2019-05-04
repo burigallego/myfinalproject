@@ -39,6 +39,7 @@ async function sendFile(req, res, next) {
         return res.status(400).send();
     }
 
+
     // necesito la imagen que suben desde postman/ browser / whatever
     const publicId = uuidv4();
     // subir foto a cloudinary
@@ -61,13 +62,12 @@ async function sendFile(req, res, next) {
 
         // actualizar perfil de usuario con la foto de cloudinary
 
-        const connection = await mysqlPool.getConnection();
         const now = new Date();
         const createdAt = now.toISOString().substring(0, 19).replace('T', ' ');
 
 
         try {
-
+            const connection = await mysqlPool.getConnection();
             await connection.query('INSERT INTO works SET ?', {
                 url: secureUrl,
                 created_at: createdAt,
@@ -83,7 +83,7 @@ async function sendFile(req, res, next) {
             return res.status(204).send();
         } catch (e) {
             console.log(e);
-            return res.status(500).send(err.message);
+            return res.status(500).send(e.message);
         }
 
         // console.log(result);
