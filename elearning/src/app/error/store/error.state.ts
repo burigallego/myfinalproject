@@ -34,7 +34,11 @@ export class ErrorState {
         if (error.status == 401) {
             dispatch(new DeleteToken());
             dispatch(new ResetErrors())
+<<<<<<< HEAD
         } else if (error.error == 'No files') {
+=======
+        } else if (error.status == 412) {
+>>>>>>> cc88621e4af749c8dd2512f4dc5fdc26f9744950
             console.log(error.error);
         } else {
             dispatch(new Navigate(['/errors', error.status]));
