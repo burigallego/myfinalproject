@@ -16,11 +16,7 @@
   </form>
 
   <div class="download" target="_blank" *ngIf="(course.creator == user.uuid) && (work$ |async) as work">
-<<<<<<< HEAD
     <a [href]="work.url" (click)="dontNavigate(work.url)">
-=======
-    <a [href]="work.url">
->>>>>>> cc88621e4af749c8dd2512f4dc5fdc26f9744950
       <fa-icon [icon]="downloadIcon"></fa-icon>
     </a>
   </div>

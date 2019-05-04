@@ -1,11 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
-<<<<<<< HEAD
 import { SendWork, GetWorks, GetWorksFailed, SendWorkSuccess } from '../../store/work.actions';
-=======
-import { SendWork, GetWorks, GetWorksFailed } from '../../store/work.actions';
->>>>>>> cc88621e4af749c8dd2512f4dc5fdc26f9744950
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { WorkState } from '../../store/work.state';
 import { Observable } from 'rxjs';
@@ -21,12 +17,6 @@ export class WorkUploadComponent implements OnInit {
 
   @Input() course;
   @Input() user;
-<<<<<<< HEAD
-=======
-
-  @Select(WorkState) work$: Observable<Work>;
-
->>>>>>> cc88621e4af749c8dd2512f4dc5fdc26f9744950
 
   @Select(WorkState) work$: Observable<Work>;
 
@@ -64,7 +54,6 @@ export class WorkUploadComponent implements OnInit {
 
   }
 
-<<<<<<< HEAD
   dontNavigate(url) {
     if (url == null) {
       return false;
@@ -82,13 +71,4 @@ export class WorkUploadComponent implements OnInit {
       });
   }
 
-=======
-  ngOnInit() {
-    if (this.user.role == 'admin') {
-      this.store.dispatch(new GetWorks(this.course.course_id));
-    }
-
-  }
-
->>>>>>> cc88621e4af749c8dd2512f4dc5fdc26f9744950
 }
