@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
-import { SendWork, GetWorks, GetWorksFailed } from '../../store/work.actions';
+import { SendWork, GetWorks, GetWorksFailed, SendWorkSuccess } from '../../store/work.actions';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { WorkState } from '../../store/work.state';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class WorkUploadComponent implements OnInit {
   @Select(WorkState) work$: Observable<Work>;
 
 
-  loading: boolean = false;
+  notLoaded: boolean = true;
 
   downloadIcon = faDownload;
 
@@ -36,31 +36,39 @@ export class WorkUploadComponent implements OnInit {
 
   onFileChange(event) {
     const reader = new FileReader();
-
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
 
       reader.onload = () => {
         this.workForm.get('file').setValue(file);
-
+        this.notLoaded = false;
       };
     }
   }
 
   addWork() {
-    this.loading = true;
     if (this.workForm.valid) {
       this.store.dispatch(new SendWork(this.workForm.value, this.course.course_id));
     }
 
   }
 
+  dontNavigate(url) {
+    if (url == null) {
+      return false;
+    }
+  }
+
   ngOnInit() {
     if (this.user.role == 'admin') {
       this.store.dispatch(new GetWorks(this.course.course_id));
     }
-
+    this.actions$
+      .pipe(ofActionCompleted(SendWorkSuccess))
+      .subscribe(() => {
+        this.notLoaded = true;
+      });
   }
 
 }

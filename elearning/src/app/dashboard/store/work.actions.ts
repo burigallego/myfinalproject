@@ -10,6 +10,7 @@ export class SendWork {
 
 export class SendWorkSuccess {
     static readonly type = '[Dashboard] SendWorkSuccess';
+    constructor(public courseId: number) { }
 }
 
 export class SendWorkFailed {

@@ -8,5 +8,5 @@
     <input matInput type="password" placeholder="Password" formControlName="password">
     <mat-error *ngIf="loginForm.get('password').invalid">{{getErrorPassword()}}</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Login</button>
+  <button mat-raised-button color="primary" [disabled]="loginForm.invalid" type="submit">Login</button>
 </form>

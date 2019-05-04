@@ -23,14 +23,14 @@ async function getCourseResources(req, res, next) {
     }
     try {
 
-        // const connection = await mysqlPool.getConnection();
-        // const noFileQuery = `SELECT work_id FROM works WHERE course_id = '${courseId}'`;
-        // const [result] = await connection.query(noFileQuery);
-        // if (result.length == 0) {
-        //     connection.release();
-        //     res.status(412).send('No files');
-        // }
-        // connection.release();
+        const connection = await mysqlPool.getConnection();
+        const noFileQuery = `SELECT work_id FROM works WHERE course_id = '${courseId}'`;
+        const [result] = await connection.query(noFileQuery);
+        if (result.length == 0) {
+            connection.release();
+            return res.status(412).send('No files');
+        }
+        connection.release();
         const url = cloudinary.v2.utils.download_zip_url({
             tags: courseId,
         });

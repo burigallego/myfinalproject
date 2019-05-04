@@ -23,14 +23,16 @@ export class WorkState {
     sendWork({ dispatch }: StateContext<Work>, { courseId, workRequest }: SendWork) {
         return this.dashboardService.sendWork(workRequest, courseId).pipe(
             tap(() =>
-                dispatch(new SendWorkSuccess())
+                dispatch(new SendWorkSuccess(courseId))
             ),
             catchError(error => dispatch(new SendWorkFailed(error)))
         );
     }
 
     @Action(SendWorkSuccess)
-    sendWorkSuccess() { }
+    sendWorkSuccess({ dispatch }: StateContext<Work>, { courseId }: SendWorkSuccess) {
+        dispatch(new GetWorks(courseId));
+    }
 
     @Action(GetWorks)
     getWorks({ dispatch }: StateContext<Work>, { courseId }: GetWorks) {
@@ -42,7 +44,7 @@ export class WorkState {
     }
 
     @Action(GetWorksSuccess)
-    getWorksSuccess({ setState, getState }: StateContext<Work>,
+    getWorksSuccess({ setState }: StateContext<Work>,
         { response, courseId }: GetWorksSuccess
     ) {
 
@@ -59,11 +61,25 @@ export class WorkState {
     }
 
     @Action([
-        SendWorkFailed, GetWorksFailed
+        SendWorkFailed
     ])
     goError({ dispatch }: StateContext<Work>, { error }: any) {
         dispatch(new GoErrorPages(error));
         console.log(error)
     }
+
+    @Action([
+        GetWorksFailed
+    ])
+    goErrorAndClearState({ dispatch, patchState }: StateContext<Work>, { error }: any) {
+        if (error.error == 'No files') {
+            patchState({ url: null });
+        }
+
+        dispatch(new GoErrorPages(error));
+        console.log(error)
+    }
+
+
 
 }

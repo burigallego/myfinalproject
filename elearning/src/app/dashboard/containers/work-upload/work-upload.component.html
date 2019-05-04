@@ -8,7 +8,7 @@
           #fileInput></ngx-mat-file-input>
       </mat-form-field>
       <div class="buttons">
-        <button mat-raised-button type="submit" color="primary">Upload Work</button>
+        <button mat-raised-button type="submit" [disabled]="notLoaded" color="primary">Upload Work</button>
       </div>
 
     </div>
@@ -16,7 +16,7 @@
   </form>
 
   <div class="download" target="_blank" *ngIf="(course.creator == user.uuid) && (work$ |async) as work">
-    <a [href]="work.url">
+    <a [href]="work.url" (click)="dontNavigate(work.url)">
       <fa-icon [icon]="downloadIcon"></fa-icon>
     </a>
   </div>

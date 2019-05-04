@@ -18,7 +18,7 @@ export class AddFileComponent {
 
   fileForm = this.fb.group({
     resourceName: ['', Validators.required],
-    file: []
+    file: ['', Validators.required]
   })
 
   onFileChange(event) {

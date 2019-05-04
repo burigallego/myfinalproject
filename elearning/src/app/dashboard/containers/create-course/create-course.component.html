@@ -10,7 +10,7 @@
         formControlName="description"></textarea>
     </mat-form-field>
 
-    <button type="submit" mat-raised-button>
+    <button type="submit" [disabled]="courseForm.invalid" mat-raised-button>
       Create Course
     </button>
 

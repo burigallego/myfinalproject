@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Store, Actions, ofActionCompleted } from '@ngxs/store';
 import { AddCourse, AddCourseSuccess } from '../../store/course.actions';
 import { GetUserProfile } from 'src/app/auth/store/auth.actions';
@@ -21,11 +21,15 @@ export class CreateCourseComponent implements OnInit {
     { updateOn: 'blur' }
   );
 
+  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
+
+
   constructor(private fb: FormBuilder, private store: Store, private actions$: Actions, private dialog: MatDialog) { }
 
   addCourse() {
     if (this.courseForm.valid) {
       this.store.dispatch(new AddCourse(this.courseForm.value));
+      this.formDirective.resetForm();
     }
   }
 
