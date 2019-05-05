@@ -5,7 +5,6 @@ import { GetCourseResources, CreateLink } from '../../store/resource.actions';
 import { ResourceState } from '../../store/resource.state';
 import { Observable } from 'rxjs';
 import { Resource, Course, Work } from '../../dashboard.models';
-import { FormBuilder, Validators } from '@angular/forms';
 import { AuthState } from 'src/app/auth/store/auth.state';
 import { Auth } from 'src/app/auth/auth.models';
 import { CourseState } from '../../store/course.state';
@@ -40,12 +39,17 @@ export class ResourcesComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-
+  user;
+  subscription;
 
   ngOnInit() {
-    this.route.params.subscribe(routeParams => {
+    this.user$.subscribe(user => this.user = user);
+    this.subscription = this.route.params.subscribe(routeParams => {
       this.store.dispatch(new GetCourseResources(routeParams.courseId));
       this.store.dispatch(new GetCourse(routeParams.courseId));
+      if (this.user.role == 'admin') {
+        this.store.dispatch(new GetWorks(routeParams.courseId));
+      }
     });
     this.actions$
       .pipe(ofActionCompleted(SendWorkSuccess))
@@ -68,6 +72,8 @@ export class ResourcesComponent implements OnInit {
 
 
   }
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }

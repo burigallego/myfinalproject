@@ -61,9 +61,7 @@ export class WorkUploadComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.user.role == 'admin') {
-      this.store.dispatch(new GetWorks(this.course.course_id));
-    }
+
     this.actions$
       .pipe(ofActionCompleted(SendWorkSuccess))
       .subscribe(() => {
