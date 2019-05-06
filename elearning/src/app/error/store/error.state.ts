@@ -35,7 +35,7 @@ export class ErrorState {
             dispatch(new DeleteToken());
             dispatch(new ResetErrors())
         } else if (error.error == 'No files') {
-            console.log(error.error);
+            console.log(error.error)
         } else {
             dispatch(new Navigate(['/errors', error.status]));
 

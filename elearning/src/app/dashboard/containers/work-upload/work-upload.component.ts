@@ -60,13 +60,20 @@ export class WorkUploadComponent implements OnInit {
     }
   }
 
+  subscription;
+
   ngOnInit() {
 
-    this.actions$
+    this.subscription = this.actions$
       .pipe(ofActionCompleted(SendWorkSuccess))
       .subscribe(() => {
         this.notLoaded = true;
       });
+
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

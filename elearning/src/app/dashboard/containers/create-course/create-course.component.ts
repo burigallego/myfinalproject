@@ -33,8 +33,10 @@ export class CreateCourseComponent implements OnInit {
     }
   }
 
+  subscription;
+
   ngOnInit() {
-    this.actions$
+    this.subscription = this.actions$
       .pipe(ofActionCompleted(AddCourseSuccess))
       .subscribe(() => {
         this.openDialog();
@@ -57,6 +59,8 @@ export class CreateCourseComponent implements OnInit {
 
 
   }
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }

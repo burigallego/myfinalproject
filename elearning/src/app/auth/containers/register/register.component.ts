@@ -60,8 +60,10 @@ export class RegisterComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
+  subscription;
+
   ngOnInit() {
-    this.actions$
+    this.subscription = this.actions$
       .pipe(ofActionCompleted(RegisterSuccess))
       .subscribe(() => {
         this.openDialog();
@@ -97,7 +99,9 @@ export class RegisterComponent implements OnInit {
 
 
   }
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }
 

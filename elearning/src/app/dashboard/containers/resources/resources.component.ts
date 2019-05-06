@@ -41,6 +41,7 @@ export class ResourcesComponent implements OnInit {
 
   user;
   subscription;
+  actionsSubscription;
 
   ngOnInit() {
     this.user$.subscribe(user => this.user = user);
@@ -51,7 +52,7 @@ export class ResourcesComponent implements OnInit {
         this.store.dispatch(new GetWorks(routeParams.courseId));
       }
     });
-    this.actions$
+    this.actionsSubscription = this.actions$
       .pipe(ofActionCompleted(SendWorkSuccess))
       .subscribe(() => {
         this.openDialog();
@@ -74,6 +75,7 @@ export class ResourcesComponent implements OnInit {
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.actionsSubscription.unsubscribe();
   }
 
 }

@@ -35,13 +35,7 @@ AND verified_at IS NULL`;
                 connection.release();
                 return res.send('account activated');
             }
-            /*
-            connection.query(sqlActivateUserQuery).then((resultActivateUSer) => {
-      
-            }).catch((err) => {
-      
-            });
-            */
+
         }
 
         // algo no fue ok

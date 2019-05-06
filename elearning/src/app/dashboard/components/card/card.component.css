@@ -34,6 +34,7 @@
     flex-shrink: 0; 
     width: 100%;
     justify-content: space-between;
+
   }
   
   .mat-card-content{
@@ -46,6 +47,7 @@
 
   .title {
     font-size: 1.5rem;
+    word-break: normal;
   }
 
   .editdelete {

@@ -18,9 +18,9 @@ async function getCourseResources(req, res, next) {
     const { courseId } = req.query;
     const { uuid, role } = req.claims;
 
-    if (role != 'admin') {
-        return res.status(403).send();
-    }
+    // if (role != 'admin') {
+    //     return res.status(403).send();
+    // }
     try {
 
         const connection = await mysqlPool.getConnection();
