@@ -1,20 +1,20 @@
 <ng-container *ngIf="(user$ | async ) as currentUser">
   <ng-container *ngIf="(course$ | async) as course">
     <el-resource-forms *ngIf="((course.creator == currentUser.uuid) && (currentUser.role == 'admin'))"></el-resource-forms>
-    < <div class="header">
+    <div class="header">
       <h1>{{course.title}}</h1>
       <a [routerLink]="['/students', course.course_id]">
         <fa-icon [icon]="studentsIcon"></fa-icon>
       </a>
-      </div>
+    </div>
 
 
-      <mat-nav-list class="resourceList">
-        <div *ngFor="let 
+    <mat-nav-list class="resourceList">
+      <div *ngFor="let 
       resource of resources$ | async">
-          <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
-        </div>
-        <el-work-upload [course]="course" [user]="currentUser"></el-work-upload>
-      </mat-nav-list>
+        <el-resource [resource]="resource" [course]="course" [user]="currentUser"></el-resource>
+      </div>
+      <el-work-upload [course]="course" [user]="currentUser"></el-work-upload>
+    </mat-nav-list>
   </ng-container>
 </ng-container>
