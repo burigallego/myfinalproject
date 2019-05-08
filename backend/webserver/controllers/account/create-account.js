@@ -80,7 +80,7 @@ async function sendEmailRegistration(userEmail, verificationCode) {
         },
         subject: 'Welcome to Hack a Bos Social Network',
         text: 'Start meeting people of your interests',
-        html: `To confirm the account <a href="${process.env.HTTP_SERVER_DOMAIN}/api/account/activate?verification_code=${verificationCode}">activate it here</a>`,
+        html: `To confirm the account <a href="http://localhost:4200/user/${verificationCode}">activate it here</a>`,
     };
 
     const data = await sendgridMail.send(msg);

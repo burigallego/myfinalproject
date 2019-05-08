@@ -1,0 +1,22 @@
+.wrapper {
+    width: 70%;
+    height: 300px;
+    margin: 100px auto;
+    background-color: lightsalmon;
+    border: 3px solid gray;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+        color:white;
+        text-decoration: none;
+        font-size: 2rem;
+    }
+}
+
+.homepage {
+    font-size: 1.5rem;
+    margin: 50px;
+    text-decoration: none;
+}

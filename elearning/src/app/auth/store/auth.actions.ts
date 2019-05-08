@@ -83,6 +83,20 @@ export class UploadAvatarFailed {
     constructor(public error: HttpErrorResponse) { }
 }
 
+export class ActivateAccount {
+    static readonly type = '[Auth] ActivateAccount';
+    constructor(public verificationCode: string) { }
+}
+
+export class ActivateAccountSuccess {
+    static readonly type = '[Auth] ActivateAccountSuccess';
+}
+
+export class ActivateAccountFailed {
+    static type = '[Auth] ActivateAccountFailed';
+    constructor(public error: HttpErrorResponse) { }
+}
+
 export class DeleteToken {
     static type = '[Auth] DeleteToken';
 }

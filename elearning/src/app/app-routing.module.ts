@@ -4,8 +4,6 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
 import { ErrorsComponent } from './shared/components/errors/errors.component';
 
 const routes: Routes = [
-
-
   {
     path: '**',
     component: PageNotFoundComponent

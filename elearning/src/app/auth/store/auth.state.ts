@@ -19,6 +19,9 @@ import {
     UploadAvatar,
     UploadAvatarSuccess,
     DeleteToken,
+    ActivateAccountFailed,
+    ActivateAccount,
+    ActivateAccountSuccess,
 
 } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
@@ -137,6 +140,22 @@ export class AuthState {
         });
     }
 
+    @Action(ActivateAccount)
+    activateAccount(
+        { dispatch }: StateContext<Auth>,
+        { verificationCode }: ActivateAccount
+    ) {
+        return this.authService.activateAccount(verificationCode).pipe(
+            tap(() => dispatch(new ActivateAccountSuccess())),
+            catchError(error => dispatch(new ActivateAccountFailed(error)))
+        );
+    }
+
+    @Action(ActivateAccountSuccess)
+    activateAccountSuccess() {
+
+    }
+
     @Action(DeleteToken)
     deleteToken({ patchState }: StateContext<Auth>) {
         patchState(
@@ -150,6 +169,7 @@ export class AuthState {
         GetUserProfileFailed,
         UpdateUserProfileFailed,
         UploadAvatarFailed,
+        ActivateAccountFailed
     ])
     goError({ dispatch }: StateContext<Auth>, { error }: any) {
         dispatch(new GoErrorPages(error));

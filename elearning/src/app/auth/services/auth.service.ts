@@ -57,6 +57,12 @@ export class AuthService {
         });
     }
 
+    activateAccount(verificationCode) {
+        const params = new HttpParams()
+            .set('verificationCode', `${verificationCode}`);
+
+        return this.http.get(`${environment.apiBaseUrl}/account/activate`, { params });
+    }
 
 
     logout() {

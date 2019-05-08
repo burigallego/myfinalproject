@@ -3,7 +3,7 @@
 const mysqlPool = require('../../../databases/mysql-pool');
 
 async function activate(req, res, next) {
-    const { verification_code: verificationCode } = req.query;
+    const { verificationCode } = req.query;
 
     if (!verificationCode) {
         return res.status(400).json({
@@ -33,14 +33,14 @@ AND verified_at IS NULL`;
             const resultActivateUser = await connection.query(sqlActivateUserQuery);
             if (resultActivateUser[0].affectedRows === 1) {
                 connection.release();
-                return res.send('account activated');
+                return res.send();
             }
 
         }
 
         // algo no fue ok
         connection.release();
-        return res.send('verification code invalid');
+        return res.status(409).send('verification code invalid');
     } catch (e) {
         return res.status(500).send(e.message);
     }
