@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { CreateFile } from '../../store/resource.actions';
 
 @Component({
@@ -15,6 +15,9 @@ export class AddFileComponent {
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private fb: FormBuilder, private store: Store, private route: ActivatedRoute, private cd: ChangeDetectorRef) { }
+
+  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
+
 
   fileForm = this.fb.group({
     resourceName: ['', Validators.required],
@@ -39,6 +42,7 @@ export class AddFileComponent {
     if (this.fileForm.valid) {
       this.route.params.subscribe(routeParams => {
         this.store.dispatch(new CreateFile(this.fileForm.value, routeParams.courseId));
+        this.formDirective.resetForm();
       })
     }
 

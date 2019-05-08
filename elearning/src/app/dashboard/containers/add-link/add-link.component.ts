@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { CreateLink } from '../../store/resource.actions';
 
 @Component({
@@ -12,6 +12,9 @@ import { CreateLink } from '../../store/resource.actions';
 export class AddLinkComponent implements OnInit {
 
   constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder) { }
+
+  @ViewChild(FormGroupDirective) formDirective: FormGroupDirective;
+
 
   ngOnInit() {
   }
@@ -28,6 +31,7 @@ export class AddLinkComponent implements OnInit {
     if (this.linkForm.valid) {
       this.route.params.subscribe(routeParams => {
         this.store.dispatch(new CreateLink(this.linkForm.value, routeParams.courseId));
+        this.formDirective.resetForm();
       })
     }
   }
